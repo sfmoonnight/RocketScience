@@ -7,9 +7,17 @@ public class NumberGenerator : MonoBehaviour
     //public enum Symbol { plus, minus, times, division };
 
     public GameObject numberPrefab;
+    public GameObject rocket;
+    public float patchSize;
+    public float spacing;
+    public float genprob;
+    float minx, miny, maxx, maxy;
     // Start is called before the first frame update
     void Start()
     {
+        rocket = GameObject.Find("Rocket");
+        
+        initBoundaries();
         
     }
 
@@ -19,25 +27,65 @@ public class NumberGenerator : MonoBehaviour
         // compute area that require numbers
         // 
     }
+    private void FixedUpdate()
+    {
+        GenerateRandomNumbers();
+    }
+
+    void initBoundaries()
+    {
+        Vector2 pos = rocket.transform.position;
+        minx = pos.x - patchSize;
+        miny = pos.y - patchSize;
+        maxx = pos.x + patchSize;
+        maxy = pos.y + patchSize;
+        print("minx " + minx + " maxx " + maxx);
+        GenerateRandomNumbers(minx, miny, maxx, maxy, spacing);
+    }
 
     public void GenerateRandomNumbers()
     {
-        GenerateRandomNumbers(-5f, -5f, 5f, 5f, .8f);
+        //GenerateRandomNumbers(-5f, -5f, 5f, 5f, .8f);
         //GenerateRandomNumber(0f, 0f);
+        Vector2 pos = rocket.transform.position;
+        if (pos.x < minx + patchSize)
+        {
+            GenerateRandomNumbers(minx - patchSize, miny, minx, maxy, spacing);
+            minx -= patchSize;
+        }
+        if (pos.x > maxx - patchSize)
+        {
+            GenerateRandomNumbers(maxx, miny, maxx + patchSize, maxy, spacing);
+            maxx += patchSize;
+        }
+        if (pos.y < miny + patchSize)
+        {
+            GenerateRandomNumbers(minx, miny - patchSize, maxx, miny, spacing);
+            miny -= patchSize;
+        }
+        if (pos.y > maxy - patchSize)
+        {
+            GenerateRandomNumbers(minx, maxy, maxx, maxy + patchSize, spacing);
+            maxy += patchSize;
+        }
+
     }
 
     public void GenerateRandomNumbers(float left, float top, float right, float bottom, float spacing)
     {
+        print("Generating for " + left + " " + top + " " + right + " " + bottom);
         //float xlen = (right - left)/spacing;
         //float ylen = (bottom - top)/spacing;
         for (float i = left; i < right; i += spacing)
         {
             for (float j = top; j < bottom; j += spacing)
             {
-                float cx = left * i + spacing / 2f;
-                float cy = top * j + spacing / 2f;
-                GenerateRandomNumber(cx, cy, spacing, .5f);
-
+                //float cx = left * i + spacing / 2f;
+                //float cy = top * j + spacing / 2f;
+                float cx = i + spacing/2f;
+                float cy = j + spacing/2f;
+                GenerateRandomNumber(cx, cy, spacing/4f, genprob);
+                //print("Placing new at " + cx + " " + cy);
             }
         }
     }

@@ -164,6 +164,13 @@ public class Number : MonoBehaviour
 
     public int RandomIntExcept(int min, int max, int[] except)
     {
+        
+        //int random = Random.Range(min, max + 1);
+        //while (random in except) {
+        //    random = Random.Range(min, max + 1);
+        //}
+        //return random;
+
         int random = Random.Range(min, max+1);
         foreach(int exc in except)
         {
