@@ -41,9 +41,9 @@ public class Planet : MonoBehaviour
         foreach(Collectable col in options)
         {
             float rate = Random.Range(0f, 1f);
-            if(rate < col.rareness)
+            if(rate <= col.rareness)
             {
-                Collectable newCol = Instantiate(col);
+                Collectable newCol = Instantiate(col, transform);
                 collectables.Add(newCol);
             }
         }
@@ -55,6 +55,7 @@ public class Planet : MonoBehaviour
         {
             col.ActivatePickUp();
         }
+        ChangeColor();
     }
 
     void DeactivateCollectables()
@@ -63,5 +64,11 @@ public class Planet : MonoBehaviour
         {
             col.DeactivatePickUp();
         }
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    void ChangeColor()
+    {
+        GetComponent<SpriteRenderer>().color = Color.yellow;
     }
 }
