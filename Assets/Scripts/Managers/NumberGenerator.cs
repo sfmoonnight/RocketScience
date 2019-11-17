@@ -39,7 +39,7 @@ public class NumberGenerator : MonoBehaviour
         miny = pos.y - patchSize;
         maxx = pos.x + patchSize;
         maxy = pos.y + patchSize;
-        print("minx " + minx + " maxx " + maxx);
+        //print("minx " + minx + " maxx " + maxx);
         GenerateRandomNumbers(minx, miny, maxx, maxy, spacing);
     }
 
@@ -73,7 +73,7 @@ public class NumberGenerator : MonoBehaviour
 
     public void GenerateRandomNumbers(float left, float top, float right, float bottom, float spacing)
     {
-        print("Generating for " + left + " " + top + " " + right + " " + bottom);
+        //print("Generating for " + left + " " + top + " " + right + " " + bottom);
         //float xlen = (right - left)/spacing;
         //float ylen = (bottom - top)/spacing;
         for (float i = left; i < right; i += spacing)
