@@ -9,13 +9,15 @@ public class Rocket : MonoBehaviour
     //Vector2 currentPos;
     Vector2 targetPos;
     public float pCoeff;
-    
+
+    Animator anim;
     
     // Start is called before the first frame update
     void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
         targetPos = GetCurrentPos();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -99,12 +101,14 @@ public class Rocket : MonoBehaviour
         }
         if (delta.magnitude < 0.01)
         {
+            anim.SetBool("moving", false);
             rbody.velocity = Vector2.zero;
         }
         else
         {
             if (currSpeed < desiredSpeed)
             {
+                anim.SetBool("moving", true);
                 rbody.AddForce(deltaNorm * speed);
             }
         }
