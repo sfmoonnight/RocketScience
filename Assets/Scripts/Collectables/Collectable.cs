@@ -6,8 +6,10 @@ public class Collectable : MonoBehaviour
 {
     public int identity;
     public float rareness;
+    public GameObject planet;
     public bool pickable;
 
+    Rocket rocket;
     Collider2D collider;
 
     // Start is called before the first frame update
@@ -33,6 +35,27 @@ public class Collectable : MonoBehaviour
                 DeactivateCollider();
             }
         }
+    }
+
+    private void OnMouseOver()
+    {
+        GetComponent<SpriteRenderer>().color = Color.yellow;
+    }
+
+    private void OnMouseDown()
+    {
+        rocket = Toolbox.GetInstance().GetGameManager().GetRocket();
+        if(Vector2.Distance(rocket.transform.position, transform.position) < 5)
+        {
+            rocket.Scoop();
+            print(Vector2.Distance(rocket.transform.position, transform.position));
+            print("click");
+        }    
+    }
+
+    private void OnMouseExit()
+    {
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void ActivatePickUp()

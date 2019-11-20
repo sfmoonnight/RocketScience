@@ -9,6 +9,7 @@ public class Rocket : MonoBehaviour
     //Vector2 currentPos;
     Vector2 targetPos;
     public float pCoeff;
+    public Animator netAnim;
 
     Animator anim;
     
@@ -122,6 +123,11 @@ public class Rocket : MonoBehaviour
         {
             rbody.AddForce(deltaNorm * speed * pCoeff);
         }*/
+    }
+
+    public void Scoop()
+    {
+        netAnim.SetTrigger("scoop");
     }
 
 
