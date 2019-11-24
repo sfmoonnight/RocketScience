@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Number : MonoBehaviour
 {
     public enum Symbol {plus, minus, times, divide};
 
     [SerializeField] Symbol symbol;
-    TextMesh numberText;
+    TextMeshPro numberText;
     [SerializeField] int number;
     string symbolString;
     float cx, cy, perturb, prob;
@@ -20,7 +21,7 @@ public class Number : MonoBehaviour
     void Start()
     {
         SetSymbolString();
-        numberText = GetComponent<TextMesh>();
+        numberText = GetComponent<TextMeshPro>();
         numberText.text = symbolString + number.ToString();
     }
 
