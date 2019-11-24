@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Planet : MonoBehaviour
+public class Question : MonoBehaviour
 {
-    public int answer;
+    //public int answer;
+    
     public int capacity;
-    public bool activate;
+    public bool activated;
     public List<Collectable> options;
     public List<Collectable> collectables;
+    public GameObject eqTextMeshObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +21,13 @@ public class Planet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Toolbox.GetInstance().GetGameManager().answer == answer)
+        
+    }
+
+    public void VerifyAnswer()
+    {
+        /*int currAnswer = eqTextMeshObj.GetComponent<EquationManager>().equation.answer;
+        if (Toolbox.GetInstance().GetGameManager().answer == currAnswer)
         {
             if (!activate)
             {
@@ -33,7 +42,7 @@ public class Planet : MonoBehaviour
                 DeactivateCollectables();
             }
             activate = false;
-        }
+        }*/
     }
 
     void GenerateCollectables()
@@ -49,22 +58,32 @@ public class Planet : MonoBehaviour
         }
     }
 
-    void ActivateCollectables()
+    public void ActivateCollectables()
     {
+        if (activated)
+        {
+            return;
+        }
         foreach (Collectable col in collectables)
         {
             col.ActivatePickUp();
         }
         ChangeColor();
+        activated = true;
     }
 
-    void DeactivateCollectables()
+    public void DeactivateCollectables()
     {
+        if (!activated)
+        {
+            return;
+        }
         foreach (Collectable col in collectables)
         {
             col.DeactivatePickUp();
         }
         GetComponent<SpriteRenderer>().color = Color.white;
+        activated = false;
     }
 
     void ChangeColor()

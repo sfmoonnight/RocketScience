@@ -5,23 +5,66 @@ using UnityEngine;
 public class Number : MonoBehaviour
 {
     public enum Symbol {plus, minus, times, divide};
+    public enum State {active, fading, inactive};
 
-    [SerializeField] Symbol symbol;
+    [SerializeField] public Symbol symbol;
     TextMesh numberText;
-    [SerializeField] int number;
-    string symbolString;
+    [SerializeField] public int number;
+    public string symbolString;
+    public string suffix = "";
     float cx, cy, perturb, prob;
-
+    public State state = State.inactive;
     public Sprite circle;
 
     float creationTime;
     float lifespan;
     // Start is called before the first frame update
-    void Start()
+
+    public static Number fromInteger(int source)
+    {
+        Number n = new Number();
+        n.SetNumber(Mathf.Abs(source));
+        if (source < 0)
+        {
+            n.SetSymbol(Symbol.minus);
+        }
+        else
+        {
+            n.SetSymbol(Symbol.plus);
+        }
+        return n;
+    }
+
+    public bool IsEmpty()
+    {
+        return symbolString == null;
+    }
+
+    void Awake()
+    {
+        numberText = GetComponent<TextMesh>();
+    }
+
+    private void Start()
     {
         SetSymbolString();
-        numberText = GetComponent<TextMesh>();
-        numberText.text = symbolString + number.ToString();
+        SetNumberText();
+    }
+
+    public void SetNumberText()
+    {
+        //print(numberText);
+        numberText.text = toString();
+    }
+
+    public string toString()
+    {
+        string s = symbolString + number.ToString() + suffix;
+        if (state == State.inactive)
+        {
+            s = "h " + s;
+        }
+        return s;
     }
 
     // Update is called once per frame
@@ -77,72 +120,81 @@ public class Number : MonoBehaviour
 
     public void HideNumber()
     {
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<Collider2D>().enabled = false;
+        state = State.inactive;
+        SetNumberText();
+        //GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<Collider2D>().enabled = true;
     }
 
     public void ShowNumber()
     {
-        GetComponent<MeshRenderer>().enabled = true;
-        GetComponent<Collider2D>().enabled = true;
+        state = State.active;
+        //GetComponent<MeshRenderer>().enabled = true;
+        //GetComponent<Collider2D>().enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && state == State.active)
         {
-            int currentAnswer = Toolbox.GetInstance().GetGameManager().answer;
-            switch (symbol)
-            {
-                case Symbol.plus:
-                    currentAnswer += number;
-                    break;
-                case Symbol.minus:
-                    currentAnswer -= number;
-                    break;
-                case Symbol.times:
-                    currentAnswer *= number;
-                    break;
-                case Symbol.divide:
-                    currentAnswer /= number;
-                    break;
-            }
-            Toolbox.GetInstance().GetGameManager().SetAnswer(currentAnswer);
+            GameManager gm = Toolbox.GetInstance().GetGameManager();
+            int currentAnswer = gm.answer;
+            int newAnswer = applyOperation(currentAnswer);
+            Toolbox.GetInstance().GetGameManager().SetAnswer(newAnswer);
             HideNumber();
         }
     }
 
+    public int applyOperation(int input)
+    {
+        switch (symbol)
+        {
+            case Symbol.plus:
+                input += number;
+                break;
+            case Symbol.minus:
+                input -= number;
+                break;
+            case Symbol.times:
+                input *= number;
+                break;
+            case Symbol.divide:
+                input /= number;
+                break;
+        }
+        return input;
+    }
+
     public void GenerateRandom()
+    {
+        GenerateOperator();
+        GenerateOperand();
+        GeneratePosition();
+        GenerateVisibility();
+    }
+
+    public void GenerateOperator()
     {
         int index = Random.Range(1, 5);
         switch (index)
         {
             case 1:
                 SetSymbol(Symbol.plus);
-                Generate();
                 break;
             case 2:
                 SetSymbol(Symbol.minus);
-                Generate();
                 break;
             case 3:
                 SetSymbol(Symbol.times);
-                Generate();
                 break;
             default:
                 SetSymbol(Symbol.divide);
-                Generate();
                 break;
         }
     }
 
-    public void Generate()
+    public void GenerateOperand()
     {
-        float p = Random.Range(0f, 1f);
-        if (p > prob)
-        {
-            HideNumber();
-        }
         int num;
         if(symbol == Symbol.plus || symbol == Symbol.minus)
         {
@@ -157,6 +209,24 @@ public class Number : MonoBehaviour
         }
         
         SetNumber(num);
+        
+    }
+
+    public void GenerateVisibility()
+    {
+        float p = Random.Range(0f, 1f);
+        if (p > prob)
+        {
+            HideNumber();
+        }
+        else
+        {
+            ShowNumber();
+        }
+    }
+
+    public void GeneratePosition()
+    {
         float x = cx + Random.Range(-perturb, perturb);
         float y = cy + Random.Range(-perturb, perturb);
         transform.position = new Vector2(x, y);
@@ -180,5 +250,32 @@ public class Number : MonoBehaviour
             }
         }     
         return random;
+    }
+
+    public void AttachToNearest(float radius)
+    {
+        //https://forum.unity.com/threads/clean-est-way-to-find-nearest-object-of-many-c.44315/
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
+        
+        Collider2D nearestCollider = null;
+        float minSqrDistance = Mathf.Infinity;
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject.tag == "question")
+            {
+                float sqrDistanceToCenter = (transform.position - colliders[i].transform.position).sqrMagnitude;
+                if (sqrDistanceToCenter < minSqrDistance)
+                {
+                    minSqrDistance = sqrDistanceToCenter;
+                    nearestCollider = colliders[i];
+                }
+            }
+        }
+        if (nearestCollider != null)
+        {
+            EquationManager eqm = nearestCollider.gameObject.GetComponentInChildren<EquationManager>();
+            eqm.numbers.Add(this);
+            //print("In collider check: " + this.IsEmpty());
+        }
     }
 }

@@ -6,11 +6,16 @@ public class GameManager : MonoBehaviour
 {
     public int answer;
     Rocket rocket;
+    GameObject[] questions;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        answer = Random.Range(-99, 100);
+    }
     void Start()
     {
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
-        answer = Random.Range(-99, 100);
+        questions = GameObject.FindGameObjectsWithTag("question");
     }
 
     // Update is called once per frame
@@ -22,10 +27,26 @@ public class GameManager : MonoBehaviour
     public void SetAnswer(int ans)
     {
         answer = ans;
+
+        foreach (GameObject go in questions)
+        {
+            Question q = go.GetComponent<Question>();
+            EquationManager em = q.eqTextMeshObj.GetComponent<EquationManager>();
+            if (em.equation.answer == answer)
+            {
+                q.ActivateCollectables();
+            }
+            else
+            {
+                q.DeactivateCollectables();
+            }
+        }
     }
 
     public Rocket GetRocket()
     {
         return rocket;
     }
+
+
 }

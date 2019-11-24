@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6135006393380343329}
   m_Layer: 0
   m_Name: Number
-  m_TagString: Untagged
+  m_TagString: number
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   symbol: 0
   number: 0
+  symbolString: 
+  suffix: 
+  state: 2
   circle: {fileID: 0}
 --- !u!58 &6135006393380343329
 CircleCollider2D:

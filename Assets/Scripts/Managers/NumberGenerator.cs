@@ -11,14 +11,46 @@ public class NumberGenerator : MonoBehaviour
     public float patchSize;
     public float spacing;
     public float genprob;
+
+    public bool initialized = false;
+
+    // The radius around each number to look for question (i.e. planet)
+    // to attach to
+    public float attachRadius;
+
     float minx, miny, maxx, maxy;
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         rocket = GameObject.Find("Rocket");
-        
-        initBoundaries();
-        
+
+        //initBoundaries();
+    }
+    void Start()
+    {
+        GenerateRandomNumbers(-patchSize, -patchSize, patchSize, patchSize, spacing);
+    }
+
+    private void LateUpdate()
+    {
+        if (!initialized)
+        {
+            OptimizeDifficulty();
+            initialized = true;
+        }
+    }
+
+    public void OptimizeDifficulty()
+    {
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
+
+        foreach (GameObject g in gos)
+        {
+            EquationManager em = g.GetComponentInChildren<EquationManager>();
+            //print("Going to optimize");
+            em.OptimizeDifficulty(EquationManager.UpdateStrategy.overwrite);
+        }
     }
 
     // Update is called once per frame 
@@ -29,7 +61,7 @@ public class NumberGenerator : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        GenerateRandomNumbers();
+        //GenerateRandomNumbers();
     }
 
     void initBoundaries()
@@ -69,6 +101,8 @@ public class NumberGenerator : MonoBehaviour
             maxy += patchSize;
         }
 
+
+
     }
 
     public void GenerateRandomNumbers(float left, float top, float right, float bottom, float spacing)
@@ -103,7 +137,8 @@ public class NumberGenerator : MonoBehaviour
         n.SetCenter(cx, cy);
         n.GenerateRandom();
         //number.transform.position = Vector2.zero;
-
+        //n.SetSymbolString();
+        n.AttachToNearest(attachRadius);
     }
 
     /*public Number.Symbol GenerateRandomSymbol()

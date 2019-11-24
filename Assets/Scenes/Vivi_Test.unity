@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planet: {fileID: 708281761}
-  equation: {fileID: 47398270}
+  eqTextMesh: {fileID: 0}
 --- !u!114 &34594414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 34594413}
-        m_MethodName: test
+        m_MethodName: testOpt
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 47398272}
   - component: {fileID: 47398271}
   - component: {fileID: 47398270}
+  - component: {fileID: 47398273}
   m_Layer: 0
   m_Name: Equation
   m_TagString: Untagged
@@ -356,6 +357,46 @@ Transform:
   m_Father: {fileID: 708281759}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47398273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47398269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be34e3c3f74645fe865de22f14aa402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSeed: {fileID: 0}
+  numbers: []
+--- !u!1 &431338147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4351028631444155815, guid: c063a6f09ce0a574aa21b2cc1dbc13a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4351028630432319220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &431338148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431338147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fbd9172512b42d29c6c92be1dfad89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberPrefab: {fileID: 7001694291015688389, guid: 6d532d45c1788410fbcd5a0cffe789be,
+    type: 3}
+  rocket: {fileID: 0}
+  patchSize: 30
+  spacing: 8
+  genprob: 0.7
+  initialized: 0
+  attachRadius: 25
 --- !u!1 &661708269
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,7 +582,7 @@ GameObject:
   - component: {fileID: 708281761}
   m_Layer: 0
   m_Name: Planet
-  m_TagString: Untagged
+  m_TagString: question
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -639,12 +680,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f64c6311f1f4d68a1aa8ea33386130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answer: 21
   capacity: 0
-  activate: 0
+  activated: 0
   options: []
   collectables:
   - {fileID: 1867685103}
+  eqTextMeshObj: {fileID: 47398269}
 --- !u!1 &823062618
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +698,6 @@ GameObject:
   - component: {fileID: 823062623}
   - component: {fileID: 823062622}
   - component: {fileID: 823062621}
-  - component: {fileID: 823062620}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -685,24 +725,6 @@ RectTransform:
   m_AnchoredPosition: {x: 95, y: 27.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &823062620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 823062618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4fbd9172512b42d29c6c92be1dfad89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberPrefab: {fileID: 7001694291015688389, guid: 6d532d45c1788410fbcd5a0cffe789be,
-    type: 3}
-  rocket: {fileID: 0}
-  patchSize: 20
-  spacing: 8
-  genprob: 0.7
 --- !u!114 &823062621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,7 +768,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 823062620}
+      - m_Target: {fileID: 0}
         m_MethodName: GenerateRandomNumbers
         m_Mode: 1
         m_Arguments:

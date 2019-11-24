@@ -48,8 +48,8 @@ public class Collectable : MonoBehaviour
         if(Vector2.Distance(rocket.transform.position, transform.position) < 5)
         {
             rocket.Scoop();
-            print(Vector2.Distance(rocket.transform.position, transform.position));
-            print("click");
+            //print(Vector2.Distance(rocket.transform.position, transform.position));
+            //print("click");
         }    
     }
 
