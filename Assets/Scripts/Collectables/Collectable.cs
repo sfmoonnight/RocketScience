@@ -16,11 +16,13 @@ public class Collectable : MonoBehaviour
     void Start()
     {
         collider = GetComponent<Collider2D>();
+        pickable = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (pickable)
         {
             if (!collider.enabled)
@@ -34,7 +36,7 @@ public class Collectable : MonoBehaviour
             {
                 DeactivateCollider();
             }
-        }
+        }*/
     }
 
     private void OnMouseOver()
@@ -47,6 +49,7 @@ public class Collectable : MonoBehaviour
         rocket = Toolbox.GetInstance().GetGameManager().GetRocket();
         if(Vector2.Distance(rocket.transform.position, transform.position) < 5)
         {
+            //rocket script stop moving - targetpos = rocket pos
             rocket.Scoop();
             print(Vector2.Distance(rocket.transform.position, transform.position));
             print("click");

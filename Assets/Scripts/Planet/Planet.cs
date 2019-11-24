@@ -12,13 +12,13 @@ public class Planet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         
+        activate = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Toolbox.GetInstance().GetGameManager().answer == answer)
+        /*if(Toolbox.GetInstance().GetGameManager().answer == answer)
         {
             if (!activate)
             {
@@ -33,7 +33,7 @@ public class Planet : MonoBehaviour
                 DeactivateCollectables();
             }
             activate = false;
-        }
+        }*/
     }
 
     void GenerateCollectables()
