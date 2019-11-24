@@ -7,7 +7,7 @@ public class Question : MonoBehaviour
     //public int answer;
     
     public int capacity;
-    public bool activated;
+    public bool activated=false;
     public List<Collectable> options;
     public List<Collectable> collectables;
     public GameObject eqTextMeshObj;
@@ -15,34 +15,12 @@ public class Question : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void VerifyAnswer()
-    {
-        /*int currAnswer = eqTextMeshObj.GetComponent<EquationManager>().equation.answer;
-        if (Toolbox.GetInstance().GetGameManager().answer == currAnswer)
-        {
-            if (!activate)
-            {
-                ActivateCollectables();
-            }
-            activate = true;
-        }
-        else
-        {
-            if (activate)
-            {
-                DeactivateCollectables();
-            }
-            activate = false;
-        }*/
     }
 
     void GenerateCollectables()

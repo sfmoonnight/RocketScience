@@ -81,9 +81,12 @@ public class EquationManager : MonoBehaviour
                 nearNums.Add(colliders[i].gameObject);
             }
         }
+
+
+
         if (nearNums.Count < nums.Count)
         {
-            print("Error, not enough spaces to place numbers");
+            print("Error, not enough spaces to place numbers " + nearNums.Count + " " + nums.Count);
             return;
         }
         foreach (Number n in nums)

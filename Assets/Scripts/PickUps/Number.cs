@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Number : MonoBehaviour
 {
@@ -8,10 +9,11 @@ public class Number : MonoBehaviour
     public enum State {active, fading, inactive};
 
     [SerializeField] public Symbol symbol;
-    TextMesh numberText;
+    TextMeshPro numberText;
     [SerializeField] public int number;
     public string symbolString;
     public string suffix = "";
+
     float cx, cy, perturb, prob;
     public State state = State.inactive;
     public Sprite circle;
@@ -42,7 +44,7 @@ public class Number : MonoBehaviour
 
     void Awake()
     {
-        numberText = GetComponent<TextMesh>();
+        numberText = GetComponent<TextMeshPro>();
     }
 
     private void Start()

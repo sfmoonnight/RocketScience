@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Rocket : MonoBehaviour
 {
@@ -45,6 +46,15 @@ public class Rocket : MonoBehaviour
 
     void GetTargetPos()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) {
+            //https://stackoverflow.com/questions/38198745/how-to-detect-left-mouse-click-but-not-when-the-click-occur-on-a-ui-button-compo
+        //    return;
+        //}
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -127,7 +137,20 @@ public class Rocket : MonoBehaviour
 
     public void Scoop()
     {
-        netAnim.SetTrigger("scoop");
+        GameObject g = GameObject.Find("Collectable");
+        Vector2 location = g.transform.position;
+        Vector2 dir = ((Vector2)transform.position - location);
+        float ang = Vector2.SignedAngle(dir, (Vector2)transform.up);
+        if (ang > 0)
+        {
+            print("Scoop way 1");
+            netAnim.SetTrigger("scoop_left");
+        }
+        else
+        {
+            print("Scoop way 2");
+            netAnim.SetTrigger("scoop_right");
+        }
     }
 
 
