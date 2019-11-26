@@ -51,23 +51,31 @@ public class NumberGenerator : MonoBehaviour
             if (Time.time - lastRefresh > refreshRate)
             {
                 // Refresh the numbers
-                print("Time to refresh the universe");
-
-                // Fade out some numbers
-                MakeRoomForNewNumbers();
-
-                // Fade in new numbers
-                OptimizeDifficulty(EquationManager.UpdateStrategy.no_overwrite);
-
+                //print("Time to refresh the universe");
+                StartCoroutine("Refresh");
                 lastRefresh = Time.time;
             }
         }
     }
 
+    IEnumerator Refresh()
+    {
+        print("Fading out numbers...");
+        // Fade out some numbers
+        MakeRoomForNewNumbers();
+
+        yield return new WaitForSeconds(fadeOutTime + 1f);
+
+        print("Fading in numbers...");
+        // Fade in new numbers
+        OptimizeDifficulty(EquationManager.UpdateStrategy.no_overwrite);
+
+    }
+
     void MakeRoomForNewNumbers()
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
-
+        //print("Found " + gos.Length + "questions");
         foreach (GameObject g in gos)
         {
             EquationManager em = g.GetComponentInChildren<EquationManager>();

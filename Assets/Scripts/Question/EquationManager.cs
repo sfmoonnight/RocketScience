@@ -45,11 +45,13 @@ public class EquationManager : MonoBehaviour
     {
         // Deactivate some active numbers
         List<Number> activeSlots = FilterNumbersByState(Number.State.active);
+        //print("Found " + activeSlots.Count + " active slots.");
         for (int i = 0; i < 4; i++)
         {
             int r = Random.Range(0, activeSlots.Count);
             Number n = activeSlots[r];
             activeSlots.RemoveAt(r);
+            //print("Deactivating* " + n.toString());
             n.Deactivate();
         }
     }

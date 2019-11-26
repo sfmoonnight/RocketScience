@@ -393,12 +393,12 @@ MonoBehaviour:
   numberPrefab: {fileID: 7001694291015688389, guid: 6d532d45c1788410fbcd5a0cffe789be,
     type: 3}
   rocket: {fileID: 0}
-  patchSize: 30
+  patchSize: 20
   spacing: 8
   genprob: 0.7
-  fadeInTime: 5
+  fadeInTime: 2
   fadeOutTime: 5
-  pauseTime: 5
+  pauseTime: 3
   initialized: 0
   attachRadius: 25
 --- !u!1 &661708269
