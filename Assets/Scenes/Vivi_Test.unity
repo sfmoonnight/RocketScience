@@ -371,6 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSeed: {fileID: 0}
   numbers: []
+  relatedNumProx: 10
 --- !u!1 &431338147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4351028631444155815, guid: c063a6f09ce0a574aa21b2cc1dbc13a9,
@@ -392,9 +393,12 @@ MonoBehaviour:
   numberPrefab: {fileID: 7001694291015688389, guid: 6d532d45c1788410fbcd5a0cffe789be,
     type: 3}
   rocket: {fileID: 0}
-  patchSize: 30
+  patchSize: 20
   spacing: 8
   genprob: 0.7
+  fadeInTime: 2
+  fadeOutTime: 5
+  pauseTime: 3
   initialized: 0
   attachRadius: 25
 --- !u!1 &661708269

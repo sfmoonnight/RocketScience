@@ -6,20 +6,20 @@ using TMPro;
 public class Number : MonoBehaviour
 {
     public enum Symbol {plus, minus, times, divide};
-    public enum State {active, fading, inactive};
+    public enum State {active, fadein, fadeout, inactive};
 
     [SerializeField] public Symbol symbol;
     TextMeshPro numberText;
     [SerializeField] public int number;
     public string symbolString;
-    public string suffix = "";
+    public string suffix;
 
     float cx, cy, perturb, prob;
-    public State state = State.inactive;
+    public State state;
     public Sprite circle;
 
-    float creationTime;
-    float lifespan;
+    public float fadeinTime;
+    public float fadeoutTime;
     // Start is called before the first frame update
 
     public static Number fromInteger(int source)
@@ -45,6 +45,8 @@ public class Number : MonoBehaviour
     void Awake()
     {
         numberText = GetComponent<TextMeshPro>();
+        state = State.inactive;
+        suffix = "";
     }
 
     private void Start()
@@ -62,10 +64,10 @@ public class Number : MonoBehaviour
     public string toString()
     {
         string s = symbolString + number.ToString() + suffix;
-        if (state == State.inactive)
-        {
-            s = "h " + s;
-        }
+        //if (state == State.inactive)
+        //{
+        //    s = "h " + s;
+        //}
         return s;
     }
 
@@ -120,18 +122,18 @@ public class Number : MonoBehaviour
         symbol = s;
     }
 
-    public void HideNumber()
+    void HideNumber()
     {
         state = State.inactive;
         SetNumberText();
-        //GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
         //GetComponent<Collider2D>().enabled = true;
     }
 
-    public void ShowNumber()
+    void ShowNumber()
     {
         state = State.active;
-        //GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<MeshRenderer>().enabled = true;
         //GetComponent<Collider2D>().enabled = true;
     }
 
@@ -280,4 +282,37 @@ public class Number : MonoBehaviour
             //print("In collider check: " + this.IsEmpty());
         }
     }
+
+    public void Respawn(Symbol newSym, int newNum)
+    {
+        SetSymbol(newSym);
+        SetNumber(newNum);
+        SetSymbolString();
+        SetNumberText();
+        StartCoroutine("Fadein");
+    }
+
+    public void Deactivate()
+    {
+        //print("Deactivate called for " + toString());
+        StartCoroutine("Fadeout");
+    }
+
+    IEnumerator Fadein()
+    {
+        //print("Fading in " + toString());
+        // TODO: Run fadein animation
+        yield return new WaitForSeconds(fadeinTime);
+        ShowNumber();
+    }
+
+
+    IEnumerator Fadeout()
+    {
+        //print("Fading out " + toString());
+        // TODO: Run fadeout animation
+        yield return new WaitForSeconds(fadeoutTime);
+        HideNumber();
+    }
+
 }
