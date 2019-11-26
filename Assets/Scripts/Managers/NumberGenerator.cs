@@ -11,6 +11,11 @@ public class NumberGenerator : MonoBehaviour
     public float patchSize;
     public float spacing;
     public float genprob;
+    float refreshRate;
+    public float fadeInTime;
+    public float fadeOutTime;
+    public float pauseTime;
+    float lastRefresh;
 
     public bool initialized = false;
 
@@ -24,6 +29,7 @@ public class NumberGenerator : MonoBehaviour
     private void Awake()
     {
         rocket = GameObject.Find("Rocket");
+        refreshRate = fadeInTime + fadeOutTime + pauseTime + 2;
 
         //initBoundaries();
     }
@@ -36,12 +42,40 @@ public class NumberGenerator : MonoBehaviour
     {
         if (!initialized)
         {
-            OptimizeDifficulty();
+            OptimizeDifficulty(EquationManager.UpdateStrategy.overwrite);
             initialized = true;
+            lastRefresh = Time.time;
+        }
+        else
+        {
+            if (Time.time - lastRefresh > refreshRate)
+            {
+                // Refresh the numbers
+                print("Time to refresh the universe");
+
+                // Fade out some numbers
+                MakeRoomForNewNumbers();
+
+                // Fade in new numbers
+                OptimizeDifficulty(EquationManager.UpdateStrategy.no_overwrite);
+
+                lastRefresh = Time.time;
+            }
         }
     }
 
-    public void OptimizeDifficulty()
+    void MakeRoomForNewNumbers()
+    {
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
+
+        foreach (GameObject g in gos)
+        {
+            EquationManager em = g.GetComponentInChildren<EquationManager>();
+            em.MakeRoom();
+        }
+    }
+
+    void OptimizeDifficulty(EquationManager.UpdateStrategy strat)
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
 
@@ -49,7 +83,7 @@ public class NumberGenerator : MonoBehaviour
         {
             EquationManager em = g.GetComponentInChildren<EquationManager>();
             //print("Going to optimize");
-            em.OptimizeDifficulty(EquationManager.UpdateStrategy.overwrite);
+            em.OptimizeDifficulty(strat);
         }
     }
 
@@ -132,6 +166,8 @@ public class NumberGenerator : MonoBehaviour
         Number n = number.GetComponent<Number>();
         n.SetPerturb(perturb);
         n.SetProb(showProb);
+        n.fadeinTime = fadeInTime;
+        n.fadeoutTime = fadeOutTime;
         //n.SetNumber(num);
         //n.SetSymbol(GenerateRandomSymbol());
         n.SetCenter(cx, cy);

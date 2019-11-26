@@ -6,7 +6,7 @@ using TMPro;
 public class Number : MonoBehaviour
 {
     public enum Symbol {plus, minus, times, divide};
-    public enum State {active, fading, inactive};
+    public enum State {active, fadein, fadeout, inactive};
 
     [SerializeField] public Symbol symbol;
     TextMeshPro numberText;
@@ -18,8 +18,8 @@ public class Number : MonoBehaviour
     public State state = State.inactive;
     public Sprite circle;
 
-    float creationTime;
-    float lifespan;
+    public float fadeinTime;
+    public float fadeoutTime;
     // Start is called before the first frame update
 
     public static Number fromInteger(int source)
@@ -120,7 +120,7 @@ public class Number : MonoBehaviour
         symbol = s;
     }
 
-    public void HideNumber()
+    void HideNumber()
     {
         state = State.inactive;
         SetNumberText();
@@ -128,7 +128,7 @@ public class Number : MonoBehaviour
         //GetComponent<Collider2D>().enabled = true;
     }
 
-    public void ShowNumber()
+    void ShowNumber()
     {
         state = State.active;
         //GetComponent<MeshRenderer>().enabled = true;
@@ -280,4 +280,33 @@ public class Number : MonoBehaviour
             //print("In collider check: " + this.IsEmpty());
         }
     }
+
+    public void Respawn(Symbol newSym, int newNum)
+    {
+        SetSymbol(newSym);
+        SetNumber(newNum);
+        SetSymbolString();
+        SetNumberText();
+        StartCoroutine("Fadein");
+    }
+
+    public void Deactivate()
+    {
+        StartCoroutine("Fadeout");
+    }
+
+    IEnumerable Fadein()
+    {
+        // TODO: Run fadein animation
+        yield return new WaitForSeconds(fadeinTime);
+        ShowNumber();
+    }
+
+    IEnumerable Fadeout()
+    {
+        // TODO: Run fadeout animation
+        yield return new WaitForSeconds(fadeoutTime);
+        HideNumber();
+    }
+
 }

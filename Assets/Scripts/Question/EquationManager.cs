@@ -10,6 +10,7 @@ public class EquationManager : MonoBehaviour
     TextMesh eqTextMesh;
     public Equation equation;
     public List<Number> numbers;
+    public float relatedNumProx;
     // Start is called before the first frame update
 
     private void Awake()
@@ -27,9 +28,35 @@ public class EquationManager : MonoBehaviour
         eqTextMesh.text = equation.toString();
     }
 
+    List<Number> FilterNumbersByState(Number.State state)
+    {
+        List<Number> emptySlots = new List<Number>();
+        foreach (Number n in numbers)
+        {
+            if (n.state == state)
+            {
+                emptySlots.Add(n);
+            }
+        }
+        return emptySlots;
+    }
+
+    public void MakeRoom()
+    {
+        // Deactivate some active numbers
+        List<Number> activeSlots = FilterNumbersByState(Number.State.active);
+        for (int i = 0; i < 4; i++)
+        {
+            int r = Random.Range(0, activeSlots.Count);
+            Number n = activeSlots[r];
+            activeSlots.RemoveAt(r);
+            n.Deactivate();
+        }
+    }
+
     public void OptimizeDifficulty(UpdateStrategy strat)
     {
-        print("Working with " + numbers.Count + " numbers");
+        /*print("Working with " + numbers.Count + " numbers");
         foreach (Number n in numbers)
         {
             //print("Empty: " + n.IsEmpty());
@@ -39,18 +66,68 @@ public class EquationManager : MonoBehaviour
                 n.suffix = "^";
                 n.SetNumberText();
             }
-        }
-        List<Number> necessaryNums = GetNecessaryNumbers();
+        }*/
+        List<List<Number>> numPaths = GetNumberPaths();
 
-        foreach (Number n in necessaryNums)
+        // Find empty slots
+        List<Number> emptySlots = FilterNumbersByState(Number.State.inactive);
+        
+
+        foreach(List<Number> numPath in numPaths)
+        {
+            ActivateSlots(numPath, emptySlots);
+        }
+        /*foreach (Number n in necessaryNums)
         {
             n.SetSymbolString();
             print("Op: " + n.toString());
+        }*/
+        /*if (strat == UpdateStrategy.overwrite)
+        {
+            UpdateNumbers(necessaryNums);
         }
-        UpdateNumbers(necessaryNums, strat);
+        else if (strat == UpdateStrategy.no_overwrite)
+        {
+
+        }*/
     }
 
-    void UpdateNumbers(List<Number> nums, UpdateStrategy strat)
+    Number GetNearestSlot(List<Number> emptySlots, Number seed) {
+        float minDist = float.PositiveInfinity;
+        Number nearest = null;
+        foreach (Number n in emptySlots)
+        {
+            float dist = (n.transform.position - seed.transform.position).sqrMagnitude;
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearest = n;
+            }
+        }
+        return nearest;
+    }
+
+    void ActivateSlots(List<Number> numPath, List<Number> emptySlots)
+    {
+        if (numPath.Count > emptySlots.Count)
+        {
+            print("Warning: ran out of slots to assign path");
+            return;
+        }
+        int r1 = Random.Range(0, emptySlots.Count);
+        Number seedSlot = emptySlots[r1];
+        emptySlots.RemoveAt(r1);
+        seedSlot.Respawn(numPath[0].symbol, numPath[0].number);
+
+        for (int i = 1; i < numPath.Count; i++)
+        {
+            Number slot = GetNearestSlot(emptySlots, seedSlot);
+            emptySlots.Remove(slot);
+            slot.Respawn(numPath[i].symbol, numPath[i].number);
+        }
+    }
+
+    /*void UpdateNumbers(List<Number> nums)
     {
         int random1 = Random.Range(0, numbers.Count);
         Number seed = numbers[random1];
@@ -58,7 +135,9 @@ public class EquationManager : MonoBehaviour
         seed.SetSymbolString();
         print("Seed number is " + seed.toString());
         
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(seed.gameObject.transform.position, 20f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(
+            seed.gameObject.transform.position, relatedNumProx);
+
         print("Collided * with " + colliders.Length);
 
         foreach (Collider2D c in colliders)
@@ -89,6 +168,7 @@ public class EquationManager : MonoBehaviour
             print("Error, not enough spaces to place numbers " + nearNums.Count + " " + nums.Count);
             return;
         }
+
         foreach (Number n in nums)
         {
             int random = Random.Range(0, nearNums.Count);
@@ -102,12 +182,13 @@ public class EquationManager : MonoBehaviour
             updateNum.SetNumberText();
             updateNum.ShowNumber();
         }
-        
-    }
+    }*/
 
-    List<Number> GetNecessaryNumbers()
+    List<List<Number>> GetNumberPaths()
     {
-        List<Number> nums = GenerateNumberSequence(2);
+        List<List<Number>> nums = new List<List<Number>>();
+        nums.Add(GenerateNumberSequence(2));
+        nums.Add(GenerateNumberSequence(2));
         return nums;
     }
 
