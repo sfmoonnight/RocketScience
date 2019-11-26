@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 2719481666966153181}
   - component: {fileID: 4972726488869996306}
   - component: {fileID: 6332256969946414468}
+  - component: {fileID: 5423807508181339201}
   m_Layer: 0
   m_Name: Number
   m_TagString: number
@@ -199,6 +200,8 @@ MonoBehaviour:
   suffix: 
   state: 2
   circle: {fileID: 0}
+  fadeinTime: 0
+  fadeoutTime: 0
 --- !u!58 &6135006393380343329
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -341,3 +344,22 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_maskType: 0
+--- !u!95 &5423807508181339201
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7001694291015688389}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f440cee1fc035ed418d61b680d845ab9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

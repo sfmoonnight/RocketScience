@@ -20,6 +20,8 @@ public class Number : MonoBehaviour
 
     public float fadeinTime;
     public float fadeoutTime;
+
+    Animator anim;
     // Start is called before the first frame update
 
     public static Number fromInteger(int source)
@@ -45,6 +47,7 @@ public class Number : MonoBehaviour
     void Awake()
     {
         numberText = GetComponent<TextMeshPro>();
+        anim = GetComponent<Animator>();
         state = State.inactive;
         suffix = "";
     }
@@ -302,6 +305,8 @@ public class Number : MonoBehaviour
     {
         //print("Fading in " + toString());
         // TODO: Run fadein animation
+        anim.SetTrigger("fadein");
+        //ShowNumber();      
         yield return new WaitForSeconds(fadeinTime);
         ShowNumber();
     }
@@ -311,7 +316,9 @@ public class Number : MonoBehaviour
     {
         //print("Fading out " + toString());
         // TODO: Run fadeout animation
+        anim.SetTrigger("fadeout");
         yield return new WaitForSeconds(fadeoutTime);
+        anim.SetTrigger("idle");
         HideNumber();
     }
 
