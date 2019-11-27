@@ -306,9 +306,8 @@ public class Number : MonoBehaviour
         //print("Fading in " + toString());
         // TODO: Run fadein animation
         anim.SetTrigger("fadein");
-        //ShowNumber();      
+        ShowNumber();      
         yield return new WaitForSeconds(fadeinTime);
-        ShowNumber();
     }
 
 

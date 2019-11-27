@@ -135,9 +135,10 @@ public class Rocket : MonoBehaviour
         }*/
     }
 
-    public void Scoop()
+    public void Scoop(GameObject g)
     {
-        GameObject g = GameObject.Find("Collectable");
+        //TODO: stop moving when scooping
+        //GameObject g = GameObject.Find("Collectable");
         Vector2 location = g.transform.position;
         Vector2 dir = ((Vector2)transform.position - location);
         float ang = Vector2.SignedAngle(dir, (Vector2)transform.up);

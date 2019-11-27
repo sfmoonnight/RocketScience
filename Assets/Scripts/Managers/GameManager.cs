@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public int answer;
     Rocket rocket;
     GameObject[] questions;
+
+    public Collectable[] inventory;
     // Start is called before the first frame update
     private void Awake()
     {
