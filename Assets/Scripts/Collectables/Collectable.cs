@@ -6,7 +6,7 @@ public class Collectable : MonoBehaviour
 {
     public int identity;
     public float rareness;
-    public GameObject planet;
+    public Question question;
     public bool pickable;
 
     Rocket rocket;
@@ -16,6 +16,7 @@ public class Collectable : MonoBehaviour
     void Start()
     {
         collider = GetComponent<Collider2D>();
+        DeactivateCollider();
         pickable = true;
     }
 
@@ -41,7 +42,7 @@ public class Collectable : MonoBehaviour
 
     private void OnMouseOver()
     {
-        GetComponent<SpriteRenderer>().color = Color.yellow;
+        GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
     }
 
     private void OnMouseDown()
@@ -50,7 +51,8 @@ public class Collectable : MonoBehaviour
         if(Vector2.Distance(rocket.transform.position, transform.position) < 5)
         {
             //rocket script stop moving - targetpos = rocket pos
-            rocket.Scoop();
+            rocket.Scoop(gameObject);
+            RemoveCollectable();
             //print(Vector2.Distance(rocket.transform.position, transform.position));
             //print("click");
         }    
@@ -58,22 +60,34 @@ public class Collectable : MonoBehaviour
 
     private void OnMouseExit()
     {
-        GetComponent<SpriteRenderer>().color = Color.white;
+        GetComponentInChildren<SpriteRenderer>().color = Color.white;
     }
 
     public void ActivatePickUp()
     {
         pickable = true;
+        ActivateCollider();
     }
 
     public void DeactivatePickUp()
     {
         pickable = false;
+        DeactivateCollider();
+    }
+
+    public void RemoveCollectable()
+    {
+        question.RemoveCollectable(this);
     }
 
     public void SetRareness(float rate)
     {
         rareness = rate;
+    }
+
+    public void SetQuestion(Question q)
+    {
+        question = q;
     }
 
     void ActivateCollider()

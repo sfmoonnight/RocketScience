@@ -7,15 +7,17 @@ public class GameManager : MonoBehaviour
     public int answer;
     Rocket rocket;
     GameObject[] questions;
+
+    public Collectable[] inventory;
     // Start is called before the first frame update
     private void Awake()
     {
         answer = Random.Range(-99, 100);
+        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
+        questions = GameObject.FindGameObjectsWithTag("question");
     }
     void Start()
     {
-        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
-        questions = GameObject.FindGameObjectsWithTag("question");
     }
 
     // Update is called once per frame
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     public void SetAnswer(int ans)
     {
         answer = ans;
-
+        print("Questions: " + questions);
         foreach (GameObject go in questions)
         {
             Question q = go.GetComponent<Question>();

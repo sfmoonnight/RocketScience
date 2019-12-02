@@ -12,9 +12,12 @@ public class Question : MonoBehaviour
     public List<Collectable> collectables;
     public GameObject eqTextMeshObj;
 
+    public float radius;
+
     // Start is called before the first frame update
     void Start()
     {
+        GenerateCollectables();
     }
 
     // Update is called once per frame
@@ -30,8 +33,9 @@ public class Question : MonoBehaviour
             float rate = Random.Range(0f, 1f);
             if(rate <= col.rareness)
             {
-                Collectable newCol = Instantiate(col, transform);
+                Collectable newCol = Instantiate(col, transform.position + new Vector3(0, radius, 0), Quaternion.identity, transform);
                 collectables.Add(newCol);
+                newCol.SetQuestion(this);
             }
         }
     }
@@ -62,6 +66,12 @@ public class Question : MonoBehaviour
         }
         GetComponent<SpriteRenderer>().color = Color.white;
         activated = false;
+    }
+
+    public void RemoveCollectable(Collectable c)
+    {
+        collectables.Remove(c);
+        Destroy(c.gameObject);
     }
 
     void ChangeColor()

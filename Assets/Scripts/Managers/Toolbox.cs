@@ -19,7 +19,8 @@ public class Toolbox : MonoBehaviour
 
     /* Add your managers here */
     private GameManager gameManager;
-    //private StatManager statManager;
+    private InventoryManager inventoryManager;
+    private StatManager statManager;
 
     void Awake()
     {
@@ -32,7 +33,8 @@ public class Toolbox : MonoBehaviour
         var go = new GameObject("Managers");
         DontDestroyOnLoad(go);
         this.gameManager = go.AddComponent<GameManager>();
-        //this.statManager = go.AddComponent<StatManager>();
+        this.inventoryManager = go.AddComponent<InventoryManager>();
+        this.statManager = go.AddComponent<StatManager>();
     }
 
     // acess using Toolbox.GetInstance().GetManager();
@@ -40,9 +42,13 @@ public class Toolbox : MonoBehaviour
     {
         return this.gameManager;
     }
+    public InventoryManager GetInventoryManager()
+    {
+        return this.inventoryManager;
+    }
 
-    /*public StatManager GetStatManager()
+    public StatManager GetStatManager()
     {
         return this.statManager;
-    }*/
+    }
 }
