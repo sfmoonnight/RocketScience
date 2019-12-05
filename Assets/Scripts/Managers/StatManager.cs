@@ -6,12 +6,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class StatManager : MonoBehaviour
 {
-    public string savePath = Application.persistentDataPath;
+    public string savePath;
     GameState gameState = new GameState();
     // Start is called before the first frame update
     void Start()
     {
-        
+        savePath = Application.persistentDataPath;
     }
 
     // Update is called once per frame

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSeed: {fileID: 0}
   numbers: []
-  relatedNumProx: 10
+  relatedNumProx: 0
 --- !u!1 &431338147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4351028631444155815, guid: c063a6f09ce0a574aa21b2cc1dbc13a9,
@@ -694,6 +694,7 @@ MonoBehaviour:
   collectables:
   - {fileID: 1867685103}
   eqTextMeshObj: {fileID: 47398269}
+  radius: 0
 --- !u!1 &823062618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,7 +1517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   identity: 0
   rareness: 1
-  planet: {fileID: 708281757}
+  question: {fileID: 0}
   pickable: 0
 --- !u!212 &1867685104
 SpriteRenderer:
