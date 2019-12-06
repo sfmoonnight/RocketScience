@@ -50,7 +50,8 @@ public class Collectable : MonoBehaviour
     private void OnMouseDown()
     {
         rocket = Toolbox.GetInstance().GetGameManager().GetRocket();
-        if(Vector2.Distance(rocket.transform.position, transform.position) < 5)
+        rocket.MoveAndScoop(gameObject);
+        /*if(Vector2.Distance(rocket.transform.position, transform.position) < 5)
         {
             //rocket script stop moving - targetpos = rocket pos
             rocket.Scoop(gameObject);
@@ -59,7 +60,12 @@ public class Collectable : MonoBehaviour
             
             //print(Vector2.Distance(rocket.transform.position, transform.position));
             //print("click");
-        }    
+        }    */
+    }
+
+    public void ProcessPickup()
+    {
+        StartCoroutine("AddToInventory");
     }
 
     private void OnMouseExit()
@@ -107,7 +113,7 @@ public class Collectable : MonoBehaviour
         GameObject newItem = GameObject.Find("NewCollectableUI");
         HideCollectable();
         //print("new item ui" + newItem);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.3f);
         newItem.GetComponent<ToggleUI>().ShowUI();
         newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
         

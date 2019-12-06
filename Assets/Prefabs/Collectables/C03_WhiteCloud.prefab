@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identity: 3
-  rareness: 1
+  rareness: 0.6
   question: {fileID: 0}
   pickable: 0
   collider2D: {fileID: 7815754363472383049}

@@ -11,6 +11,7 @@ public class Rocket : MonoBehaviour
     Vector2 targetPos;
     public float pCoeff;
     public Animator netAnim;
+    GameObject collectableTarget;
 
     Animator anim;
     
@@ -20,6 +21,7 @@ public class Rocket : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         targetPos = GetCurrentPos();
         anim = GetComponent<Animator>();
+        collectableTarget = null;
     }
 
     // Update is called once per frame
@@ -99,6 +101,17 @@ public class Rocket : MonoBehaviour
 
     void Movement()
     {
+        if (collectableTarget != null)
+        {
+            if (Vector2.Distance(collectableTarget.transform.position, transform.position) < 5)
+            {
+                rbody.velocity = Vector2.zero;
+                targetPos = GetCurrentPos();
+                Scoop(collectableTarget);
+                collectableTarget = null;
+                return;
+            }
+        }
         //rbody.AddForce(force * Vector2.up);
         float currSpeed = rbody.velocity.magnitude;
         Vector2 currPos = GetCurrentPos();
@@ -135,6 +148,11 @@ public class Rocket : MonoBehaviour
         }*/
     }
 
+    public void MoveAndScoop(GameObject g)
+    {
+        collectableTarget = g;
+    }
+
     public void Scoop(GameObject g)
     {
         //TODO: stop moving when scooping
@@ -152,6 +170,7 @@ public class Rocket : MonoBehaviour
             print("Scoop way 2");
             netAnim.SetTrigger("scoop_right");
         }
+        g.GetComponent<Collectable>().ProcessPickup();
     }
 
 
