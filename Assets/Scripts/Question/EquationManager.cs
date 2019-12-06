@@ -76,13 +76,13 @@ public class EquationManager : MonoBehaviour
                 n.SetNumberText();
             }
         }*/
-        List<List<Number>> numPaths = GetNumberPaths();
+        List<List<NumberHelper>> numPaths = GetNumberPaths();
 
         // Find empty slots
         List<Number> emptySlots = FilterNumbersByState(Number.State.inactive);
         
 
-        foreach(List<Number> numPath in numPaths)
+        foreach(List<NumberHelper> numPath in numPaths)
         {
             ActivateSlots(numPath, emptySlots);
         }
@@ -116,7 +116,7 @@ public class EquationManager : MonoBehaviour
         return nearest;
     }
 
-    void ActivateSlots(List<Number> numPath, List<Number> emptySlots)
+    void ActivateSlots(List<NumberHelper> numPath, List<Number> emptySlots)
     {
         if (numPath.Count > emptySlots.Count)
         {
@@ -193,28 +193,39 @@ public class EquationManager : MonoBehaviour
         }
     }*/
 
-    List<List<Number>> GetNumberPaths()
+    List<List<NumberHelper>> GetNumberPaths()
     {
-        List<List<Number>> nums = new List<List<Number>>();
+        List<List<NumberHelper>> nums = new List<List<NumberHelper>>();
         nums.Add(GenerateNumberSequence(2));
         nums.Add(GenerateNumberSequence(2));
         return nums;
     }
 
-    List<Number> GenerateNumberSequence(int length)
+    List<NumberHelper> GenerateNumberSequence(int length)
     {
         int currAnswer = Toolbox.GetInstance().GetGameManager().answer;
         int corrAnswer = equation.answer;
         return GenerateNumberSequence(length, currAnswer, corrAnswer);
     }
 
-    Number GeneratePathStep(int start, int end)
+    NumberHelper GeneratePathStep(int start, int end, bool minimize)
     {
+        if (start == end)
+        {
+            return new NumberHelper();
+        }
+
+        int diff = Mathf.Abs(end - start);
         List<Number.Symbol> symList = new List<Number.Symbol>();
         symList.Add(Number.Symbol.plus);
         symList.Add(Number.Symbol.minus);
         symList.Add(Number.Symbol.times);
         symList.Add(Number.Symbol.divide);
+        List<NumberHelper> candidate = new List<NumberHelper>();
+        NumberHelper minimizer = null;
+        int minimizing_val = -1;
+        bool minimizer_init = false;
+
         foreach (Number.Symbol sym in symList)
         {
             for (int i = -10; i <= 10; i++)
@@ -227,34 +238,83 @@ public class EquationManager : MonoBehaviour
                 {
                     continue;
                 }
+                if (sym == Number.Symbol.plus || sym == Number.Symbol.minus)
+                {
+                    if (i <= 0)
+                    {
+                        continue;
+                    }
+                }
 
+                NumberHelper nh = new NumberHelper(sym, i);
+                
+
+                int result = nh.applyOperation(start);
+
+                int currDiff = Mathf.Abs(end - result);
+                //print("Applying " + nh.toString() + " to " + start + " gives " + result + " which is closer to " + end + " with diff " + currDiff);
+
+                if (currDiff < diff)
+                {
+                    candidate.Add(nh);
+                }
+                //print("  - Minimizing val gives " + minimizing_val);
+                if (!minimizer_init || currDiff < minimizing_val)
+                {
+                    //print("  - Updating gives because minimizer " + minimizer + " || currDiff < minimizing_val = " + (currDiff < minimizing_val));
+                    minimizing_val = currDiff;
+                    minimizer = nh;
+                    minimizer_init = true;
+                    //print("  - after assigning gives " + minimizer + " n is " + n.toString());
+                }
+                else
+                {
+                    //print("  - Not updating gives");
+                }
             }
         }
 
-        
-        return null;
+        if (minimize) {
+            NumberHelper n = minimizer;
+            //print("Finally choosing* " + n.toString() + " to " + start + " gives " + (n.applyOperation(start)) + " which is closer to " + end);
+            return n;
+        }
+        else {
+            int rand = Random.Range(0, candidate.Count);
+            NumberHelper n = candidate[rand];
+            //print("Finally choosing " + n.toString() + " to " + start + " gives " + (n.applyOperation(start)) + " which is closer to " + end);
+            return n;
+        }
     }
 
-    List<Number> GenerateNumberSequence(int length, int startNum, int endNum)
+    List<NumberHelper> GenerateNumberSequence(int length, int startNum, int endNum)
     {
-        List<Number> nums = new List<Number>();
+        List<NumberHelper> nums = new List<NumberHelper>();
         int a = startNum;
         for (int i = 0; i < length; i++)
         {
+            NumberHelper n;
             if (i == length - 1)
             {
-                int delta = endNum - a;
-                Number n = Number.fromInteger(delta);
-                nums.Add(n);
+                //int delta = endNum - a;
+                //Number n = Number.fromInteger(delta);
+                //nums.Add(n);
+                n = GeneratePathStep(a, endNum, true);
             }
             else
             {
-                Number n = new Number();
-                n.GenerateOperator();
-                n.GenerateOperand();
-                nums.Add(n);
-                a = n.applyOperation(a);
+                //Number n = new Number();
+                //n.GenerateOperator();
+                //n.GenerateOperand();
+                //nums.Add(n);
+                //a = n.applyOperation(a);
+                n = GeneratePathStep(a, endNum, false);
             }
+            nums.Add(n);
+            a = n.applyOperation(a);
+            /*if (a == endNum) {
+                break;
+            }*/
         }
         return nums;
     }

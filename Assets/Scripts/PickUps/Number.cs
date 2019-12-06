@@ -154,70 +154,20 @@ public class Number : MonoBehaviour
 
     public int applyOperation(int input)
     {
-        switch (symbol)
-        {
-            case Symbol.plus:
-                input += number;
-                break;
-            case Symbol.minus:
-                input -= number;
-                break;
-            case Symbol.times:
-                input *= number;
-                break;
-            case Symbol.divide:
-                input /= number;
-                break;
-        }
-        return input;
+        NumberHelper nh = new NumberHelper(symbol, number);
+        return nh.applyOperation(input);
     }
 
     public void GenerateRandom()
     {
-        GenerateOperator();
-        GenerateOperand();
+        NumberHelper nh = new NumberHelper();
+        SetSymbol(nh.symbol);
+        SetNumber(nh.number);
         GeneratePosition();
         GenerateVisibility();
     }
 
-    public void GenerateOperator()
-    {
-        int index = Random.Range(1, 5);
-        switch (index)
-        {
-            case 1:
-                SetSymbol(Symbol.plus);
-                break;
-            case 2:
-                SetSymbol(Symbol.minus);
-                break;
-            case 3:
-                SetSymbol(Symbol.times);
-                break;
-            default:
-                SetSymbol(Symbol.divide);
-                break;
-        }
-    }
-
-    public void GenerateOperand()
-    {
-        int num;
-        if(symbol == Symbol.plus || symbol == Symbol.minus)
-        {
-            num = Random.Range(1, 11);
-        }else if (symbol == Symbol.times)
-        {
-            num = RandomIntExcept(-10, 10, new int[] {1});
-        }
-        else
-        {
-            num = RandomIntExcept(-10, 10, new int[] {0, 1});
-        }
-        
-        SetNumber(num);
-        
-    }
+    
 
     public void GenerateVisibility()
     {
@@ -239,25 +189,7 @@ public class Number : MonoBehaviour
         transform.position = new Vector2(x, y);
     }
 
-    public int RandomIntExcept(int min, int max, int[] except)
-    {
-        
-        //int random = Random.Range(min, max + 1);
-        //while (random in except) {
-        //    random = Random.Range(min, max + 1);
-        //}
-        //return random;
-
-        int random = Random.Range(min, max+1);
-        foreach(int exc in except)
-        {
-            if (random == exc)
-            {
-                random = RandomIntExcept(min, max, except);
-            }
-        }     
-        return random;
-    }
+    
 
     public void AttachToNearest(float radius)
     {
@@ -303,7 +235,7 @@ public class Number : MonoBehaviour
 
     IEnumerator Fadein()
     {
-        //print("Fading in " + toString());
+        print("Fading in " + toString());
         // TODO: Run fadein animation
         anim.SetTrigger("fadein");
         ShowNumber();      
@@ -313,7 +245,7 @@ public class Number : MonoBehaviour
 
     IEnumerator Fadeout()
     {
-        //print("Fading out " + toString());
+        print("Fading out " + toString());
         // TODO: Run fadeout animation
         anim.SetTrigger("fadeout");
         yield return new WaitForSeconds(fadeoutTime);

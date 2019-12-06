@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public void SetAnswer(int ans)
     {
         answer = ans;
-        print("Questions: " + questions);
+        //print("Questions: " + questions);
         foreach (GameObject go in questions)
         {
             Question q = go.GetComponent<Question>();

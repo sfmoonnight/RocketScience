@@ -60,13 +60,13 @@ public class NumberGenerator : MonoBehaviour
 
     IEnumerator Refresh()
     {
-        print("Fading out numbers...");
+        //print("Fading out numbers...");
         // Fade out some numbers
         MakeRoomForNewNumbers();
 
         yield return new WaitForSeconds(fadeOutTime + 1f);
 
-        print("Fading in numbers...");
+        //print("Fading in numbers...");
         // Fade in new numbers
         OptimizeDifficulty(EquationManager.UpdateStrategy.no_overwrite);
 
