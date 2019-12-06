@@ -130,8 +130,8 @@ MonoBehaviour:
   rareness: 1
   question: {fileID: 0}
   pickable: 0
-  collider2D: {fileID: 0}
-  sprite: {fileID: 2556898497528151416}
+  collider2D: {fileID: 185609240}
+  spriteRenderer: {fileID: 2556898497528151416}
 --- !u!70 &185609240
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
