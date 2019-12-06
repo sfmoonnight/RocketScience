@@ -11,13 +11,13 @@ public class Collectable : MonoBehaviour
 
     Rocket rocket;
     public Collider2D collider2D;
-    public SpriteRenderer sprite;
+    public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         collider2D = GetComponent<Collider2D>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         HideCollectable();
         pickable = true;
     }
@@ -54,7 +54,9 @@ public class Collectable : MonoBehaviour
         {
             //rocket script stop moving - targetpos = rocket pos
             rocket.Scoop(gameObject);
+            AddToInventory();
             RemoveCollectable();
+            
             //print(Vector2.Distance(rocket.transform.position, transform.position));
             //print("click");
         }    
@@ -87,6 +89,26 @@ public class Collectable : MonoBehaviour
         question.DeactivateCollectables();
     }
 
+    public void AddToInventory()
+    {
+        if(Toolbox.GetInstance().GetGameManager().inventory != null)
+        {
+            foreach (int i in Toolbox.GetInstance().GetGameManager().inventory)
+            {
+                if (identity == i)
+                {
+                    return;
+                }
+            }
+        }
+        
+        Toolbox.GetInstance().GetGameManager().inventory.Add(identity);
+        GameObject newItem = GameObject.Find("NewCollectableUI");
+        print("new item ui" + newItem);
+        newItem.GetComponent<ToggleUI>().ShowUI();
+        newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
+    }
+
     public void SetRareness(float rate)
     {
         rareness = rate;
@@ -110,12 +132,12 @@ public class Collectable : MonoBehaviour
     public void HideCollectable()
     {
         DeactivateCollider();
-        sprite.enabled = false;
+        spriteRenderer.enabled = false;
     }
 
     public void ShowCollectable()
     {
         ActivateCollider();
-        sprite.enabled = true;
+        spriteRenderer.enabled = true;
     }
 }

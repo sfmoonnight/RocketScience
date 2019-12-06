@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        inventory = new List<int>();
     }
 
     // Update is called once per frame
