@@ -54,8 +54,8 @@ public class Collectable : MonoBehaviour
         {
             //rocket script stop moving - targetpos = rocket pos
             rocket.Scoop(gameObject);
-            AddToInventory();
-            RemoveCollectable();
+            StartCoroutine("AddToInventory");
+            
             
             //print(Vector2.Distance(rocket.transform.position, transform.position));
             //print("click");
@@ -83,13 +83,13 @@ public class Collectable : MonoBehaviour
 
     public void RemoveCollectable()
     {
-        question.RemoveCollectable(this);
+        //question.RemoveCollectable(this);
         question.eqTextMeshObj.GetComponent<EquationManager>().GenerateEquation();
         question.GenerateCollectables();
         question.DeactivateCollectables();
     }
 
-    public void AddToInventory()
+    public IEnumerator AddToInventory()
     {
         if(Toolbox.GetInstance().GetGameManager().inventory != null)
         {
@@ -97,16 +97,21 @@ public class Collectable : MonoBehaviour
             {
                 if (identity == i)
                 {
-                    return;
+                    RemoveCollectable();
+                    yield break;
                 }
             }
         }
         
         Toolbox.GetInstance().GetGameManager().inventory.Add(identity);
         GameObject newItem = GameObject.Find("NewCollectableUI");
-        print("new item ui" + newItem);
+        HideCollectable();
+        //print("new item ui" + newItem);
+        yield return new WaitForSeconds(1.5f);
         newItem.GetComponent<ToggleUI>().ShowUI();
         newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
+        
+        RemoveCollectable();
     }
 
     public void SetRareness(float rate)

@@ -10,6 +10,7 @@ public class Question : MonoBehaviour
     public bool activated=false;
     public List<Collectable> options;
     public List<Collectable> collectables;
+    public List<GameObject> generationPoints;
     public GameObject eqTextMeshObj;
 
     public float radius;
@@ -28,12 +29,14 @@ public class Question : MonoBehaviour
 
     public void GenerateCollectables()
     {
-        foreach(Collectable col in options)
+        ClearCollectables();
+        foreach(GameObject gp in generationPoints)
         {
             float rate = Random.Range(0f, 1f);
-            if(rate <= col.rareness)
+            int op = Random.Range(0, options.Count);
+            if(rate <= options[op].rareness)
             {
-                Collectable newCol = Instantiate(col, transform.position + new Vector3(0, radius, 0), Quaternion.identity, transform);
+                Collectable newCol = Instantiate(options[op], gp.transform);
                 collectables.Add(newCol);
                 newCol.SetQuestion(this);
             }
@@ -69,6 +72,15 @@ public class Question : MonoBehaviour
         }
         GetComponent<SpriteRenderer>().color = Color.white;
         activated = false;
+    }
+
+    public void ClearCollectables()
+    {
+        foreach(Collectable col in collectables)
+        {
+            Destroy(col.gameObject);
+        }
+        collectables.Clear();
     }
 
     public void RemoveCollectable(Collectable c)

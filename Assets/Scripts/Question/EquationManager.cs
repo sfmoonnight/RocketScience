@@ -30,8 +30,22 @@ public class EquationManager : MonoBehaviour
 
     public void GenerateEquation()
     {
-        Addition1 eq = new Addition1();
-        equation = eq;
+        int num = Random.Range(1, 4);
+        if(num == 1)
+        {
+            Addition1 eq = new Addition1();
+            equation = eq;
+        }
+        if (num == 2)
+        {
+            Addition2 eq = new Addition2();
+            equation = eq;
+        }
+        if (num == 3)
+        {
+            Multiplication1 eq = new Multiplication1();
+            equation = eq;
+        }
         eqTextMesh.text = equation.toString();
     }
 
@@ -53,7 +67,7 @@ public class EquationManager : MonoBehaviour
         // Deactivate some active numbers
         List<Number> activeSlots = FilterNumbersByState(Number.State.active);
         //print("Found " + activeSlots.Count + " active slots.");
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             int r = Random.Range(0, activeSlots.Count);
             Number n = activeSlots[r];

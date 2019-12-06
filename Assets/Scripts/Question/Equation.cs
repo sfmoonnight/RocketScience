@@ -35,7 +35,7 @@ public class Element
 
     public string dataToString()
 	{
-		return isVar ? "X:"+data : ""+data;
+		return isVar ? "X" : ""+data;
 	}
 
     public string toString()
@@ -67,7 +67,7 @@ public abstract class Equation
 {
     public int answer;
     public Element[] elements;
-    public int rndMin=-20, rndMax=21;
+    public int rndMin=-30, rndMax=31;
 
     public Equation()
 	{
@@ -86,7 +86,13 @@ public abstract class Equation
 		return num;
 	}
 
-	public abstract void genElements();
+    public int genSingleNumber()
+    {
+        int num = Random.Range(-10, 11);
+        return num;
+    }
+
+    public abstract void genElements();
 
     public string toString()
 	{
@@ -123,8 +129,17 @@ public class Addition2 : Equation
 	// 1 + x = 5
 	public override void genElements()
 	{
-
-	}
+        answer = genNumber();
+        int op1 = genNumber();
+        int op2 = answer + op1;
+        elements = new Element[] {
+            new Element(Element.ElementType.number, op1),
+            new Element(Element.ElementType.plus),
+            new Element(Element.ElementType.number, answer).asVar(),
+            new Element(Element.ElementType.equals),
+            new Element(Element.ElementType.number, op2)           
+        };
+    }
 
 }
 
@@ -137,3 +152,20 @@ public class SquareAddition1 : Equation
 	}
 }
 
+public class Multiplication1 : Equation
+{
+    // 1 x 1 = x
+    public override void genElements()
+    {
+        int op1 = genNumber();
+        int op2 = genSingleNumber();
+        answer = op1 * op2;
+        elements = new Element[] {
+            new Element(Element.ElementType.number, op1),
+            new Element(Element.ElementType.times),
+            new Element(Element.ElementType.number, op2),
+            new Element(Element.ElementType.equals),
+            new Element(Element.ElementType.number, answer).asVar()
+        };
+    }
+}
