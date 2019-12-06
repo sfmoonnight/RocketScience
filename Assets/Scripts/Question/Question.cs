@@ -26,7 +26,7 @@ public class Question : MonoBehaviour
         
     }
 
-    void GenerateCollectables()
+    public void GenerateCollectables()
     {
         foreach(Collectable col in options)
         {
@@ -60,9 +60,12 @@ public class Question : MonoBehaviour
         {
             return;
         }
-        foreach (Collectable col in collectables)
+        if(collectables.Count > 0)
         {
-            col.DeactivatePickUp();
+            foreach (Collectable col in collectables)
+            {
+                col.DeactivatePickUp();
+            }
         }
         GetComponent<SpriteRenderer>().color = Color.white;
         activated = false;

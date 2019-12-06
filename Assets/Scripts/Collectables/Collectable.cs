@@ -10,13 +10,15 @@ public class Collectable : MonoBehaviour
     public bool pickable;
 
     Rocket rocket;
-    Collider2D collider;
+    public Collider2D collider2D;
+    public SpriteRenderer sprite;
 
     // Start is called before the first frame update
     void Start()
     {
-        collider = GetComponent<Collider2D>();
-        DeactivateCollider();
+        collider2D = GetComponent<Collider2D>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        HideCollectable();
         pickable = true;
     }
 
@@ -66,18 +68,23 @@ public class Collectable : MonoBehaviour
     public void ActivatePickUp()
     {
         pickable = true;
-        ActivateCollider();
+        //ActivateCollider();
+        ShowCollectable();
     }
 
     public void DeactivatePickUp()
     {
         pickable = false;
-        DeactivateCollider();
+        //DeactivateCollider();
+        HideCollectable();
     }
 
     public void RemoveCollectable()
     {
         question.RemoveCollectable(this);
+        question.eqTextMeshObj.GetComponent<EquationManager>().GenerateEquation();
+        question.GenerateCollectables();
+        question.DeactivateCollectables();
     }
 
     public void SetRareness(float rate)
@@ -92,11 +99,23 @@ public class Collectable : MonoBehaviour
 
     void ActivateCollider()
     {
-        collider.enabled = true;
+        collider2D.enabled = true;
     }
 
     void DeactivateCollider()
     {
-        collider.enabled = false;
+        collider2D.enabled = false;    
+    }
+
+    public void HideCollectable()
+    {
+        DeactivateCollider();
+        sprite.enabled = false;
+    }
+
+    public void ShowCollectable()
+    {
+        ActivateCollider();
+        sprite.enabled = true;
     }
 }

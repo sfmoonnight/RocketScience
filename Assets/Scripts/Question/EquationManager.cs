@@ -28,6 +28,13 @@ public class EquationManager : MonoBehaviour
         eqTextMesh.text = equation.toString();
     }
 
+    public void GenerateEquation()
+    {
+        Addition1 eq = new Addition1();
+        equation = eq;
+        eqTextMesh.text = equation.toString();
+    }
+
     List<Number> FilterNumbersByState(Number.State state)
     {
         List<Number> emptySlots = new List<Number>();
@@ -199,6 +206,33 @@ public class EquationManager : MonoBehaviour
         int currAnswer = Toolbox.GetInstance().GetGameManager().answer;
         int corrAnswer = equation.answer;
         return GenerateNumberSequence(length, currAnswer, corrAnswer);
+    }
+
+    Number GeneratePathStep(int start, int end)
+    {
+        List<Number.Symbol> symList = new List<Number.Symbol>();
+        symList.Add(Number.Symbol.plus);
+        symList.Add(Number.Symbol.minus);
+        symList.Add(Number.Symbol.times);
+        symList.Add(Number.Symbol.divide);
+        foreach (Number.Symbol sym in symList)
+        {
+            for (int i = -10; i <= 10; i++)
+            {
+                if (sym == Number.Symbol.divide && i == 0)
+                {
+                    continue;
+                }
+                if (sym == Number.Symbol.times && i == 1)
+                {
+                    continue;
+                }
+
+            }
+        }
+
+        
+        return null;
     }
 
     List<Number> GenerateNumberSequence(int length, int startNum, int endNum)

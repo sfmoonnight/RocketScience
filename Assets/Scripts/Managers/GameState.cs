@@ -12,6 +12,6 @@ public class GameState
     public Vector3 position;
 
     //---Collectables
-    public Collectable[] collectables; 
+    public List<int> collectables; 
 
 }

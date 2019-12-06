@@ -126,10 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14baee88544d4f1b990eae1eaec139b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identity: 0
+  identity: 1
   rareness: 1
-  planet: {fileID: 0}
+  question: {fileID: 0}
   pickable: 0
+  collider2D: {fileID: 0}
+  sprite: {fileID: 2556898497528151416}
 --- !u!70 &185609240
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
