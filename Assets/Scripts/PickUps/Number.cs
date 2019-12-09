@@ -61,7 +61,17 @@ public class Number : MonoBehaviour
     public void SetNumberText()
     {
         //print(numberText);
-        numberText.text = toString();
+        string rawText = toString();
+        for (int i = 0; i <= 9; i++) {
+            rawText = rawText.Replace(i.ToString(), "<sprite="+i+">");
+        }
+        rawText = rawText.Replace("+", "<sprite=" + 10 + ">");
+        rawText = rawText.Replace("-", "<sprite=" + 11 + ">");
+        rawText = rawText.Replace("×", "<sprite=" + 12 + ">");
+        rawText = rawText.Replace("÷", "<sprite=" + 13 + ">");
+
+        numberText.text = rawText;
+        //numberText.text = toString();
     }
 
     public string toString()
@@ -130,6 +140,7 @@ public class Number : MonoBehaviour
         state = State.inactive;
         SetNumberText();
         GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<TextMeshPro>().enabled = false;
         //GetComponent<Collider2D>().enabled = true;
     }
 
@@ -137,6 +148,7 @@ public class Number : MonoBehaviour
     {
         state = State.active;
         GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<TextMeshPro>().enabled = true;
         //GetComponent<Collider2D>().enabled = true;
     }
 
