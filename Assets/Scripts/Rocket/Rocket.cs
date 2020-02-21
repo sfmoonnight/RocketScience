@@ -173,5 +173,29 @@ public class Rocket : MonoBehaviour
         g.GetComponent<Collectable>().ProcessPickup();
     }
 
+    public List<Number> GetNumbersAround()
+    {
+        float radius = 15;
+        List<Number> numbers = new List<Number>();
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(this.transform.position, radius);
+       
+        //print("hit" + hitColliders.Length);
 
+        foreach(Collider2D col in hitColliders)
+        {
+            if (col.TryGetComponent(out Number num))
+            {
+                numbers.Add(col.GetComponent<Number>());
+            }
+        }
+        print(numbers.Count);
+        return numbers; 
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 15);
+    }
 }

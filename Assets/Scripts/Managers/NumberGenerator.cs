@@ -33,12 +33,12 @@ public class NumberGenerator : MonoBehaviour
 
         //initBoundaries();
     }
-    void Start()
+    public virtual void Start()
     {
         GenerateRandomNumbers(-patchSize, -patchSize, patchSize, patchSize, spacing);
     }
 
-    private void LateUpdate()
+    public virtual void LateUpdate()
     {
         if (!initialized)
         {
@@ -83,7 +83,7 @@ public class NumberGenerator : MonoBehaviour
         }
     }
 
-    void OptimizeDifficulty(EquationManager.UpdateStrategy strat)
+    public void OptimizeDifficulty(EquationManager.UpdateStrategy strat)
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
 

@@ -92,7 +92,25 @@ public abstract class Equation
         return num;
     }
 
+    public int GetFactor(int num)
+    {
+		List<int> factors = new List<int>();
+		factors.Add(1);
+		factors.Add(num);
+        for (int i = 2; i <= num/2; i++)
+        {
+            if(num % i == 0)
+            {
+				factors.Add(i);
+            }
+        }
+		int index = Random.Range(0, factors.Count);
+		return factors[index];
+    }
+
     public abstract void genElements();
+
+	public abstract void genElements(int answer);
 
     public string toString()
 	{
@@ -112,15 +130,20 @@ public class Addition1: Equation
     public override void genElements()
 	{
 		answer = genNumber();
+		genElements(answer);
+	}
+
+	public override void genElements(int answer)
+    {
 		int op1 = genNumber();
 		int op2 = answer - op1;
 		elements = new Element[] {
 			new Element(Element.ElementType.number, op2),
-            new Element(Element.ElementType.plus),
-            new Element(Element.ElementType.number, op1),
-            new Element(Element.ElementType.equals),
-            new Element(Element.ElementType.number, answer).asVar()
-        };
+			new Element(Element.ElementType.plus),
+			new Element(Element.ElementType.number, op1),
+			new Element(Element.ElementType.equals),
+			new Element(Element.ElementType.number, answer).asVar()
+		};
 	}
 }
 
@@ -130,16 +153,21 @@ public class Addition2 : Equation
 	public override void genElements()
 	{
         answer = genNumber();
-        int op1 = genNumber();
-        int op2 = answer + op1;
-        elements = new Element[] {
-            new Element(Element.ElementType.number, op1),
-            new Element(Element.ElementType.plus),
-            new Element(Element.ElementType.number, answer).asVar(),
-            new Element(Element.ElementType.equals),
-            new Element(Element.ElementType.number, op2)           
-        };
-    }
+		genElements(answer);
+	}
+
+	public override void genElements(int answer)
+    {
+		int op1 = genNumber();
+		int op2 = answer + op1;
+		elements = new Element[] {
+			new Element(Element.ElementType.number, op1),
+			new Element(Element.ElementType.plus),
+			new Element(Element.ElementType.number, answer).asVar(),
+			new Element(Element.ElementType.equals),
+			new Element(Element.ElementType.number, op2)
+		};
+	}
 
 }
 
@@ -150,6 +178,11 @@ public class SquareAddition1 : Equation
 	{
 
 	}
+
+	public override void genElements(int answer)
+    {
+
+    }
 }
 
 public class Multiplication1 : Equation
@@ -157,15 +190,20 @@ public class Multiplication1 : Equation
     // 1 x 1 = x
     public override void genElements()
     {
-        int op1 = genNumber();
-        int op2 = genSingleNumber();
-        answer = op1 * op2;
-        elements = new Element[] {
-            new Element(Element.ElementType.number, op1),
-            new Element(Element.ElementType.times),
-            new Element(Element.ElementType.number, op2),
-            new Element(Element.ElementType.equals),
-            new Element(Element.ElementType.number, answer).asVar()
-        };
-    }
+		answer = genNumber();
+		genElements(answer);
+	}
+
+	public override void genElements(int answer)
+    {
+		int op1 = GetFactor(answer);
+		int op2 = answer / op1;
+		elements = new Element[] {
+			new Element(Element.ElementType.number, op1),
+			new Element(Element.ElementType.times),
+			new Element(Element.ElementType.number, op2),
+			new Element(Element.ElementType.equals),
+			new Element(Element.ElementType.number, answer).asVar()
+		};
+	}
 }

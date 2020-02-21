@@ -15,17 +15,17 @@ public class EquationManager : MonoBehaviour
 
     private void Awake()
     {
-        Addition1 eq = new Addition1();
-        equation = eq;
-
+        //Addition1 eq = new Addition1();
+        //equation = eq;
+        
 
         numbers = new List<Number>();
     }
-    void Start()
-    {
-
+    public virtual void Start()
+    {    
         eqTextMesh = gameObject.GetComponent<TextMesh>();
-        eqTextMesh.text = equation.toString();
+        GenerateEquation();
+        eqTextMesh.text = equation.toString();       
     }
 
     public void GenerateEquation()
@@ -215,7 +215,7 @@ public class EquationManager : MonoBehaviour
         return nums;
     }
 
-    List<NumberHelper> GenerateNumberSequence(int length)
+    public List<NumberHelper> GenerateNumberSequence(int length)
     {
         int currAnswer = Toolbox.GetInstance().GetGameManager().answer;
         int corrAnswer = equation.answer;

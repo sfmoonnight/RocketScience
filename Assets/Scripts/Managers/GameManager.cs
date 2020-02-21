@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     {
         answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
-        questions = GameObject.FindGameObjectsWithTag("question");
+        UpdateQuestions();
     }
     void Start()
     {
@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateQuestions()
+    {
+        questions = null;
+        questions = GameObject.FindGameObjectsWithTag("question");
     }
 
     public void SetAnswer(int ans)

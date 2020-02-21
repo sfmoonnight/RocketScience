@@ -10,7 +10,7 @@ public class Number : MonoBehaviour
 
     [SerializeField] public Symbol symbol;
     TextMeshPro numberText;
-    [SerializeField] public int number;
+    public int number;
     public string symbolString;
     public string suffix;
 
@@ -179,7 +179,13 @@ public class Number : MonoBehaviour
         GenerateVisibility();
     }
 
-    
+    public void GenerateFromNumberHelper(NumberHelper nh)
+    {
+        SetSymbol(nh.symbol);
+        SetNumber(nh.number);
+        GeneratePosition();
+        GenerateVisibility();
+    }
 
     public void GenerateVisibility()
     {
@@ -247,7 +253,7 @@ public class Number : MonoBehaviour
 
     IEnumerator Fadein()
     {
-        print("Fading in " + toString());
+        //print("Fading in " + toString());
         // TODO: Run fadein animation
         anim.SetTrigger("fadein");
         ShowNumber();      
@@ -257,7 +263,7 @@ public class Number : MonoBehaviour
 
     IEnumerator Fadeout()
     {
-        print("Fading out " + toString());
+        //print("Fading out " + toString());
         // TODO: Run fadeout animation
         anim.SetTrigger("fadeout");
         yield return new WaitForSeconds(fadeoutTime);
