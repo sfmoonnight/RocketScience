@@ -12,6 +12,7 @@ public class Question : MonoBehaviour
     public List<Collectable> collectables;
     public List<GameObject> generationPoints;
     public GameObject eqTextMeshObj;
+    public List<GameObject> items;
 
     public float radius;
 
@@ -54,6 +55,7 @@ public class Question : MonoBehaviour
             col.ActivatePickUp();
         }
         ChangeColor();
+        GenerateItems();
         activated = true;
     }
 
@@ -92,5 +94,17 @@ public class Question : MonoBehaviour
     void ChangeColor()
     {
         GetComponent<SpriteRenderer>().color = Color.yellow;
+    }
+
+    public void GenerateItems()
+    {
+        foreach(GameObject go in items)
+        {
+            GameObject item = Instantiate(go, transform.position, Quaternion.identity);
+            float x = Random.Range(-1f, 1f);
+            float y = Random.Range(-1f, 1f);
+            Vector2 direction = new Vector2(x, y);
+            item.GetComponent<Rigidbody2D>().AddForce(direction * 5, ForceMode2D.Impulse);
+        }
     }
 }

@@ -127,6 +127,9 @@ MonoBehaviour:
   - {fileID: 7361038727725892094}
   - {fileID: 7361038726262784619}
   eqTextMeshObj: {fileID: 7361038726827405215}
+  items:
+  - {fileID: 104951556278707001, guid: 399a62515017d4f5f8a7af19050d2616, type: 3}
+  - {fileID: 8089948548206556100, guid: 258875784cece426c894347774a5383b, type: 3}
   radius: 4
 --- !u!1 &7361038726252896078
 GameObject:
