@@ -18,6 +18,11 @@ public class NumberHelper
         this.symbol = symbol;
         this.number = number;
     }
+    public NumberHelper(Number.Symbol symbol)
+    {
+        this.symbol = symbol;
+        GenerateOperand();
+    }
     public void SetNumber(int num)
     {
         number = num;

@@ -135,7 +135,7 @@ public class Number : MonoBehaviour
         symbol = s;
     }
 
-    void HideNumber()
+    public void HideNumber()
     {
         state = State.inactive;
         SetNumberText();
@@ -144,7 +144,7 @@ public class Number : MonoBehaviour
         //GetComponent<Collider2D>().enabled = true;
     }
 
-    void ShowNumber()
+    public void ShowNumber()
     {
         state = State.active;
         GetComponent<MeshRenderer>().enabled = true;
@@ -177,6 +177,20 @@ public class Number : MonoBehaviour
         SetNumber(nh.number);
         GeneratePosition();
         GenerateVisibility();
+    }
+
+    public void GenerateRandomValue()
+    {
+        NumberHelper nh = new NumberHelper();
+        SetSymbol(nh.symbol);
+        SetNumber(nh.number);
+    }
+
+    public void GeneratePositiveValue()
+    {
+        NumberHelper nh = new NumberHelper(Number.Symbol.plus);
+        SetSymbol(nh.symbol);
+        SetNumber(nh.number);
     }
 
     public void GenerateFromNumberHelper(NumberHelper nh)
