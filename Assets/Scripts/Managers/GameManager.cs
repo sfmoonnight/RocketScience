@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             Quest q = quests[i];
             foreach (QuestCollectible qc in q.collectibles)
             {
-                if (qc.identity == identity)
+                if (qc.identity == identity && !qc.collected)
                 {
                     qc.collected = true;
                     GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();

@@ -18,4 +18,7 @@ public class GameState
     public int currQuestIndex;
     public List<Quest> quests;
 
+    //---Money
+    public int money;
+
 }

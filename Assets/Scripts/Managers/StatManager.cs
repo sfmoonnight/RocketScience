@@ -15,7 +15,7 @@ public class StatManager : MonoBehaviour
         print("Initializing game state");
         gameState.quests = new List<Quest>();
         gameState.currQuestIndex = 0;
-
+        gameState.money = 0;
     }
 
     // Start is called before the first frame update
@@ -46,6 +46,7 @@ public class StatManager : MonoBehaviour
             gameState = new GameState();
             gameState.quests = new List<Quest>();
             gameState.currQuestIndex = 0;
+            gameState.money = 0;
 
         }
     }

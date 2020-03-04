@@ -14,35 +14,88 @@ public class QuestPanelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void UpdateQuests()
+    private void UpdateQuestsHelper()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         List<Quest> quests = gs.quests;
-        
+
         if (quests.Count == 0)
         {
-            // Clear panel
+            Clear();
         }
 
         else
         {
+            print(gs.currQuestIndex);
             Quest currQuest = quests[gs.currQuestIndex];
             DrawQuest(currQuest);
         }
+    }
 
+    public void UpdateQuests()
+    {
+        UpdateQuestsHelper();
+
+        StartCoroutine("CompleteQuests");
+
+    }
+
+    bool QuestCompleted(Quest q)
+    {
+        foreach (QuestCollectible qc in q.collectibles)
+        {
+            if (!qc.collected)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    IEnumerator CompleteQuests()
+    {
+        yield return new WaitForSeconds(1f);
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        List<Quest> quests = gs.quests;
+        List<Quest> remaining = new List<Quest>();
+        foreach (Quest q in quests)
+        {
+            if (QuestCompleted(q))
+            {
+                gs.money += 100;
+            }
+            else
+            {
+                remaining.Add(q);
+            }
+        }
+        print("remaining" + remaining.Count);
+        gs.quests = remaining;
+        if (gs.currQuestIndex > remaining.Count - 1 && remaining.Count > 0)
+        {
+            gs.currQuestIndex = remaining.Count - 1;
+        }
+
+        UpdateQuestsHelper();
+        GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
+    }
+
+    public void Clear()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 
     public void DrawQuest(Quest q)
     {
         List<Collectable> availableCollectibles = gameObject.GetComponent<DataContainer>().collectibles;
         Debug.Assert(availableCollectibles.Count > 0);
-        foreach (Transform child in transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
+        Clear();
         foreach (QuestCollectible qc in q.collectibles) {
             Collectable col = getCollectibleByIdentity(availableCollectibles, qc.identity);
             // Instantiate new game object and set sprite to the sprite of col
@@ -77,5 +130,46 @@ public class QuestPanelManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+
+    public void PreviousQuest()
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        if (gs.quests.Count == 0)
+        {
+            gs.currQuestIndex = 0;
+
+        }
+        else if (gs.currQuestIndex == 0)
+        {
+            gs.currQuestIndex = gs.quests.Count - 1;
+
+        }
+        else
+        {
+            gs.currQuestIndex -= 1;
+        }
+        UpdateQuests();
+    }
+
+    public void NextQuest()
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        if (gs.quests.Count == 0)
+        {
+            gs.currQuestIndex = 0;
+
+        }
+        else if (gs.currQuestIndex == gs.quests.Count - 1)
+        {
+            gs.currQuestIndex = 0;
+
+        }
+        else
+        {
+            gs.currQuestIndex += 1;
+        }
+        UpdateQuests();
     }
 }
