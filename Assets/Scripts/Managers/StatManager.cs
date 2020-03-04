@@ -7,11 +7,22 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class StatManager : MonoBehaviour
 {
     public string savePath;
-    GameState gameState = new GameState();
+    public GameState gameState = new GameState();
+
+    private void Awake()
+    {
+        // TODO: Remove these lines. They should be in LoadState
+        print("Initializing game state");
+        gameState.quests = new List<Quest>();
+        gameState.currQuestIndex = 0;
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         savePath = Application.persistentDataPath;
+
     }
 
     // Update is called once per frame
@@ -33,6 +44,8 @@ public class StatManager : MonoBehaviour
         {
             Debug.Log("Save file not found in " + savePath + ". This must be a new game!");
             gameState = new GameState();
+            gameState.quests = new List<Quest>();
+            gameState.currQuestIndex = 0;
 
         }
     }
@@ -49,4 +62,6 @@ public class StatManager : MonoBehaviour
     {
         return savePath;
     }
+
+
 }

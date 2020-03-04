@@ -18,7 +18,7 @@ public class Collectable : MonoBehaviour
     {
         collider2D = GetComponent<Collider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        HideCollectable();
+        //HideCollectable();
         pickable = true;
     }
 
@@ -66,6 +66,7 @@ public class Collectable : MonoBehaviour
     public void ProcessPickup()
     {
         StartCoroutine("AddToInventory");
+        Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(identity);
     }
 
     private void OnMouseExit()

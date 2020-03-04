@@ -12,6 +12,10 @@ public class GameState
     public Vector3 position;
 
     //---Collectables
-    public List<int> collectables; 
+    public List<int> collectables;
+
+    //---Quests
+    public int currQuestIndex;
+    public List<Quest> quests;
 
 }

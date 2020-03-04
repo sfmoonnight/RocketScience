@@ -197,6 +197,7 @@ public class Multiplication1 : Equation
 	public override void genElements(int answer)
     {
 		int op1 = GetFactor(answer);
+        // TODO: op1 could be 0
 		int op2 = answer / op1;
 		elements = new Element[] {
 			new Element(Element.ElementType.number, op1),
