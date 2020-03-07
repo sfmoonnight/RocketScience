@@ -16,16 +16,24 @@ public class Question : MonoBehaviour
 
     public float radius;
 
+    float rotationSpeed = 30;
+
     // Start is called before the first frame update
     void Start()
     {
         GenerateCollectables();
+        StartRotation();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public EquationManager GetEquation()
+    {
+        return eqTextMeshObj.GetComponent<EquationManager>();
     }
 
     public void GenerateCollectables()
@@ -54,7 +62,8 @@ public class Question : MonoBehaviour
         {
             col.ActivatePickUp();
         }
-        ChangeColor();
+        //ChangeColor();
+        StopRotation();
         GenerateItems();
         activated = true;
     }
@@ -72,7 +81,8 @@ public class Question : MonoBehaviour
                 col.DeactivatePickUp();
             }
         }
-        GetComponent<SpriteRenderer>().color = Color.white;
+        StartRotation();
+        //GetComponent<SpriteRenderer>().color = Color.white;
         activated = false;
     }
 
@@ -106,5 +116,26 @@ public class Question : MonoBehaviour
             Vector2 direction = new Vector2(x, y);
             item.GetComponent<Rigidbody2D>().AddForce(direction * 5, ForceMode2D.Impulse);
         }
+    }
+
+    void StartRotation()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        float ran = Random.Range(0f, 1f);
+        if(ran > 0.5)
+        {
+            rb.angularVelocity = rotationSpeed;
+        }
+        else
+        {
+            rb.angularVelocity = -rotationSpeed;
+        }
+        
+    }
+
+    void StopRotation()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.angularVelocity = 0;
     }
 }

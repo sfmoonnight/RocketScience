@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 3848607006748119666}
   - component: {fileID: 4160212174224919718}
   - component: {fileID: 3935342762066589183}
+  - component: {fileID: -3171414820315279231}
   m_Layer: 0
   m_Name: C06_Flower01
   m_TagString: Untagged
@@ -147,3 +148,24 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06524193, y: 1.251811}
   m_Size: {x: 1.6842957, y: 2.4777942}
   m_Direction: 0
+--- !u!50 &-3171414820315279231
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268049082037268456}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

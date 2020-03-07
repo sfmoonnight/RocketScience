@@ -7,7 +7,7 @@ public class NewQuest : MonoBehaviour
     public List<QuestCollectible> collectibles;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         GenerateCollectibles(3);
     }
@@ -26,16 +26,17 @@ public class NewQuest : MonoBehaviour
         Debug.Assert(numCollectibles > 0);
         for (int i = 0; i < count; i++)
         {
-            QuestCollectible qc = new QuestCollectible();
-            qc.identity = Random.Range(1, numCollectibles+1);
-            qc.x = Random.Range(-50f, 50f);
-            qc.y = Random.Range(-50f, 50f);
-            qc.collected = false;
+            int identity = Random.Range(1, numCollectibles + 1);
+            float x = Random.Range(-50f, 50f);
+            float y = Random.Range(-50f, 50f);
+            bool collected = false;
+            QuestCollectible qc = new QuestCollectible(identity, x, y, collected);
+            
             collectibles.Add(qc);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         print("On trigger enter 1");
         if (collision.CompareTag("Player"))
@@ -47,7 +48,7 @@ public class NewQuest : MonoBehaviour
         }
     }
 
-    void HideNewQuest()
+    public void HideNewQuest()
     {
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;

@@ -6,4 +6,15 @@ public class Quest
 {
     public List<QuestCollectible> collectibles;
 
+    public bool keyQuest;
+
+    public Quest()
+    {
+        keyQuest = false;
+    }
+
+    public Quest(bool keyQuest)
+    {
+        this.keyQuest = keyQuest;
+    }
 }

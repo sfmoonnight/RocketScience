@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 4054215237863183964}
   - component: {fileID: 3789640580589160584}
   - component: {fileID: 4302817317531726289}
+  - component: {fileID: 8173283361932163004}
   m_Layer: 0
   m_Name: C02_RedApple
   m_TagString: Untagged
@@ -148,3 +149,24 @@ CapsuleCollider2D:
   m_Offset: {x: -0.09966403, y: 0.80078053}
   m_Size: {x: 1.5031906, y: 1.5757332}
   m_Direction: 0
+--- !u!50 &8173283361932163004
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6617790646911101894}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

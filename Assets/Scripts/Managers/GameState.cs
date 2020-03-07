@@ -5,6 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class GameState
 {
+    //---QuestStatus
+    public enum QuestStatus { Disabled, Enabled, Accepted, Completed };
+
     //---Answer
     public int answer;
 
@@ -20,5 +23,12 @@ public class GameState
 
     //---Money
     public int money;
+
+    //---QuestFinished
+    public int questCount;
+
+    //---First key quest status 
+    public QuestStatus firstKeyQuestStatus = QuestStatus.Disabled;
+    
 
 }

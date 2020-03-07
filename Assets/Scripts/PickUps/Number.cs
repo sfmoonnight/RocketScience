@@ -244,7 +244,7 @@ public class Number : MonoBehaviour
         }
         if (nearestCollider != null)
         {
-            EquationManager eqm = nearestCollider.gameObject.GetComponentInChildren<EquationManager>();
+            EquationManager eqm = nearestCollider.gameObject.GetComponent<Question>().GetEquation();
             eqm.numbers.Add(this);
             //print("In collider check: " + this.IsEmpty());
         }

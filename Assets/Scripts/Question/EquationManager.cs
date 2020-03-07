@@ -25,7 +25,9 @@ public class EquationManager : MonoBehaviour
     {    
         eqTextMesh = gameObject.GetComponent<TextMesh>();
         GenerateEquation();
-        eqTextMesh.text = equation.toString();       
+        eqTextMesh.text = equation.toString();
+        //remove equation from planet so that it won't rotate with it
+        transform.parent = null;
     }
 
     public void GenerateEquation()

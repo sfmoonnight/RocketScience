@@ -63,9 +63,18 @@ public class QuestPanelManager : MonoBehaviour
         List<Quest> remaining = new List<Quest>();
         foreach (Quest q in quests)
         {
-            if (QuestCompleted(q))
+            if (QuestCompleted(q) && !q.keyQuest)
             {
                 gs.money += 100;
+                gs.questCount++;
+                if (CheckQuestCount(1) && gs.firstKeyQuestStatus == GameState.QuestStatus.Disabled)
+                {
+                    gs.firstKeyQuestStatus = GameState.QuestStatus.Enabled;
+                }
+            }else if (q.keyQuest)
+            {
+                //---When complete a key quest
+                gs.money += 500;
             }
             else
             {
@@ -81,6 +90,19 @@ public class QuestPanelManager : MonoBehaviour
 
         UpdateQuestsHelper();
         GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
+    }
+
+    bool CheckQuestCount(int count)
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        if (gs.questCount >= count)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void Clear()
@@ -103,7 +125,8 @@ public class QuestPanelManager : MonoBehaviour
             Image i = go.AddComponent<Image>();
             print(i.sprite);
             print(col);
-            i.sprite = col.gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
+            //i.sprite = col.gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
+            i.sprite = col.spriteRenderer.sprite;
             i.preserveAspect = true;
             if (!qc.collected)
             {

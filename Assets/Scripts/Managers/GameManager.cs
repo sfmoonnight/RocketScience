@@ -98,6 +98,10 @@ public class GameManager : MonoBehaviour
     public void PickUpQuest(NewQuest nq)
     {
         Quest q = new Quest();
+        if (nq is FirstKeyQuest)
+        {
+            q.keyQuest = true;
+        }
         q.collectibles = nq.collectibles;
         Toolbox.GetInstance().GetStatManager().gameState.quests.Add(q);
         GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();

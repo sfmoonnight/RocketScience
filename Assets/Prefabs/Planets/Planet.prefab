@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7361038726158636924}
   - component: {fileID: 7361038726158636866}
   - component: {fileID: 7361038726158636867}
+  - component: {fileID: 656863024473518068}
   m_Layer: 0
   m_Name: Planet
   m_TagString: question
@@ -131,6 +132,27 @@ MonoBehaviour:
   - {fileID: 104951556278707001, guid: 399a62515017d4f5f8a7af19050d2616, type: 3}
   - {fileID: 8089948548206556100, guid: 258875784cece426c894347774a5383b, type: 3}
   radius: 4
+--- !u!50 &656863024473518068
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7361038726158636927}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 10
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7361038726252896078
 GameObject:
   m_ObjectHideFlags: 0

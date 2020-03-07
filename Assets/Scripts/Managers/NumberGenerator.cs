@@ -78,7 +78,7 @@ public class NumberGenerator : MonoBehaviour
         //print("Found " + gos.Length + "questions");
         foreach (GameObject g in gos)
         {
-            EquationManager em = g.GetComponentInChildren<EquationManager>();
+            EquationManager em = g.GetComponent<Question>().GetEquation();
             em.MakeRoom();
         }
     }
@@ -89,7 +89,7 @@ public class NumberGenerator : MonoBehaviour
 
         foreach (GameObject g in gos)
         {
-            EquationManager em = g.GetComponentInChildren<EquationManager>();
+            EquationManager em = g.GetComponent<Question>().GetEquation();
             //print("Going to optimize");
             em.OptimizeDifficulty(strat);
         }

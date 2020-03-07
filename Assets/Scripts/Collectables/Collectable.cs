@@ -44,13 +44,20 @@ public class Collectable : MonoBehaviour
 
     private void OnMouseOver()
     {
-        GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
+        if (pickable)
+        {
+            GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
+        }        
     }
 
     private void OnMouseDown()
     {
-        rocket = Toolbox.GetInstance().GetGameManager().GetRocket();
-        rocket.MoveAndScoop(gameObject);
+        if (pickable)
+        {
+            rocket = Toolbox.GetInstance().GetGameManager().GetRocket();
+            rocket.MoveAndScoop(gameObject);
+        }
+        
         /*if(Vector2.Distance(rocket.transform.position, transform.position) < 5)
         {
             //rocket script stop moving - targetpos = rocket pos
@@ -77,15 +84,15 @@ public class Collectable : MonoBehaviour
     public void ActivatePickUp()
     {
         pickable = true;
-        //ActivateCollider();
-        ShowCollectable();
+        ActivateCollider();
+        //ShowCollectable();
     }
 
     public void DeactivatePickUp()
     {
         pickable = false;
-        //DeactivateCollider();
-        HideCollectable();
+        DeactivateCollider();
+        //HideCollectable();
     }
 
     public void RemoveCollectable()

@@ -6,12 +6,12 @@ public class QuestSpawner : MonoBehaviour
 {
     public float interval;
     public GameObject newQuest;
+    public GameObject firstKeyQuest;
     List<GameObject> quests = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine("SpawnInterval");
-
     }
 
     // Update is called once per frame
@@ -32,7 +32,15 @@ public class QuestSpawner : MonoBehaviour
             print("spawning");
             if (SpawnCondition())
             {
-                SpawnQuest();
+                GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+                if (gs.firstKeyQuestStatus == GameState.QuestStatus.Enabled)
+                {
+                    SpawnQuest(firstKeyQuest);
+                }
+                else
+                {
+                    SpawnQuest(newQuest);
+                }       
             }
             DestroyQuest();
             yield return new WaitForSeconds(interval);
@@ -40,7 +48,7 @@ public class QuestSpawner : MonoBehaviour
 
     }
 
-    private void SpawnQuest()
+    private void SpawnQuest(GameObject quest)
     {
         float halfWidth = 50f;
         float halfHeight = 50f;
@@ -69,7 +77,7 @@ public class QuestSpawner : MonoBehaviour
             }
         }
         Vector3 position = transform.position + new Vector3(x, y, 0);
-        GameObject nq = Instantiate(newQuest, position, Quaternion.identity);
+        GameObject nq = Instantiate(quest, position, Quaternion.identity);
         quests.Add(nq);
 
         float speed = 4;
