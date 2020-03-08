@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class FirstKeyQuest : NewQuest
 {
-    public QuestCollectible keyCollectible;
+    public Quest firstKeyQuest;
 
     public override void Start()
     {
-        keyCollectible = new QuestCollectible(-1, 0, 0, false);
-        collectibles = new List<QuestCollectible>();
-        collectibles.Add(keyCollectible);
+        //keyCollectible = new QuestCollectible(-1, 0, 0, false);
+        //collectibles = new List<QuestCollectible>();
+        //collectibles.Add(keyCollectible);
+
+        firstKeyQuest = new Quest(-1);
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)
@@ -20,7 +22,7 @@ public class FirstKeyQuest : NewQuest
             HideNewQuest();
             GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
             gs.firstKeyQuestStatus = GameState.QuestStatus.Accepted;
-            Toolbox.GetInstance().GetGameManager().PickUpQuest(GetComponent<NewQuest>());
+            Toolbox.GetInstance().GetGameManager().PickUpQuest(firstKeyQuest);
         }
     }
 }

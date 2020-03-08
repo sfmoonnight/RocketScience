@@ -17,7 +17,7 @@ public class Collectable : MonoBehaviour
     void Start()
     {
         collider2D = GetComponent<Collider2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         //HideCollectable();
         pickable = true;
     }

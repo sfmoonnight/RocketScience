@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     public int answer;
     Rocket rocket;
     GameObject[] questions;
-    public List<GameObject> collectibles; 
+    public List<Collectable> collectibles;
+    public List<Collectable> keyCollectibles;
     public List<int> inventory;
     // Start is called before the first frame update
     private void Awake()
@@ -15,13 +16,14 @@ public class GameManager : MonoBehaviour
         answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
         UpdateQuestions();
-
+        LoadAllCollectibles();
         //loadCollectibles();
 
     }
     void Start()
     {
         inventory = new List<int>();
+        
     }
 
     // Update is called once per frame
@@ -35,7 +37,40 @@ public class GameManager : MonoBehaviour
     //    collectibles = new List<GameObject>(Resources.LoadAll<GameObject>("Assets/Prefabs/Collectibles"));
     //    Debug.Assert(collectibles.Count > 0);
     //}
-    
+
+    public void LoadAllCollectibles()
+    {
+        Object[] availableCollectibles = Resources.LoadAll("Collectibles");
+        collectibles = new List<Collectable>();
+        foreach (Object o in availableCollectibles)
+        {
+            GameObject go = (GameObject)o;
+            Collectable col = go.GetComponent<Collectable>();
+            
+            collectibles.Add(col);
+        }
+
+        Object[] availableKeyCollectibles = Resources.LoadAll("KeyCollectibles");
+        keyCollectibles = new List<Collectable>();
+        foreach (Object o in availableKeyCollectibles)
+        {
+            GameObject go = (GameObject)o;
+            Collectable col = go.GetComponent<Collectable>();
+
+            keyCollectibles.Add(col);
+        }
+    }
+
+    public List<Collectable> GetAllCollectibles()
+    {
+        return collectibles;
+    }
+
+    public List<Collectable> GetAllKeyCollectibles()
+    {
+        return keyCollectibles;
+    }
+
     public void UpdateQuestCollectible(int identity)
     {
         List<Quest> quests = Toolbox.GetInstance().GetStatManager().gameState.quests;
@@ -95,6 +130,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //---Add quest to quest panel
     public void PickUpQuest(NewQuest nq)
     {
         Quest q = new Quest();
@@ -103,6 +139,12 @@ public class GameManager : MonoBehaviour
             q.keyQuest = true;
         }
         q.collectibles = nq.collectibles;
+        Toolbox.GetInstance().GetStatManager().gameState.quests.Add(q);
+        GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
+    }
+
+    public void PickUpQuest(Quest q)
+    {
         Toolbox.GetInstance().GetStatManager().gameState.quests.Add(q);
         GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
     }

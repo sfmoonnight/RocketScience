@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class QuestPanelManager : MonoBehaviour
 {
+    [Tooltip("This is the quest number to finish before triggering the first key quest")]
+    public int questCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class QuestPanelManager : MonoBehaviour
 
         else
         {
-            print(gs.currQuestIndex);
+            //print(gs.currQuestIndex);
             Quest currQuest = quests[gs.currQuestIndex];
             DrawQuest(currQuest);
         }
@@ -67,11 +69,11 @@ public class QuestPanelManager : MonoBehaviour
             {
                 gs.money += 100;
                 gs.questCount++;
-                if (CheckQuestCount(1) && gs.firstKeyQuestStatus == GameState.QuestStatus.Disabled)
+                if (CheckQuestCount(questCount) && gs.firstKeyQuestStatus == GameState.QuestStatus.Disabled)
                 {
                     gs.firstKeyQuestStatus = GameState.QuestStatus.Enabled;
                 }
-            }else if (q.keyQuest)
+            }else if (QuestCompleted(q) && q.keyQuest)
             {
                 //---When complete a key quest
                 gs.money += 500;
@@ -115,15 +117,15 @@ public class QuestPanelManager : MonoBehaviour
 
     public void DrawQuest(Quest q)
     {
-        List<Collectable> availableCollectibles = gameObject.GetComponent<DataContainer>().collectibles;
-        Debug.Assert(availableCollectibles.Count > 0);
+        //List<Collectable> availableCollectibles = gameObject.GetComponent<DataContainer>().collectibles;
+        Debug.Assert(Toolbox.GetInstance().GetGameManager().collectibles.Count > 0);
         Clear();
         foreach (QuestCollectible qc in q.collectibles) {
-            Collectable col = getCollectibleByIdentity(availableCollectibles, qc.identity);
+            Collectable col = getCollectibleByIdentity(qc.identity);
             // Instantiate new game object and set sprite to the sprite of col
             GameObject go = new GameObject();
             Image i = go.AddComponent<Image>();
-            print(i.sprite);
+            //print(i.sprite);
             print(col);
             //i.sprite = col.gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
             i.sprite = col.spriteRenderer.sprite;
@@ -143,15 +145,36 @@ public class QuestPanelManager : MonoBehaviour
         }
     }
 
-    private Collectable getCollectibleByIdentity(List<Collectable> availableCollectibles, int identity)
+    private Collectable getCollectibleByIdentity(int identity)
     {
-        foreach (Collectable col in availableCollectibles)
+        List<Collectable> cols = Toolbox.GetInstance().GetGameManager().GetAllCollectibles();
+        List<Collectable> kcols = Toolbox.GetInstance().GetGameManager().GetAllKeyCollectibles();
+        //print("--------" + cols.Count);
+        //print(identity);
+        if(identity > 0)
         {
-            if (col.identity == identity)
+            foreach (Collectable col in cols)
             {
-                return col;
+                if (col.identity == identity)
+                {
+                    return col;
+                }
             }
         }
+
+        if (identity < 0)
+        {
+            //print("--------" + kcols.Count);
+            foreach (Collectable col in kcols)
+            {
+                if (col.identity == identity)
+                {
+                    
+                    return col;
+                }
+            }
+        }
+
         return null;
     }
 

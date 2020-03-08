@@ -21,8 +21,9 @@ public class NewQuest : MonoBehaviour
     public void GenerateCollectibles(int count)
     {
         collectibles = new List<QuestCollectible>();
-        //int numCollectibles = Toolbox.GetInstance().GetGameManager().collectibles.Count;
-        int numCollectibles = GameObject.Find("QuestPanel").GetComponent<DataContainer>().collectibles.Count;
+        int numCollectibles = Toolbox.GetInstance().GetGameManager().collectibles.Count;
+        //print("--------" + numCollectibles);
+        //int numCollectibles = GameObject.Find("QuestPanel").GetComponent<DataContainer>().collectibles.Count;
         Debug.Assert(numCollectibles > 0);
         for (int i = 0; i < count; i++)
         {
