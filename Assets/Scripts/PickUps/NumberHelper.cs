@@ -13,16 +13,24 @@ public class NumberHelper
         GenerateOperand();
     }
 
-    public NumberHelper(Number.Symbol symbol, int number)
-    {
-        this.symbol = symbol;
-        this.number = number;
-    }
     public NumberHelper(Number.Symbol symbol)
     {
         this.symbol = symbol;
         GenerateOperand();
     }
+
+    public NumberHelper(Number.Symbol symbol, int number)
+    {
+        this.symbol = symbol;
+        this.number = number;
+    }
+
+    public NumberHelper(Number.Symbol symbol, int min, int max)
+    {
+        this.symbol = symbol;
+        GenerateOperand(min, max);
+    }
+
     public void SetNumber(int num)
     {
         number = num;
@@ -113,6 +121,27 @@ public class NumberHelper
         else
         {
             num = RandomIntExcept(-10, 10, new int[] { 0, 1 });
+        }
+
+        SetNumber(num);
+
+    }
+
+    //---min, max inclusive
+    public void GenerateOperand(int min, int max)
+    {
+        int num;
+        if (symbol == Number.Symbol.plus || symbol == Number.Symbol.minus)
+        {
+            num = Mathf.Abs(RandomIntExcept(min, max, new int[] { 0 }));
+        }
+        else if (symbol == Number.Symbol.times)
+        {
+            num = RandomIntExcept(min, max, new int[] { 1 });
+        }
+        else
+        {
+            num = RandomIntExcept(min, max, new int[] { 0, 1 });
         }
 
         SetNumber(num);

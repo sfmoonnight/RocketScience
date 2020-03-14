@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DungeonEntrence : MonoBehaviour
 {
+    public string dungeonName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,10 @@ public class DungeonEntrence : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Dungeon");
+            GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+            gs.dungeonPosition = transform.position;
+            gs.answer = Toolbox.GetInstance().GetGameManager().answer;
+            SceneManager.LoadScene(dungeonName);
         }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Question : MonoBehaviour
 {
     //public int answer;
+    public DungeonEntrence dungeonEntrence;
     
     public int capacity;
     public bool activated=false;

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Vivi_Test.unity
+    path: Assets/Scenes/Main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/PuzzleDungeon.unity
     guid: 4083eb8dbdbd64f2293776b9710486de
+  - enabled: 1
+    path: Assets/Scenes/MeteorDungeon.unity
+    guid: f0ef5c244770f445dbf8cb7eef7c7f96
   m_configObjects: {}

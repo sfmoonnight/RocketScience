@@ -11,8 +11,11 @@ public class GameState
     //---Answer
     public int answer;
 
-    //---Position
-    public Vector3 position;
+    //---Player Position
+    public Vector3 playerPosition;
+
+    //---Location of dungeon just entered
+    public Vector3 dungeonPosition;
 
     //---Collectables
     public List<int> collectables;
@@ -29,6 +32,11 @@ public class GameState
 
     //---First key quest status 
     public QuestStatus firstKeyQuestStatus = QuestStatus.Disabled;
+
+    //---If dungeons are unlocked
+    public bool MeteorDungeonUnlocked;
+    public bool ConstellationDungeonUnlocked;
+    
     
 
 }

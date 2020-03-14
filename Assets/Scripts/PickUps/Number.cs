@@ -21,6 +21,8 @@ public class Number : MonoBehaviour
     public float fadeinTime;
     public float fadeoutTime;
 
+    public GameObject startingPoint; //---Can be used to link a generation point to the number (example: in Meteor Dungeon)
+
     Animator anim;
     // Start is called before the first frame update
 
@@ -186,9 +188,9 @@ public class Number : MonoBehaviour
         SetNumber(nh.number);
     }
 
-    public void GeneratePositiveValue()
+    public void GenerateRandomValue(Symbol symbol, int min, int max)
     {
-        NumberHelper nh = new NumberHelper(Number.Symbol.plus);
+        NumberHelper nh = new NumberHelper(symbol, min, max);
         SetSymbol(nh.symbol);
         SetNumber(nh.number);
     }

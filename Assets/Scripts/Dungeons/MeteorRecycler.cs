@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeteorRecycler : MonoBehaviour
 {
-    public MeteorGenerator mg;
+    //public MeteorGenerator mg;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,9 @@ public class MeteorRecycler : MonoBehaviour
         if (collision.CompareTag("number"))
         {
             Number num = collision.GetComponent<Number>();
-            mg.Restart(num);
+            StartCoroutine(num.startingPoint.GetComponent<MeteorGenerator>().Restart(num));
+            //num.startingPoint.GetComponent<MeteorGenerator>().Restart(num);
+            //mg.Restart(num);
         }
     }
 }

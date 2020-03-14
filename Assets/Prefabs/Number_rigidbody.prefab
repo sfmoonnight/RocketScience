@@ -31,7 +31,7 @@ PrefabInstance:
     - target: {fileID: 7001694291015688389, guid: 6d532d45c1788410fbcd5a0cffe789be,
         type: 3}
       propertyPath: m_Name
-      value: Number
+      value: Number_rigidbody
       objectReference: {fileID: 0}
     - target: {fileID: 3355447697919410152, guid: 6d532d45c1788410fbcd5a0cffe789be,
         type: 3}
