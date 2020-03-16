@@ -20,11 +20,16 @@ public class Inventory : MonoBehaviour
 
     public void UpdateInventory()
     {
-        List<int> inventory = Toolbox.GetInstance().GetGameManager().inventory;
-        foreach (int id in inventory)
+        //List<int> inventory = Toolbox.GetInstance().GetStatManager().gameState.collected;
+        if(Toolbox.GetInstance().GetStatManager().gameState.collected.Count > 0)
         {
-            print("found in inventory " + id);
-            slots[id - 1].GetComponent<Image>().enabled = true;
-        }
+            foreach (int id in Toolbox.GetInstance().GetStatManager().gameState.collected)
+            {
+                print("found in inventory " + id);
+                //TODO: Reconstruct inventory system, the key items are having negative index
+                print(Toolbox.GetInstance().GetStatManager().gameState.collected.Count);
+                slots[id - 1].GetComponent<Image>().enabled = true;
+            }
+        }       
     }
 }

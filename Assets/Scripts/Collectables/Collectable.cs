@@ -98,14 +98,15 @@ public class Collectable : MonoBehaviour
     public void RemoveCollectable()
     {
         //question.RemoveCollectable(this);
-        question.eqTextMeshObj.GetComponent<EquationManager>().GenerateEquation();
-        question.GenerateCollectables();
-        question.DeactivateCollectables();
+        if (question)
+        {
+            question.UpdatePlanet();
+        }      
     }
 
     public IEnumerator AddToInventory()
     {
-        if(Toolbox.GetInstance().GetGameManager().inventory != null)
+        /*if(Toolbox.GetInstance().GetGameManager().inventory != null)
         {
             foreach (int i in Toolbox.GetInstance().GetGameManager().inventory)
             {
@@ -115,16 +116,28 @@ public class Collectable : MonoBehaviour
                     yield break;
                 }
             }
-        }
+        }*/
+
         
-        Toolbox.GetInstance().GetGameManager().inventory.Add(identity);
+        if (Toolbox.GetInstance().GetStatManager().gameState.collected.Contains(identity))
+        {
+            RemoveCollectable();
+            yield break;
+        }
+        Toolbox.GetInstance().GetStatManager().gameState.collected.Add(identity);
+
+        //Toolbox.GetInstance().GetGameManager().inventory.Add(identity);
         GameObject newItem = GameObject.Find("NewCollectableUI");
         HideCollectable();
-        //print("new item ui" + newItem);
-        yield return new WaitForSeconds(1.3f);
-        newItem.GetComponent<ToggleUI>().ShowUI();
-        newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
+        print("-------new item ui" + newItem);
         
+        yield return new WaitForSeconds(1.3f);
+        print("hwre");
+        newItem.GetComponent<ToggleUI>().ShowUI();
+        //print(newItem.GetComponent<ToggleUI>());
+        print("hwreee");
+        newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
+
         RemoveCollectable();
     }
 

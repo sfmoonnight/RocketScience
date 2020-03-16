@@ -12,16 +12,22 @@ public class GameState
     public int answer;
 
     //---Player Position
+    [SerializeField]
     public Vector3 playerPosition;
 
+    //---dungeon just entered
+    public int dungeonEntered;
+
     //---Location of dungeon just entered
+    [SerializeField]
     public Vector3 dungeonPosition;
 
     //---Collectables
-    public List<int> collectables;
+    public List<int> collected;
 
     //---Quests
-    public int currQuestIndex;
+    public int currQuestIndex; //current quest in quest panel
+
     public List<Quest> quests;
 
     //---Money
@@ -33,9 +39,8 @@ public class GameState
     //---First key quest status 
     public QuestStatus firstKeyQuestStatus = QuestStatus.Disabled;
 
-    //---If dungeons are unlocked
-    public bool MeteorDungeonUnlocked;
-    public bool ConstellationDungeonUnlocked;
+    //---The dungeons that are unlocked
+    public int keyDungeonProgress;
     
     
 

@@ -29,7 +29,7 @@ public class ToggleUI : MonoBehaviour
 
     public void ShowUI()
     {
-        print("show item UI");
+        //print("show item UI");
         GetComponent<CanvasGroup>().alpha = 1;
         GetComponent<CanvasGroup>().interactable = true;
         GetComponent<CanvasGroup>().blocksRaycasts = true;

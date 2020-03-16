@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
@@ -18,7 +19,13 @@ public class Rocket : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //DontDestroyOnLoad(gameObject);
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            transform.position = Toolbox.GetInstance().GetStatManager().gameState.playerPosition;
+        }
         rbody = GetComponent<Rigidbody2D>();
+        StopMoving();
         targetPos = GetCurrentPos();
         anim = GetComponent<Animator>();
         collectableTarget = null;
@@ -126,7 +133,7 @@ public class Rocket : MonoBehaviour
         if (delta.magnitude < 0.01)
         {
             anim.SetBool("moving", false);
-            rbody.velocity = Vector2.zero;
+            StopMoving();
         }
         else
         {
@@ -146,6 +153,11 @@ public class Rocket : MonoBehaviour
         {
             rbody.AddForce(deltaNorm * speed * pCoeff);
         }*/
+    }
+
+    public void StopMoving()
+    {
+        rbody.velocity = Vector2.zero;
     }
 
     public void MoveAndScoop(GameObject g)

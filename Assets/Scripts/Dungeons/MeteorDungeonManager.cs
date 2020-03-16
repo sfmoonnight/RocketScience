@@ -24,6 +24,8 @@ public class MeteorDungeonManager : DungeonManager
     public override void Start()
     {
         Toolbox.GetInstance().GetGameManager().answer = 0;
+        //Toolbox.GetInstance().GetGameManager().rocket.transform.position = new Vector3(0, 0, 0);
+        //Toolbox.GetInstance().GetGameManager().rocket.StopMoving();
         scoreBorad.HideUI();
         startTime = Time.time;
 
@@ -33,6 +35,7 @@ public class MeteorDungeonManager : DungeonManager
     {
         if(Time.time - startTime >= gameTime)
         {
+            //TODO: call it once
             Finished();
         }
 

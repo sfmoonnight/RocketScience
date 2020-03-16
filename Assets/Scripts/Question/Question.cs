@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Question : MonoBehaviour
 {
-    //public int answer;
+    public int planetID;
     public DungeonEntrence dungeonEntrence;
+    public bool openDungeon;
     
     public int capacity;
     public bool activated=false;
@@ -22,8 +24,13 @@ public class Question : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Toolbox.GetInstance().GetGameManager().planets.Add(this);
         GenerateCollectables();
         StartRotation();
+        /*if (this == Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered)
+        {
+            ActivateCollectables();
+        }*/
     }
 
     // Update is called once per frame
@@ -35,6 +42,24 @@ public class Question : MonoBehaviour
     public EquationManager GetEquation()
     {
         return eqTextMeshObj.GetComponent<EquationManager>();
+    }
+
+    public void UpdatePlanet()
+    {
+        float dungeonChance = Random.Range(0f, 1f);
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        if (dungeonChance <= 0.90 && gs.keyDungeonProgress > 0)
+        {
+            openDungeon = true;
+            HideEquation();
+            dungeonEntrence.GenerateDungeon();
+        }
+        else
+        {
+            eqTextMeshObj.GetComponent<EquationManager>().GenerateEquation();
+        }
+        GenerateCollectables();
+        DeactivateCollectables();
     }
 
     public void GenerateCollectables()
@@ -65,6 +90,7 @@ public class Question : MonoBehaviour
         }
         //ChangeColor();
         StopRotation();
+        HideEquation();
         GenerateItems();
         activated = true;
     }
@@ -83,6 +109,7 @@ public class Question : MonoBehaviour
             }
         }
         StartRotation();
+        ShowEquation();
         //GetComponent<SpriteRenderer>().color = Color.white;
         activated = false;
     }
@@ -105,6 +132,16 @@ public class Question : MonoBehaviour
     void ChangeColor()
     {
         GetComponent<SpriteRenderer>().color = Color.yellow;
+    }
+
+    public void HideEquation()
+    {
+        eqTextMeshObj.GetComponent<MeshRenderer>().enabled = false;
+    }
+
+    public void ShowEquation()
+    {
+        eqTextMeshObj.GetComponent<MeshRenderer>().enabled = true;
     }
 
     public void GenerateItems()

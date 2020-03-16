@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System;
 
 public class StatManager : MonoBehaviour
 {
@@ -11,17 +12,14 @@ public class StatManager : MonoBehaviour
 
     private void Awake()
     {
-        // TODO: Remove these lines. They should be in LoadState
-        print("Initializing game state");
-        gameState.quests = new List<Quest>();
-        gameState.currQuestIndex = 0;
-        gameState.money = 0;
+        savePath = Path.Combine(Application.persistentDataPath, "rocketscience.save");
+        LoadState();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        savePath = Application.persistentDataPath;
+        //savePath = Application.persistentDataPath;
 
     }
 
@@ -31,37 +29,84 @@ public class StatManager : MonoBehaviour
         
     }
 
+    void initializeGameState()
+    {
+        print("Initializing game state");
+        gameState = new GameState();
+        gameState.quests = new List<Quest>();
+        gameState.currQuestIndex = 0;
+        gameState.money = 0;
+        gameState.keyDungeonProgress = 0;
+        gameState.collected = new List<int>();
+    }
+
     public void LoadState()
     {
         if (File.Exists(savePath))
         {
-            BinaryFormatter formatter = new BinaryFormatter();
+            /*BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(GetSavePath(), FileMode.Open);
             gameState = formatter.Deserialize(stream) as GameState;
-            stream.Close();
+            stream.Close();*/
+            Read();
         }
         else
         {
             Debug.Log("Save file not found in " + savePath + ". This must be a new game!");
-            gameState = new GameState();
-            gameState.quests = new List<Quest>();
-            gameState.currQuestIndex = 0;
-            gameState.money = 0;
-
+            initializeGameState();
+            SaveState();
         }
     }
 
     public void SaveState()
     {
-        BinaryFormatter formatter = new BinaryFormatter();
+        /*BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(GetSavePath(), FileMode.Create);
         formatter.Serialize(stream, gameState);
-        stream.Close();
+        stream.Close();*/
+        string json = JsonUtility.ToJson(gameState);
+        //print(json);
+        Write(json);
     }
 
     public string GetSavePath()
     {
         return savePath;
+    }
+
+    void Write(string contents)
+    {
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(savePath))
+            {
+                print("writing to file: \n" + contents);
+                sw.Write(contents);
+            }
+        }
+        catch (Exception e)
+        {
+            print(e);
+        }
+    }
+
+    void Read()
+    {
+        string fileContents = "";
+        try
+        {
+            using (StreamReader sr = new StreamReader(savePath))
+            {
+                fileContents = sr.ReadToEnd();
+                gameState = JsonUtility.FromJson<GameState>(fileContents);
+            }
+
+            print("file contains: \n" + fileContents);
+        }
+        catch (Exception e)
+        {
+            print(e);
+        }
     }
 
 

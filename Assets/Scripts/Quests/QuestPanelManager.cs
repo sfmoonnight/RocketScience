@@ -77,6 +77,8 @@ public class QuestPanelManager : MonoBehaviour
             {
                 //---When complete a key quest
                 gs.money += 500;
+                gs.keyDungeonProgress += 1;
+                //TODO: point to the next key quest 
             }
             else
             {

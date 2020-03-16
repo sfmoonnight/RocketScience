@@ -494,14 +494,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 431338148, guid: c063a6f09ce0a574aa21b2cc1dbc13a9, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4351028631444155811, guid: c063a6f09ce0a574aa21b2cc1dbc13a9,
         type: 3}
       propertyPath: speed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 431338148, guid: c063a6f09ce0a574aa21b2cc1dbc13a9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c063a6f09ce0a574aa21b2cc1dbc13a9, type: 3}
@@ -1781,7 +1781,7 @@ MonoBehaviour:
   timer: {fileID: 1563751505}
   bonusMeter: {fileID: 834126698}
   pin: {fileID: 380903352}
-  gameTime: 40
+  gameTime: 10
   meterPoints: 50
 --- !u!1 &1274450460
 GameObject:
@@ -2483,6 +2483,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
+    - target: {fileID: 2009958943626874319, guid: dc8318bb87c084d0994f7ee378a125d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2009958943626874314, guid: dc8318bb87c084d0994f7ee378a125d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2536,6 +2541,11 @@ PrefabInstance:
     - target: {fileID: 2009958943626874314, guid: dc8318bb87c084d0994f7ee378a125d2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987527098036028218, guid: dc8318bb87c084d0994f7ee378a125d2,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

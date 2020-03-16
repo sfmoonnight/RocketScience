@@ -12,7 +12,8 @@ public class FollowPosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        transform.position = new Vector3(gs.playerPosition.x, gs.playerPosition.y, -10);
     }
 
     // Update is called once per frame

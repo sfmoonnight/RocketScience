@@ -1,20 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
     public int answer;
-    Rocket rocket;
+    public Rocket rocket;
     GameObject[] questions;
     public List<Collectable> collectibles;
     public List<Collectable> keyCollectibles;
+    public List<Question> planets;//---including all the planets and structures
     public List<int> inventory;
+
+    public bool inDungeon;
     // Start is called before the first frame update
     private void Awake()
     {
         answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
+        planets = new List<Question>();
         UpdateQuestions();
         LoadAllCollectibles();
         //loadCollectibles();
@@ -23,7 +28,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         inventory = new List<int>();
-        
+        //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        //answer = gs.answer;
     }
 
     // Update is called once per frame
@@ -37,7 +43,30 @@ public class GameManager : MonoBehaviour
     //    collectibles = new List<GameObject>(Resources.LoadAll<GameObject>("Assets/Prefabs/Collectibles"));
     //    Debug.Assert(collectibles.Count > 0);
     //}
+    public void ReloadMain()
+    {
+        
+        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        print(gs.answer);
+        print(gs.playerPosition);
+        
+        answer = gs.answer;
+        rocket.transform.position = gs.playerPosition;
 
+        print("Reloading main");
+        if (Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered != 0)
+        {
+            print("-------reload dungeon" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
+            foreach (Question q in planets)
+            {
+                if(q.planetID == Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered)
+                {
+                    q.ActivateCollectables();
+                }
+            }
+        }
+    }
     public void LoadAllCollectibles()
     {
         Object[] availableCollectibles = Resources.LoadAll("Collectibles");
@@ -115,19 +144,22 @@ public class GameManager : MonoBehaviour
     {
         answer = ans;
         //print("Questions: " + questions);
-        foreach (GameObject go in questions)
+        if (!inDungeon)
         {
-            Question q = go.GetComponent<Question>();
-            EquationManager em = q.eqTextMeshObj.GetComponent<EquationManager>();
-            if (em.equation.answer == answer)
+            foreach (GameObject go in questions)
             {
-                q.ActivateCollectables();
+                Question q = go.GetComponent<Question>();
+                EquationManager em = q.eqTextMeshObj.GetComponent<EquationManager>();
+                if (em.equation.answer == answer)
+                {
+                    q.ActivateCollectables();
+                }
+                else
+                {
+                    q.DeactivateCollectables();
+                }
             }
-            else
-            {
-                q.DeactivateCollectables();
-            }
-        }
+        }    
     }
 
     //---Add quest to quest panel

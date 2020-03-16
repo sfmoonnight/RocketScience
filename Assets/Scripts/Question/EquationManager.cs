@@ -24,6 +24,7 @@ public class EquationManager : MonoBehaviour
     public virtual void Start()
     {    
         eqTextMesh = gameObject.GetComponent<TextMesh>();
+        
         GenerateEquation();
         eqTextMesh.text = equation.toString();
         //remove equation from planet so that it won't rotate with it
@@ -136,7 +137,7 @@ public class EquationManager : MonoBehaviour
     {
         if (numPath.Count > emptySlots.Count)
         {
-            print("Warning: ran out of slots to assign path");
+            //print("Warning: ran out of slots to assign path");
             return;
         }
         int r1 = Random.Range(0, emptySlots.Count);
@@ -219,6 +220,10 @@ public class EquationManager : MonoBehaviour
 
     public List<NumberHelper> GenerateNumberSequence(int length)
     {
+        if (equation == null)
+        {
+            return new List<NumberHelper>();
+        }
         int currAnswer = Toolbox.GetInstance().GetGameManager().answer;
         int corrAnswer = equation.answer;
         return GenerateNumberSequence(length, currAnswer, corrAnswer);

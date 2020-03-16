@@ -96,10 +96,14 @@ public abstract class Equation
     {
 		List<int> factors = new List<int>();
 		factors.Add(1);
-		factors.Add(num);
+        if(num != 0)
+        {
+			factors.Add(num);
+		}
+		
         for (int i = 2; i <= num/2; i++)
         {
-            if(num % i == 0)
+            if(num % i == 0 && i !=0 )
             {
 				factors.Add(i);
             }

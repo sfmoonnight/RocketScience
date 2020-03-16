@@ -21,7 +21,11 @@ public class DungeonManager : MonoBehaviour
 
     public void ExitDungeon()
     {
+        Toolbox.GetInstance().GetGameManager().inDungeon = false;
+        //Toolbox.GetInstance().GetGameManager().ReloadMain();
+        
         SceneManager.LoadScene("Main");
+        
     }
 
     public virtual void Finished()
