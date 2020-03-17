@@ -32,9 +32,10 @@ public class Toolbox : MonoBehaviour
 
         //var go = new GameObject("Managers");
         //DontDestroyOnLoad(go);
+        this.statManager = gameObject.AddComponent<StatManager>();
         this.gameManager = gameObject.AddComponent<GameManager>();
         this.inventoryManager = gameObject.AddComponent<InventoryManager>();
-        this.statManager = gameObject.AddComponent<StatManager>();
+        
     }
 
     // acess using Toolbox.GetInstance().GetManager();

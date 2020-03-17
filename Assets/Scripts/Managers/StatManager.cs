@@ -38,6 +38,7 @@ public class StatManager : MonoBehaviour
         gameState.money = 0;
         gameState.keyDungeonProgress = 0;
         gameState.collected = new List<int>();
+        gameState.allPlanetData = new List<PlanetData>();
     }
 
     public void LoadState()

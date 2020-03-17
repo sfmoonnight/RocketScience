@@ -12,7 +12,7 @@ public class Question : MonoBehaviour
     public int capacity;
     public bool activated=false;
     public List<Collectable> options;
-    public List<Collectable> collectables;
+    public List<Collectable> collectables; //Collectibles generated on this planet
     public List<GameObject> generationPoints;
     public GameObject eqTextMeshObj;
     public List<GameObject> items;
@@ -91,7 +91,7 @@ public class Question : MonoBehaviour
         //ChangeColor();
         StopRotation();
         HideEquation();
-        GenerateItems();
+        //GenerateItems();
         activated = true;
     }
 

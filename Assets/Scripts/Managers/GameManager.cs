@@ -7,27 +7,36 @@ public class GameManager : MonoBehaviour
 {
     public int answer;
     public Rocket rocket;
-    GameObject[] questions;
-    public List<Collectable> collectibles;
-    public List<Collectable> keyCollectibles;
+    //GameObject[] questions;
+    public List<Collectable> collectibles; //all collectibles of the game
+    public List<Collectable> keyCollectibles;//all key collectibles of the game
     public List<Question> planets;//---including all the planets and structures
     public List<int> inventory;
 
+    public List<GameObject> planetPrefabs;
     public bool inDungeon;
-    // Start is called before the first frame update
+
+    public bool universeCreated;
+
     private void Awake()
     {
-        answer = Random.Range(-99, 100);
-        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
+        universeCreated = false;
         planets = new List<Question>();
-        UpdateQuestions();
-        LoadAllCollectibles();
-        //loadCollectibles();
 
+        answer = Random.Range(-99, 100);
+        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();  
+        
+        LoadAllCollectibles();
+        LoadAllPlanets();
+        
+
+        //UpdateQuestions();
     }
+    // Start is called before the first frame update
     void Start()
     {
         inventory = new List<int>();
+        
         //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //answer = gs.answer;
     }
@@ -45,16 +54,27 @@ public class GameManager : MonoBehaviour
     //}
     public void ReloadMain()
     {
-        
+        print("--------Reloading Main");
+        Toolbox.GetInstance().GetStatManager().LoadState();
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        print(gs.answer);
-        print(gs.playerPosition);
+        //print(gs.answer);
+        //print(gs.playerPosition);
         
         answer = gs.answer;
         rocket.transform.position = gs.playerPosition;
 
-        print("Reloading main");
+        print(gs.allPlanetData.Count);
+        foreach(PlanetData pd in gs.allPlanetData)
+        {
+            print("-------Recreating Planets");
+            print(pd.planetPrefabID);
+            GameObject planet = Instantiate(planetPrefabs[pd.planetPrefabID]);
+            Question q = planet.GetComponent<Question>();
+            SetUpPlanetQuestion(q, pd);
+        }
+
+        //print("Reloading main");
         if (Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered != 0)
         {
             print("-------reload dungeon" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
@@ -67,6 +87,16 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void SetUpPlanetQuestion(Question q, PlanetData pd)
+    {
+        q.planetID = pd.planetID;
+        q.transform.position = pd.location;
+        q.openDungeon = pd.ifDungeonOpened;
+        q.options = pd.collectibleOptions;
+        q.collectables = pd.collectiblesGenerated;
+    }
+
     public void LoadAllCollectibles()
     {
         Object[] availableCollectibles = Resources.LoadAll("Collectibles");
@@ -87,6 +117,18 @@ public class GameManager : MonoBehaviour
             Collectable col = go.GetComponent<Collectable>();
 
             keyCollectibles.Add(col);
+        }
+    }
+
+    public void LoadAllPlanets()
+    {
+        Object[] availablePlanets = Resources.LoadAll("Planets");
+        planetPrefabs = new List<GameObject>();
+        foreach (Object o in availablePlanets)
+        {
+            GameObject go = (GameObject)o;
+
+            planetPrefabs.Add(go);
         }
     }
 
@@ -134,11 +176,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void UpdateQuestions()
+    /*public void UpdateQuestions()
     {
         questions = null;
         questions = GameObject.FindGameObjectsWithTag("question");
-    }
+    }*/
 
     public void SetAnswer(int ans)
     {
@@ -146,17 +188,16 @@ public class GameManager : MonoBehaviour
         //print("Questions: " + questions);
         if (!inDungeon)
         {
-            foreach (GameObject go in questions)
+            foreach (Question go in planets)
             {
-                Question q = go.GetComponent<Question>();
-                EquationManager em = q.eqTextMeshObj.GetComponent<EquationManager>();
+                EquationManager em = go.eqTextMeshObj.GetComponent<EquationManager>();
                 if (em.equation.answer == answer)
                 {
-                    q.ActivateCollectables();
+                    go.ActivateCollectables();
                 }
                 else
                 {
-                    q.DeactivateCollectables();
+                    go.DeactivateCollectables();
                 }
             }
         }    
@@ -186,5 +227,7 @@ public class GameManager : MonoBehaviour
         return rocket;
     }
 
+
+    
 
 }

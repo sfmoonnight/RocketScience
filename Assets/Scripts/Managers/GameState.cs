@@ -42,6 +42,6 @@ public class GameState
     //---The dungeons that are unlocked
     public int keyDungeonProgress;
     
-    
-
+    //---All Planets in the Main
+    public List<PlanetData> allPlanetData;
 }
