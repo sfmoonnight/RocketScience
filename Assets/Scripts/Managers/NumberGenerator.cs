@@ -74,11 +74,11 @@ public class NumberGenerator : MonoBehaviour
 
     void MakeRoomForNewNumbers()
     {
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
+        //GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
         //print("Found " + gos.Length + "questions");
-        foreach (GameObject g in gos)
+        foreach (Question g in Toolbox.GetInstance().GetGameManager().planets)
         {
-            EquationManager em = g.GetComponent<Question>().GetEquation();
+            EquationManager em = g.GetEquation();
             em.MakeRoom();
         }
     }

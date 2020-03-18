@@ -5,6 +5,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
     public int identity;
+    public string timeCollected;
     public float rareness;
     public Question question;
     public bool pickable;
@@ -125,17 +126,17 @@ public class Collectable : MonoBehaviour
             yield break;
         }
         Toolbox.GetInstance().GetStatManager().gameState.collected.Add(identity);
-
+        
         //Toolbox.GetInstance().GetGameManager().inventory.Add(identity);
         GameObject newItem = GameObject.Find("NewCollectableUI");
         HideCollectable();
         print("-------new item ui" + newItem);
         
         yield return new WaitForSeconds(1.3f);
-        print("hwre");
+        //print("hwre");
         newItem.GetComponent<ToggleUI>().ShowUI();
         //print(newItem.GetComponent<ToggleUI>());
-        print("hwreee");
+        //print("hwreee");
         newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
 
         RemoveCollectable();

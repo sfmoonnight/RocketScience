@@ -39,10 +39,10 @@ public class NewQuest : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        print("On trigger enter 1");
+        //print("On trigger enter 1");
         if (collision.CompareTag("Player"))
         {
-            print("On trigger enter 2");
+            //print("On trigger enter 2");
             HideNewQuest();
 
             Toolbox.GetInstance().GetGameManager().PickUpQuest(GetComponent<NewQuest>());

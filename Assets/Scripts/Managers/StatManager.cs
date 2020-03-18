@@ -39,6 +39,7 @@ public class StatManager : MonoBehaviour
         gameState.keyDungeonProgress = 0;
         gameState.collected = new List<int>();
         gameState.allPlanetData = new List<PlanetData>();
+        gameState.events = new List<Event>();
     }
 
     public void LoadState()
@@ -49,6 +50,7 @@ public class StatManager : MonoBehaviour
             FileStream stream = new FileStream(GetSavePath(), FileMode.Open);
             gameState = formatter.Deserialize(stream) as GameState;
             stream.Close();*/
+            Debug.Log("Loading save file found in " + savePath + ".");
             Read();
         }
         else

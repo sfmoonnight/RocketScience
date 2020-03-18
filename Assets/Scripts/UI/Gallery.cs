@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class Gallery : MonoBehaviour
 {
     public List<Image> slots;
     // Start is called before the first frame update

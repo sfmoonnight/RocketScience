@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    bool initialized = false;
-
     float patchSize = 150f;
     float spacing = 50;
 
@@ -26,28 +24,13 @@ public class LevelManager : MonoBehaviour
         {
             Toolbox.GetInstance().GetGameManager().ReloadMain();
         }
-        
-        /*if (Toolbox.GetInstance().GetGameManager().universeCreated)
-        {
-            print("------level manager start");
-            Toolbox.GetInstance().GetStatManager().LoadState();
-            print("--------dungeonEntered" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
-            Toolbox.GetInstance().GetGameManager().ReloadMain();
-        }*/
-        //Toolbox.GetInstance().GetGameManager().UpdateQuestions();   
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (!initialized && Toolbox.GetInstance().GetGameManager().universeCreated)
-        {
-            print("------level manager start");
-            Toolbox.GetInstance().GetStatManager().LoadState();
-            print("--------dungeonEntered" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
-            Toolbox.GetInstance().GetGameManager().ReloadMain();
-            initialized = true;
-        }*/
+        
     }
 
     public void GenerateRandomPlanets(float left, float top, float right, float bottom, float spacing)

@@ -29,7 +29,7 @@ public class QuestSpawner : MonoBehaviour
     {
         while (true)
         {
-            print("spawning");
+            //print("spawning");
             if (SpawnCondition())
             {
                 GameState gs = Toolbox.GetInstance().GetStatManager().gameState;

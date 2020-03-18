@@ -85,7 +85,7 @@ public class QuestPanelManager : MonoBehaviour
                 remaining.Add(q);
             }
         }
-        print("remaining" + remaining.Count);
+        //print("remaining" + remaining.Count);
         gs.quests = remaining;
         if (gs.currQuestIndex > remaining.Count - 1 && remaining.Count > 0)
         {
@@ -128,7 +128,7 @@ public class QuestPanelManager : MonoBehaviour
             GameObject go = new GameObject();
             Image i = go.AddComponent<Image>();
             //print(i.sprite);
-            print(col);
+            //print(col);
             //i.sprite = col.gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
             i.sprite = col.spriteRenderer.sprite;
             i.preserveAspect = true;
@@ -142,7 +142,7 @@ public class QuestPanelManager : MonoBehaviour
             go.GetComponent<RectTransform>().localPosition = v;
             go.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
             //go.transform.position = v;
-            print("setting x and y " + v);
+            //print("setting x and y " + v);
             go.SetActive(true);
         }
     }

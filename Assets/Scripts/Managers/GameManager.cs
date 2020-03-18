@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     //}
     public void ReloadMain()
     {
-        print("--------Reloading Main");
+        //print("--------Reloading Main");
         Toolbox.GetInstance().GetStatManager().LoadState();
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
@@ -64,11 +64,11 @@ public class GameManager : MonoBehaviour
         answer = gs.answer;
         rocket.transform.position = gs.playerPosition;
 
-        print(gs.allPlanetData.Count);
+        //print(gs.allPlanetData.Count);
         foreach(PlanetData pd in gs.allPlanetData)
         {
-            print("-------Recreating Planets");
-            print(pd.planetPrefabID);
+            //print("-------Recreating Planets");
+            //print(pd.planetPrefabID);
             GameObject planet = Instantiate(planetPrefabs[pd.planetPrefabID]);
             Question q = planet.GetComponent<Question>();
             SetUpPlanetQuestion(q, pd);
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         //print("Reloading main");
         if (Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered != 0)
         {
-            print("-------reload dungeon" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
+            //print("-------reload dungeon" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
             foreach (Question q in planets)
             {
                 if(q.planetID == Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered)

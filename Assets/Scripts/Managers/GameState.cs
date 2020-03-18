@@ -44,4 +44,7 @@ public class GameState
     
     //---All Planets in the Main
     public List<PlanetData> allPlanetData;
+
+    //---Events that happened
+    public List<Event> events;
 }

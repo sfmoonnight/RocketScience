@@ -20,5 +20,5 @@ public class PlanetData
         this.ifDungeonOpened = ifDungeonOpened;
         this.collectibleOptions = collectibleOptions;
         this.collectiblesGenerated = collectiblesGenerated;
-}
+    }
 }
