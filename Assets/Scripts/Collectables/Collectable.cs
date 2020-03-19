@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class Collectable : MonoBehaviour, IComparable<Collectable>
 {
     public int identity;
     public string timeCollected;
@@ -172,5 +173,10 @@ public class Collectable : MonoBehaviour
     {
         ActivateCollider();
         spriteRenderer.enabled = true;
+    }
+
+    public int CompareTo(Collectable other)
+    {
+        return identity - other.identity;
     }
 }

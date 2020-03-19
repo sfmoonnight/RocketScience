@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identity: 3
+  timeCollected: 
   rareness: 0.6
   question: {fileID: 0}
   pickable: 0

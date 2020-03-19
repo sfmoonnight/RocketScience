@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
             
             collectibles.Add(col);
         }
+        //collectibles.Sort();
 
         Object[] availableKeyCollectibles = Resources.LoadAll("KeyCollectibles");
         keyCollectibles = new List<Collectable>();
