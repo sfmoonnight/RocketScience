@@ -67,9 +67,8 @@ public class CaptainLog : MonoBehaviour
             im.sprite = UIMask;
             im.rectTransform.pivot = new Vector2(0.5f, 0.5f);
             im.rectTransform.localScale = new Vector3(1f, 1f, 1);
-
-            Image image = im.transform.parent.GetComponent<Image>();
-            Color c = image.color;
+            
+            Color c = Color.white;
             c.a = 0f;
             im.transform.parent.GetComponent<Image>().color = c;
 
@@ -189,6 +188,12 @@ public class CaptainLog : MonoBehaviour
 
                 Image im = slots[currentSlotIndex].transform.parent.GetComponent<Image>();
                 Color c = im.color;
+                float numr = Random.Range(0f, 1f);
+                float numg = Random.Range(0f, 1f);
+                float numb = Random.Range(0f, 1f);
+                c.r = numr;
+                c.g = numg;
+                c.b = numb;
                 c.a = 0.45f;
                 slots[currentSlotIndex].transform.parent.GetComponent<Image>().color = c;
 
@@ -277,6 +282,16 @@ public class CaptainLog : MonoBehaviour
             {
                 slots[i % 24].sprite = Toolbox.GetInstance().GetGameManager().collectibles[i].spriteRenderer.sprite;
                 slots[i % 24].rectTransform.localScale = new Vector3(0.8f, 0.8f, 1);
+
+                Image im = slots[i % 24].transform.parent.GetComponent<Image>();
+                Color c = im.color;
+                float numr = Random.Range(0f, 1f);
+                float numg = Random.Range(0f, 1f);
+                float numb = Random.Range(0f, 1f);
+                c.r = numr;
+                c.g = numg;
+                c.b = numb;
+                slots[i % 24].transform.parent.GetComponent<Image>().color = c;
 
                 slotTexts[i % 24].text = Toolbox.GetInstance().GetGameManager().collectibles[i].identity.ToString();
                 slotTexts[i % 24].rectTransform.pivot = new Vector2(1f, 0.4f);          

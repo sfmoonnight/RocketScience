@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
 
     int planetNumber = 1;
     // Start is called before the first frame update
+
+    bool numbersAttached = false;
     private void Awake()
     {
         
@@ -25,12 +27,27 @@ public class LevelManager : MonoBehaviour
             Toolbox.GetInstance().GetGameManager().ReloadMain();
         }
 
+        NumberGenerator ng = Toolbox.GetInstance().GetGameManager().rocket.GetComponent<NumberGenerator>();
+        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    private void LateUpdate()
+    {
+        if (!numbersAttached)
+        {
+            Number[] numbers = GameObject.FindObjectsOfType<Number>();
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                numbers[i].AttachToNearest();
+            }
+            numbersAttached = true;
+        }
     }
 
     public void GenerateRandomPlanets(float left, float top, float right, float bottom, float spacing)
@@ -47,6 +64,7 @@ public class LevelManager : MonoBehaviour
             }
         }
         print("------UniverseCreated");
+        print("------PlanetNumber: " + Toolbox.GetInstance().GetGameManager().planets.Count);
         Toolbox.GetInstance().GetStatManager().SaveState();
     }
 

@@ -24,12 +24,12 @@ public class PseudoEvents : MonoBehaviour
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         gs.events.Clear();
-        Event event1 = new Event(Event.EventType.NewCollectible, "Write something Here", 1);    
-        Event event2 = new Event(Event.EventType.NewCollectible, "Write something HERE!", 3);
-        Event event3 = new Event(Event.EventType.NewCollectible, "Write something HERE!", 5);
-        Event event4 = new Event(Event.EventType.KeyDungeon, "Something something", 1);
-        Event event5 = new Event(Event.EventType.NewCollectible, "Write something HERE!", 4);
-        Event event6 = new Event(Event.EventType.KeyDungeon, "Something something", 1);
+        Event event1 = new Event(Event.EventType.NewCollectible, "Event 1", 1);    
+        Event event2 = new Event(Event.EventType.NewCollectible, "Event 2", 3);
+        Event event3 = new Event(Event.EventType.NewCollectible, "Event 3", 5);
+        Event event4 = new Event(Event.EventType.KeyDungeon, "Event 4", 1);
+        Event event5 = new Event(Event.EventType.NewCollectible, "Event 5", 4);
+        Event event6 = new Event(Event.EventType.KeyDungeon, "Event 6", 1);
         //print(event1);
         //print(event2);
 

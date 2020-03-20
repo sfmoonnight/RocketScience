@@ -35,7 +35,7 @@ public class NumberGenerator : MonoBehaviour
     }
     public virtual void Start()
     {
-        GenerateRandomNumbers(-patchSize, -patchSize, patchSize, patchSize, spacing);
+        //GenerateRandomNumbers(-patchSize, -patchSize, patchSize, patchSize, spacing);
     }
 
     public virtual void LateUpdate()
@@ -60,13 +60,13 @@ public class NumberGenerator : MonoBehaviour
 
     IEnumerator Refresh()
     {
-        //print("Fading out numbers...");
+        print("Fading out numbers...");
         // Fade out some numbers
         MakeRoomForNewNumbers();
 
         yield return new WaitForSeconds(fadeOutTime + 1f);
 
-        //print("Fading in numbers...");
+        print("Fading in numbers...");
         // Fade in new numbers
         OptimizeDifficulty(EquationManager.UpdateStrategy.no_overwrite);
 
@@ -172,6 +172,7 @@ public class NumberGenerator : MonoBehaviour
         //Vector3 pos = new Vector3(x, y, 0f);
         GameObject number = Instantiate(numberPrefab);
         Number n = number.GetComponent<Number>();
+        n.SetAttachRadius(attachRadius);
         n.SetPerturb(perturb);
         n.SetProb(showProb);
         n.fadeinTime = fadeInTime;
@@ -182,7 +183,8 @@ public class NumberGenerator : MonoBehaviour
         n.GenerateRandom();
         //number.transform.position = Vector2.zero;
         //n.SetSymbolString();
-        n.AttachToNearest(attachRadius);
+
+        //n.AttachToNearest(attachRadius);
     }
 
     /*public Number.Symbol GenerateRandomSymbol()

@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
             foreach (Question go in planets)
             {
                 EquationManager em = go.eqTextMeshObj.GetComponent<EquationManager>();
-                if (em.equation.answer == answer)
+                if (em.equation.answer == answer) // TODO: null reference exception here
                 {
                     go.ActivateCollectables();
                 }

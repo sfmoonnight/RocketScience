@@ -69,16 +69,16 @@ public class EquationManager : MonoBehaviour
     {
         // Deactivate some active numbers
         List<Number> activeSlots = FilterNumbersByState(Number.State.active);
-        //print("Found " + activeSlots.Count + " active slots.");
+        print("Found " + activeSlots.Count + " active slots. " + equation.toString());
             for (int i = 0; i < 2; i++)
             {
                 if (activeSlots.Count > 0)
                 {
                     int r = Random.Range(0, activeSlots.Count);
-                Number n = activeSlots[r];
-                activeSlots.RemoveAt(r);
-                //print("Deactivating* " + n.toString());
-                n.Deactivate();
+                    Number n = activeSlots[r];
+                    activeSlots.RemoveAt(r);
+                    //print("Deactivating* " + n.toString());
+                    n.Deactivate();
                 }
             }     
     }

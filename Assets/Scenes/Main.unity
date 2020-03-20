@@ -4021,7 +4021,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604004343}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4fbd9172512b42d29c6c92be1dfad89, type: 3}
   m_Name: 
@@ -13250,7 +13250,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 431338148, guid: c063a6f09ce0a574aa21b2cc1dbc13a9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 431338148, guid: c063a6f09ce0a574aa21b2cc1dbc13a9, type: 3}
+      propertyPath: pauseTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c063a6f09ce0a574aa21b2cc1dbc13a9, type: 3}

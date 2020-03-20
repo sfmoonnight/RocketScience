@@ -21,7 +21,10 @@ public class Number : MonoBehaviour
     public float fadeinTime;
     public float fadeoutTime;
 
+    public float attachRadius;
+
     public GameObject startingPoint; //---Can be used to link a generation point to the number (example: in Meteor Dungeon)
+    public GameObject attachedPlanet;
 
     Animator anim;
     // Start is called before the first frame update
@@ -89,7 +92,10 @@ public class Number : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if (attachedPlanet == null)
+        //{
+        //    AttachToNearest(attachRadius);
+        //}
     }
 
     public void SetSymbolString()
@@ -135,6 +141,11 @@ public class Number : MonoBehaviour
     public void SetSymbol(Symbol s)
     {
         symbol = s;
+    }
+
+    public void SetAttachRadius(float radius)
+    {
+        attachRadius = radius;
     }
 
     public void HideNumber()
@@ -225,8 +236,9 @@ public class Number : MonoBehaviour
 
     
 
-    public void AttachToNearest(float radius)
+    public void AttachToNearest()
     {
+        float radius = attachRadius;
         //https://forum.unity.com/threads/clean-est-way-to-find-nearest-object-of-many-c.44315/
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
         
@@ -248,6 +260,7 @@ public class Number : MonoBehaviour
         {
             EquationManager eqm = nearestCollider.gameObject.GetComponent<Question>().GetEquation();
             eqm.numbers.Add(this);
+            attachedPlanet = nearestCollider.gameObject;
             //print("In collider check: " + this.IsEmpty());
         }
     }
