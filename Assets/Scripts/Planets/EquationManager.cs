@@ -146,6 +146,7 @@ public class EquationManager : MonoBehaviour
         int r1 = Random.Range(0, emptySlots.Count);
         Number seedSlot = emptySlots[r1];
         emptySlots.RemoveAt(r1);
+        //TODO: occasionally some index out of range error;
         seedSlot.Respawn(numPath[0].symbol, numPath[0].number);
 
         for (int i = 1; i < numPath.Count; i++)

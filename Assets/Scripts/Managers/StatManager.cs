@@ -40,6 +40,12 @@ public class StatManager : MonoBehaviour
         gameState.collected = new List<int>();
         gameState.allPlanetData = new List<PlanetData>();
         gameState.events = new List<Event>();
+        gameState.firstEventOnEachPage = new List<int>();
+        gameState.firstEventOnEachPage.Add(0);
+
+        gameState.travelLogPageNumber = 1;
+        gameState.collectiblePageNumber = 1;
+        gameState.keyDungeonPageNumber = 1;
     }
 
     public void LoadState()
@@ -55,7 +61,7 @@ public class StatManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Save file not found in " + savePath + ". This must be a new game!");
+            //Debug.Log("Save file not found in " + savePath + ". This must be a new game!");
             initializeGameState();
             SaveState();
         }
@@ -83,7 +89,7 @@ public class StatManager : MonoBehaviour
         {
             using (StreamWriter sw = new StreamWriter(savePath))
             {
-                print("writing to file: \n" + contents);
+                //print("writing to file: \n" + contents);
                 sw.Write(contents);
             }
         }
@@ -104,7 +110,7 @@ public class StatManager : MonoBehaviour
                 gameState = JsonUtility.FromJson<GameState>(fileContents);
             }
 
-            print("file contains: \n" + fileContents);
+            //print("file contains: \n" + fileContents);
         }
         catch (Exception e)
         {

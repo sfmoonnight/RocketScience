@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class CaptainLog : MonoBehaviour
 {
+    public enum LogSection { TravelLog, Collectibles, KeyDungeons, Skins};
+    public LogSection currentLogSection;
+
     public Sprite UIMask;
-    public Sprite testSprite;
+    public Sprite testSpriteSmall;
+    public Sprite testSpriteLarge;
+    public Sprite questionMark;
+
     public Image[] slots;
     public Text[] slotTexts;
 
@@ -17,12 +23,15 @@ public class CaptainLog : MonoBehaviour
 
     public Button nextPage;
     public Button previousPage;
+    public Text leftPageNumber;
+    public Text rightPageNumber;
 
     int currentSlotIndex = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        currentLogSection = LogSection.TravelLog;
         ClearPages();
         UpdatePages();
     }
@@ -35,59 +44,18 @@ public class CaptainLog : MonoBehaviour
 
     public void UpdatePages()
     {
+        //Toolbox.GetInstance().GetStatManager().LoadState();
         ClearPages();
+        UpdatePageNumber();
 
-        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        foreach(Event e in gs.events)
+        if (currentLogSection == LogSection.TravelLog)
         {
-            //print("------loop through events");
-            if (e.eventType == Event.EventType.NewCollectible)
-            {
-                print("------new collectible from event");
-                if(e.collectibleIdentity > 0)
-                {
-                    slots[currentSlotIndex].sprite = Toolbox.GetInstance().GetGameManager().collectibles[e.collectibleIdentity - 1].spriteRenderer.sprite;
-                }
-                if (e.collectibleIdentity < 0)
-                {
-                    int i = -e.collectibleIdentity;
-                    slots[currentSlotIndex].sprite = Toolbox.GetInstance().GetGameManager().keyCollectibles[i - 1].spriteRenderer.sprite;
-                }
+            UpdateTravelLog();
+        }
 
-                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0.5f, 0.5f);
-                slots[currentSlotIndex].rectTransform.localScale = new Vector3(0.8f, 0.8f, 1);
-                currentSlotIndex += 1;
-                slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
-                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
-                slotTexts[currentSlotIndex].text = e.time;
-                //slotTexts[currentSlotIndex].rectTransform.localScale = new Vector3(1.9f, 2f, 1);
-                slotTexts[currentSlotIndex].rectTransform.sizeDelta = new Vector2(180, 90);
-                slotTexts[currentSlotIndex].rectTransform.localPosition = new Vector3(0, 25, 0);
-                slotTexts[currentSlotIndex].rectTransform.localScale = new Vector3(0.5f, 0.5f, 1);
-                currentSlotIndex += 2;
-            }
-
-            if(e.eventType == Event.EventType.KeyDungeon)
-            {
-                print("------currentslot=" + currentSlotIndex);
-                if (currentSlotIndex > 6 && currentSlotIndex <= 11)
-                {
-                    currentSlotIndex = 12;
-                }
-                else if(currentSlotIndex >= 21)
-                {
-                    return;
-                }
-                
-                //print("------currentslot=" + currentSlotIndex);
-                slots[currentSlotIndex].sprite = testSprite;
-                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
-                slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
-                currentSlotIndex += 2;
-                slotTexts[currentSlotIndex].text = e.time;
-
-                currentSlotIndex += 4;          
-            }
+        if (currentLogSection == LogSection.Collectibles)
+        {
+            UpdateCollectibles();
         }
     }
 
@@ -97,10 +65,222 @@ public class CaptainLog : MonoBehaviour
         foreach(Image im in slots)
         {
             im.sprite = UIMask;
+            im.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            im.rectTransform.localScale = new Vector3(1f, 1f, 1);
+
+            Image image = im.transform.parent.GetComponent<Image>();
+            Color c = image.color;
+            c.a = 0f;
+            im.transform.parent.GetComponent<Image>().color = c;
+
         }
-        foreach (Text im in slotTexts)
+        foreach (Text t in slotTexts)
         {
-            im.text = "";
+            t.text = "";
+            t.rectTransform.sizeDelta = new Vector2(90, 90);
+            t.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            t.rectTransform.localScale = new Vector3(1f, 1f, 1);
+        }
+    }
+
+    public void NextPage()
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+
+        if(currentLogSection == LogSection.TravelLog)
+        {
+            if (gs.travelLogPageNumber < gs.firstEventOnEachPage.Count)
+            {
+                gs.travelLogPageNumber += 1;
+                //print("Current page number after clicking next page: " + gs.travelLogPageNumber);
+                UpdatePages();
+            }
+        }
+
+        if (currentLogSection == LogSection.Collectibles)
+        {
+            float num = Toolbox.GetInstance().GetGameManager().collectibles.Count / 24;
+            if (gs.collectiblePageNumber < num)
+            {
+                gs.collectiblePageNumber += 1;
+                //print("Current page number after clicking next page: " + gs.travelLogPageNumber);
+                UpdatePages();
+            }
+        }
+    }
+
+    public void PreviousPage()
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+
+        if(currentLogSection == LogSection.TravelLog)
+        {
+            if (gs.travelLogPageNumber > 1)
+            {
+                gs.travelLogPageNumber -= 1;
+                //print("Current page number after clicking previous page: " + gs.travelLogPageNumber);
+                UpdatePages();
+            }
+        }
+
+        if (currentLogSection == LogSection.Collectibles)
+        {
+            if (gs.collectiblePageNumber > 1)
+            {
+                gs.collectiblePageNumber -= 1;
+                //print("Current page number after clicking next page: " + gs.travelLogPageNumber);
+                UpdatePages();
+            }
+        }
+    }
+
+    public void SelectTravelLog()
+    {
+        currentLogSection = LogSection.TravelLog;
+        UpdatePages();
+    }
+
+    public void SelectCollectibles()
+    {
+        currentLogSection = LogSection.Collectibles;
+        UpdatePages();
+    }
+
+    public void UpdatePageNumber()
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+
+        if(currentLogSection == LogSection.TravelLog)
+        {
+            leftPageNumber.text = (gs.travelLogPageNumber * 2 - 1).ToString();
+            rightPageNumber.text = (gs.travelLogPageNumber * 2).ToString();
+        }
+
+        if (currentLogSection == LogSection.Collectibles)
+        {
+            leftPageNumber.text = (gs.collectiblePageNumber * 2 - 1).ToString();
+            rightPageNumber.text = (gs.collectiblePageNumber * 2).ToString();
+        }
+    }
+
+    void UpdateTravelLog()
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        print("-------travelLogPageNumber " + gs.travelLogPageNumber);
+        for (int i = gs.firstEventOnEachPage[gs.travelLogPageNumber - 1]; i < gs.events.Count; i++)
+        {
+            //print("------loop through events, i = " + i);
+            //print("------events count: " + gs.events.Count);
+            if (gs.events[i].eventType == Event.EventType.NewCollectible)
+            {
+                //print("------new collectible from event");
+                if (gs.events[i].collectibleIdentity > 0)
+                {
+                    slots[currentSlotIndex].sprite = Toolbox.GetInstance().GetGameManager().collectibles[gs.events[i].collectibleIdentity - 1].spriteRenderer.sprite;
+                }
+                if (gs.events[i].collectibleIdentity < 0)
+                {
+                    int n = -gs.events[i].collectibleIdentity;
+                    slots[currentSlotIndex].sprite = Toolbox.GetInstance().GetGameManager().keyCollectibles[n - 1].spriteRenderer.sprite;
+                }
+
+                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                slots[currentSlotIndex].rectTransform.localScale = new Vector3(0.8f, 0.8f, 1);
+
+                Image im = slots[currentSlotIndex].transform.parent.GetComponent<Image>();
+                Color c = im.color;
+                c.a = 0.45f;
+                slots[currentSlotIndex].transform.parent.GetComponent<Image>().color = c;
+
+                currentSlotIndex += 1;
+
+                slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
+                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
+
+                slotTexts[currentSlotIndex].text = gs.events[i].time;
+                //slotTexts[currentSlotIndex].rectTransform.localScale = new Vector3(1.9f, 2f, 1);
+                slotTexts[currentSlotIndex].rectTransform.sizeDelta = new Vector2(180, 90);
+                slotTexts[currentSlotIndex].rectTransform.pivot = new Vector2(0.5f, 0f);
+                //slotTexts[currentSlotIndex].rectTransform.localPosition = new Vector3(0, 0, 0);
+                //slotTexts[currentSlotIndex].rectTransform.localPosition = new Vector3(0, 25, 0);
+                slotTexts[currentSlotIndex].rectTransform.localScale = new Vector3(0.5f, 0.5f, 1);
+
+                currentSlotIndex += 2;
+                if (currentSlotIndex > 21)
+                {
+                    //print("Add to first events list");
+                    gs.firstEventOnEachPage[gs.travelLogPageNumber] = i + 1;
+                    return;
+                }
+            }
+
+            if (gs.events[i].eventType == Event.EventType.KeyDungeon)
+            {
+                print("------currentslot=" + currentSlotIndex);
+                if (currentSlotIndex > 6 && currentSlotIndex <= 11)
+                {
+                    currentSlotIndex = 12;
+                }
+                else if (currentSlotIndex > 18)
+                {
+                    if (gs.travelLogPageNumber >= gs.firstEventOnEachPage.Count)
+                    {
+                        print("First pages array length: " + gs.firstEventOnEachPage.Count);
+                        print("Add to first events list");
+
+                        gs.firstEventOnEachPage.Add(i);
+                        print("First pages array length: " + gs.firstEventOnEachPage.Count);
+                        print("Index of the next first event: " + i);
+                    }
+
+                    return;
+                }
+
+                //print("------currentslot=" + currentSlotIndex);
+                slots[currentSlotIndex].sprite = testSpriteLarge;
+                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
+                slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
+                currentSlotIndex += 2;
+                slotTexts[currentSlotIndex].text = gs.events[i].time;
+
+                currentSlotIndex += 4;
+            }
+        }
+    }
+
+    void UpdateCollectibles()
+    {
+        for(int i = 0; i < Toolbox.GetInstance().GetGameManager().collectibles.Count % 24; i++)
+        {
+            slots[i].sprite = questionMark;
+            Image im = slots[i].transform.parent.GetComponent<Image>();
+            Color c = im.color;
+            c.a = 0.45f;
+            slots[i].transform.parent.GetComponent<Image>().color = c;
+        }
+
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        for (int i = (gs.collectiblePageNumber - 1) * 24;  i < (gs.collectiblePageNumber - 1) * 24 + 24; i++)
+        {
+            if(gs.collected.Count == 0)
+            {
+                return;
+            }
+            if(i >= Toolbox.GetInstance().GetGameManager().collectibles.Count)
+            {
+                return;
+            }
+            print("i = " + i);
+            print("total collectibles: " + Toolbox.GetInstance().GetGameManager().collectibles.Count);
+            print("Collected item identity: " + Toolbox.GetInstance().GetGameManager().collectibles[i].identity);
+            if (gs.collected.Contains(Toolbox.GetInstance().GetGameManager().collectibles[i].identity))
+            {
+                slots[i % 24].sprite = Toolbox.GetInstance().GetGameManager().collectibles[i].spriteRenderer.sprite;
+                slots[i % 24].rectTransform.localScale = new Vector3(0.8f, 0.8f, 1);
+
+                slotTexts[i % 24].text = Toolbox.GetInstance().GetGameManager().collectibles[i].identity.ToString();
+                slotTexts[i % 24].rectTransform.pivot = new Vector2(1f, 0.4f);          
+            }
         }
     }
 }

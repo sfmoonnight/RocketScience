@@ -12,13 +12,13 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
     public bool pickable;
 
     Rocket rocket;
-    public Collider2D collider2D;
+    public Collider2D collider2d;
     public SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        collider2D = GetComponent<Collider2D>();
+        collider2d = GetComponent<Collider2D>();
         //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         //HideCollectable();
         pickable = true;
@@ -155,12 +155,12 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
 
     void ActivateCollider()
     {
-        collider2D.enabled = true;
+        collider2d.enabled = true;
     }
 
     void DeactivateCollider()
     {
-        collider2D.enabled = false;    
+        collider2d.enabled = false;    
     }
 
     public void HideCollectable()

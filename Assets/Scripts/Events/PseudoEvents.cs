@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PseudoEvents : MonoBehaviour
 {
+    private void Awake()
+    {
+        CreatePseudoEvents();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        CreatePseudoEvents();
+        
     }
 
     // Update is called once per frame
@@ -35,6 +39,7 @@ public class PseudoEvents : MonoBehaviour
         gs.events.Add(event4);
         gs.events.Add(event5);
         gs.events.Add(event6);
+
         Toolbox.GetInstance().GetStatManager().SaveState();
         print(gs.events.Count);
     }

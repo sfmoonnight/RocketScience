@@ -174,12 +174,12 @@ public class Rocket : MonoBehaviour
         float ang = Vector2.SignedAngle(dir, (Vector2)transform.up);
         if (ang > 0)
         {
-            print("Scoop way 1");
+            //print("Scoop way 1");
             netAnim.SetTrigger("scoop_left");
         }
         else
         {
-            print("Scoop way 2");
+            //print("Scoop way 2");
             netAnim.SetTrigger("scoop_right");
         }
         g.GetComponent<Collectable>().ProcessPickup();

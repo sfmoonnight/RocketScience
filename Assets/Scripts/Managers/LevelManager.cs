@@ -72,7 +72,7 @@ public class LevelManager : MonoBehaviour
             Toolbox.GetInstance().GetGameManager().planets.Add(planet.GetComponent<Question>());
 
             PlanetData pd = new PlanetData(i, q.planetID, planet.transform.position, q.openDungeon, q.options, q.collectables);
-            print("Adding");
+            //print("Adding");
             Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Add(pd);
             print(Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count);
         }

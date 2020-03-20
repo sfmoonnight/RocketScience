@@ -47,4 +47,10 @@ public class GameState
 
     //---Events that happened
     public List<Event> events;
+    public List<int> firstEventOnEachPage;
+
+    //---Captain log page number for each section
+    public int travelLogPageNumber;
+    public int collectiblePageNumber;
+    public int keyDungeonPageNumber;
 }

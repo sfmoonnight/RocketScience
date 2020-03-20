@@ -51,7 +51,7 @@ MonoBehaviour:
   rareness: 0.6
   question: {fileID: 0}
   pickable: 0
-  collider2D: {fileID: 7815754363472383049}
+  collider2d: {fileID: 7815754363472383049}
   spriteRenderer: {fileID: 5235777036877709462}
 --- !u!70 &7815754363472383049
 CapsuleCollider2D:

@@ -128,10 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identity: 7
+  timeCollected: 
   rareness: 0.4
   question: {fileID: 0}
   pickable: 0
-  collider2D: {fileID: 4414540215027376605}
+  collider2d: {fileID: 4414540215027376605}
   spriteRenderer: {fileID: 1845786149078396162}
 --- !u!70 &4414540215027376605
 CapsuleCollider2D:
