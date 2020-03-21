@@ -13,10 +13,13 @@ public class GameManager : MonoBehaviour
     public List<Question> planets;//---including all the planets and structures
     public List<int> inventory;
 
+    public List<GameObject> collectiblePrefabs;
     public List<GameObject> planetPrefabs;
     public bool inDungeon;
 
     public bool universeCreated;
+
+    public int dungeonProgressTemp;
 
     private void Awake()
     {
@@ -28,17 +31,19 @@ public class GameManager : MonoBehaviour
         
         LoadAllCollectibles();
         LoadAllPlanets();
-        
 
+        //GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
         //UpdateQuestions();
     }
     // Start is called before the first frame update
     void Start()
     {
         inventory = new List<int>();
-        
+
+        dungeonProgressTemp = Toolbox.GetInstance().GetStatManager().gameState.keyDungeonProgress;
         //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //answer = gs.answer;
+        GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
     }
 
     // Update is called once per frame
@@ -55,23 +60,23 @@ public class GameManager : MonoBehaviour
     public void ReloadMain()
     {
         //print("--------Reloading Main");
-        Toolbox.GetInstance().GetStatManager().LoadState();
+        //Toolbox.GetInstance().GetStatManager().LoadState();
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //print(gs.answer);
         //print(gs.playerPosition);
         
         answer = gs.answer;
-        rocket.transform.position = gs.playerPosition;
+        rocket.transform.position = gs.playerPosition;   
 
         //print(gs.allPlanetData.Count);
-        foreach(PlanetData pd in gs.allPlanetData)
+        foreach (PlanetData pd in gs.allPlanetData)
         {
             //print("-------Recreating Planets");
             //print(pd.planetPrefabID);
             GameObject planet = Instantiate(planetPrefabs[pd.planetPrefabID]);
             Question q = planet.GetComponent<Question>();
-            SetUpPlanetQuestion(q, pd);
+            q.SetUpPlanet(pd);
         }
 
         //print("Reloading main");
@@ -88,15 +93,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetUpPlanetQuestion(Question q, PlanetData pd)
-    {
-        q.planetID = pd.planetID;
-        q.transform.position = pd.location;
-        q.openDungeon = pd.ifDungeonOpened;
-        q.options = pd.collectibleOptions;
-        q.collectables = pd.collectiblesGenerated;
-    }
-
     public void LoadAllCollectibles()
     {
         Object[] availableCollectibles = Resources.LoadAll("Collectibles");
@@ -107,6 +103,7 @@ public class GameManager : MonoBehaviour
             Collectable col = go.GetComponent<Collectable>();
             
             collectibles.Add(col);
+            //collectiblePrefabs.Add(go);
         }
         //collectibles.Sort();
 

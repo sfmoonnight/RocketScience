@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ToggleUI : MonoBehaviour
 {
     public Image image;
+    public Text text;
     public bool active;
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,11 @@ public class ToggleUI : MonoBehaviour
     public void ChangeImage(Sprite s)
     {
         image.sprite = s;
+    }
+
+    public void ChangeText(string s)
+    {
+        text.text = s;
     }
 
     public void Toggle()

@@ -6,7 +6,7 @@ public class PseudoEvents : MonoBehaviour
 {
     private void Awake()
     {
-        CreatePseudoEvents();
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -20,10 +20,10 @@ public class PseudoEvents : MonoBehaviour
         
     }
 
-    void CreatePseudoEvents()
+    public void CreatePseudoEvents()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        gs.events.Clear();
+        //gs.events.Clear();
         Event event1 = new Event(Event.EventType.NewCollectible, "Event 1", 1);    
         Event event2 = new Event(Event.EventType.NewCollectible, "Event 2", 3);
         Event event3 = new Event(Event.EventType.NewCollectible, "Event 3", 5);

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class DungeonManager : MonoBehaviour
 {
     public ToggleUI scoreBorad;
+
+    public bool finished = false;
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -22,14 +24,16 @@ public class DungeonManager : MonoBehaviour
     public void ExitDungeon()
     {
         Toolbox.GetInstance().GetGameManager().inDungeon = false;
-        //Toolbox.GetInstance().GetGameManager().ReloadMain();
         
+        print("Count: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
+
         SceneManager.LoadScene("Main");
         
     }
 
     public virtual void Finished()
     {
+        finished = true;
         scoreBorad.ShowUI();
     }
 }

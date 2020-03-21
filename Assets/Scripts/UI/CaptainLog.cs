@@ -275,9 +275,9 @@ public class CaptainLog : MonoBehaviour
             {
                 return;
             }
-            print("i = " + i);
-            print("total collectibles: " + Toolbox.GetInstance().GetGameManager().collectibles.Count);
-            print("Collected item identity: " + Toolbox.GetInstance().GetGameManager().collectibles[i].identity);
+            //print("i = " + i);
+            //print("total collectibles: " + Toolbox.GetInstance().GetGameManager().collectibles.Count);
+            //print("Collected item identity: " + Toolbox.GetInstance().GetGameManager().collectibles[i].identity);
             if (gs.collected.Contains(Toolbox.GetInstance().GetGameManager().collectibles[i].identity))
             {
                 slots[i % 24].sprite = Toolbox.GetInstance().GetGameManager().collectibles[i].spriteRenderer.sprite;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class MeteorDungeonManager : DungeonManager
 
     int multi;
     float startTime;
+    
 
     public override void Start()
     {
@@ -35,8 +37,11 @@ public class MeteorDungeonManager : DungeonManager
     {
         if(Time.time - startTime >= gameTime)
         {
-            //TODO: call it once
-            Finished();
+
+            if (!finished)
+            {
+                Finished();
+            }       
         }
 
         if((int)(gameTime - (Time.time - startTime)) >= 0)
@@ -62,6 +67,19 @@ public class MeteorDungeonManager : DungeonManager
         bonus.text = multi.ToString();
         int num = Toolbox.GetInstance().GetGameManager().answer * multi;
         result.text = num.ToString();
+
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        if (gs.keyDungeonProgress < 1)
+        {
+            //gs.collected.Add(Toolbox.GetInstance().GetGameManager().keyCollectibles[0].identity);
+            gs.collected.Add(-1);
+            Event newEvent = new Event(Event.EventType.NewCollectible, DateTime.Now.ToString(), -1);
+            Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
+
+            Toolbox.GetInstance().GetGameManager().dungeonProgressTemp += 1;
+            print("collected" + Toolbox.GetInstance().GetGameManager().keyCollectibles[0].identity);
+            print("key dungeon progress: " + gs.keyDungeonProgress);
+        }
     }
 
     void MovePin()

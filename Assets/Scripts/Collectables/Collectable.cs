@@ -75,6 +75,7 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
     public void ProcessPickup()
     {
         StartCoroutine("AddToInventory");
+
         Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(identity);
     }
 
@@ -127,9 +128,11 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
             yield break;
         }
         Toolbox.GetInstance().GetStatManager().gameState.collected.Add(identity);
-        
+        Event newEvent = new Event(Event.EventType.NewCollectible, DateTime.Now.ToString(), identity);
+        Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
+
         //Toolbox.GetInstance().GetGameManager().inventory.Add(identity);
-        GameObject newItem = GameObject.Find("NewCollectableUI");
+        GameObject newItem = GameObject.Find("NotificationUI");
         HideCollectable();
         print("-------new item ui" + newItem);
         
@@ -139,6 +142,7 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
         //print(newItem.GetComponent<ToggleUI>());
         //print("hwreee");
         newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
+        newItem.GetComponent<ToggleUI>().ChangeText("You Found Something New!");
 
         RemoveCollectable();
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class QuestPanelManager : MonoBehaviour
 {
     [Tooltip("This is the quest number to finish before triggering the first key quest")]
     public int questCount;
+    public Sprite testImage;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +49,7 @@ public class QuestPanelManager : MonoBehaviour
 
     bool QuestCompleted(Quest q)
     {
+        print("Quest complete!");
         foreach (QuestCollectible qc in q.collectibles)
         {
             if (!qc.collected)
@@ -65,8 +68,14 @@ public class QuestPanelManager : MonoBehaviour
         List<Quest> remaining = new List<Quest>();
         foreach (Quest q in quests)
         {
+            
             if (QuestCompleted(q) && !q.keyQuest)
             {
+                GameObject newItem = GameObject.Find("NotificationUI");
+                newItem.GetComponent<ToggleUI>().ShowUI();
+                newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
+                newItem.GetComponent<ToggleUI>().ChangeText("Quest Completed!");
+
                 gs.money += 100;
                 gs.questCount++;
                 if (CheckQuestCount(questCount) && gs.firstKeyQuestStatus == GameState.QuestStatus.Disabled)
@@ -75,15 +84,27 @@ public class QuestPanelManager : MonoBehaviour
                 }
             }else if (QuestCompleted(q) && q.keyQuest)
             {
+                
+                GameObject newItem = GameObject.Find("NotificationUI");
+                newItem.GetComponent<ToggleUI>().ShowUI();
+                newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
+                newItem.GetComponent<ToggleUI>().ChangeText("New Game Type Unlocked!");
+
                 //---When complete a key quest
                 gs.money += 500;
-                gs.keyDungeonProgress += 1;
+                
+                Event newEvent = new Event(Event.EventType.KeyDungeon, DateTime.Now.ToString(), gs.keyDungeonProgress);        
+
+                Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
+                
                 //TODO: point to the next key quest 
             }
             else
             {
                 remaining.Add(q);
             }
+
+            Toolbox.GetInstance().GetStatManager().SaveState();
         }
         //print("remaining" + remaining.Count);
         gs.quests = remaining;

@@ -11,9 +11,14 @@ public class Question : MonoBehaviour
     
     public int capacity;
     public bool activated=false;
-    public List<Collectable> options;
+    //public List<Collectable> options;
+    public List<int> options;
+
     public List<Collectable> collectables; //Collectibles generated on this planet
+    public List<int> collectiblesID;
+
     public List<GameObject> generationPoints;
+    public List<int> pointsWithCollectibles;
     public GameObject eqTextMeshObj;
     public List<GameObject> items;
 
@@ -25,7 +30,7 @@ public class Question : MonoBehaviour
     void Start()
     {
         Toolbox.GetInstance().GetGameManager().planets.Add(this);
-        GenerateCollectables();
+        //GenerateCollectables();
         StartRotation();
         /*if (this == Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered)
         {
@@ -58,21 +63,67 @@ public class Question : MonoBehaviour
         {
             eqTextMeshObj.GetComponent<EquationManager>().GenerateEquation();
         }
-        GenerateCollectables();
+        RefreshCollectables();
         DeactivateCollectables();
     }
 
     public void GenerateCollectables()
     {
-        ClearCollectables();
-        foreach(GameObject gp in generationPoints)
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        print("Planet data: " + gs.allPlanetData.Count);
+
+        print("Generate collectables!!!");
+        for (int i = 0; i < generationPoints.Count; i++)
         {
             float rate = Random.Range(0f, 1f);
-            int op = Random.Range(0, options.Count);
-            if(rate <= options[op].rareness)
+            int op = options[Random.Range(0, options.Count)];
+
+            print("option count " + options.Count);
+            print("option: " + op);
+            if (rate <= gm.collectibles[op - 1].rareness)
             {
-                Collectable newCol = Instantiate(options[op], gp.transform);
+                Collectable newCol = Instantiate(gm.collectibles[op - 1], generationPoints[i].transform);
                 collectables.Add(newCol);
+                collectiblesID.Add(newCol.identity);
+                pointsWithCollectibles.Add(i);
+                newCol.SetQuestion(this);
+            }
+        }
+          
+    }
+
+    public void SetUpPlanet(PlanetData pd)
+    {
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        planetID = pd.planetID;
+        transform.position = pd.location;
+        openDungeon = pd.ifDungeonOpened;
+        options = pd.collectibleOptions;
+        collectiblesID = pd.collectiblesGenerated;
+        pointsWithCollectibles = pd.generationPoints;
+
+        for (int i = 0; i < collectiblesID.Count; i++)
+        {          
+            Collectable col = Instantiate(gm.collectibles[collectiblesID[i] - 1], generationPoints[i].transform);
+            col.SetQuestion(this);
+        }
+    }
+
+    public void RefreshCollectables()
+    {
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        ClearCollectables();
+        for (int i = 0; i < generationPoints.Count; i++)
+        {
+            float rate = Random.Range(0f, 1f);
+            int op = options[Random.Range(0, options.Count)];
+            if (rate <= gm.collectibles[op - 1].rareness)
+            {
+                Collectable newCol = Instantiate(gm.collectibles[op - 1], generationPoints[i].transform);
+                collectables.Add(newCol);
+                pointsWithCollectibles.Add(i);
+                collectiblesID.Add(newCol.identity);
                 newCol.SetQuestion(this);
             }
         }
@@ -116,11 +167,16 @@ public class Question : MonoBehaviour
 
     public void ClearCollectables()
     {
-        foreach(Collectable col in collectables)
+        if(collectables.Count > 0)
         {
-            Destroy(col.gameObject);
+            foreach (Collectable col in collectables)
+            {
+                Destroy(col.gameObject);
+            }
         }
+        
         collectables.Clear();
+        pointsWithCollectibles.Clear();
     }
 
     public void RemoveCollectable(Collectable c)

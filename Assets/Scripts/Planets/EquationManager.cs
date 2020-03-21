@@ -69,7 +69,7 @@ public class EquationManager : MonoBehaviour
     {
         // Deactivate some active numbers
         List<Number> activeSlots = FilterNumbersByState(Number.State.active);
-        print("Found " + activeSlots.Count + " active slots. " + equation.toString());
+        //print("Found " + activeSlots.Count + " active slots. " + equation.toString());
             for (int i = 0; i < 2; i++)
             {
                 if (activeSlots.Count > 0)

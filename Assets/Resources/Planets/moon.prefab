@@ -341,16 +341,14 @@ MonoBehaviour:
   openDungeon: 0
   capacity: 0
   activated: 0
-  options:
-  - {fileID: 6765912962074852767, guid: 58b383892df5fe148bc7c1e2a5b1a5b2, type: 3}
-  - {fileID: 3630665897186596996, guid: 3bc4ed0d303bd49a2a124b3525a248ed, type: 3}
-  - {fileID: 3789640580589160584, guid: a3d91d5d7968d4e26aad06c3e762cc8b, type: 3}
-  - {fileID: 3789640580589160584, guid: a3d91d5d7968d4e26aad06c3e762cc8b, type: 3}
+  options: 02000000040000000500000006000000
   collectables: []
+  collectiblesID: 
   generationPoints:
   - {fileID: 8452368512731091098}
   - {fileID: 8452368513129303594}
   - {fileID: 8452368512746491327}
+  pointsWithCollectibles: 
   eqTextMeshObj: {fileID: 8452368512232120395}
   items:
   - {fileID: 104951556278707001, guid: 399a62515017d4f5f8a7af19050d2616, type: 3}

@@ -46,6 +46,8 @@ public class StatManager : MonoBehaviour
         gameState.travelLogPageNumber = 1;
         gameState.collectiblePageNumber = 1;
         gameState.keyDungeonPageNumber = 1;
+
+        
     }
 
     public void LoadState()

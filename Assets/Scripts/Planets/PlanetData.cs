@@ -9,10 +9,11 @@ public class PlanetData
     public int planetID;
     public Vector3 location;
     public bool ifDungeonOpened;
-    public List<Collectable> collectibleOptions;
-    public List<Collectable> collectiblesGenerated;
+    public List<int> collectibleOptions;
+    public List<int> collectiblesGenerated;
+    public List<int> generationPoints;
 
-    public PlanetData(int planetPrefabID, int planetID, Vector3 location, bool ifDungeonOpened, List<Collectable> collectibleOptions, List<Collectable> collectiblesGenerated)
+    public PlanetData(int planetPrefabID, int planetID, Vector3 location, bool ifDungeonOpened, List<int> collectibleOptions, List<int> collectiblesGenerated, List<int> generationPoints)
     {
         this.planetPrefabID = planetPrefabID;
         this.planetID = planetID;
@@ -20,5 +21,6 @@ public class PlanetData
         this.ifDungeonOpened = ifDungeonOpened;
         this.collectibleOptions = collectibleOptions;
         this.collectiblesGenerated = collectiblesGenerated;
+        this.generationPoints = generationPoints;
     }
 }

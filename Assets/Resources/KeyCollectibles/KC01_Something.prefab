@@ -47,10 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identity: -1
+  timeCollected: 
   rareness: 1
   question: {fileID: 0}
   pickable: 0
-  collider2D: {fileID: 8568623969024441317}
+  collider2d: {fileID: 0}
   spriteRenderer: {fileID: 5924426277625542458}
 --- !u!70 &8568623969024441317
 CapsuleCollider2D:
@@ -158,8 +159,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 3030430670136859216, guid: db0e9d3274d65124a8ad01a8ab45c795,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ea8676a929c242a1beb8933fe47b528, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

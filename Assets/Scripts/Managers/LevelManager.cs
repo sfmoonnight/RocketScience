@@ -18,13 +18,22 @@ public class LevelManager : MonoBehaviour
     }
     void Start()
     {
-        if(Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
+        //print("We out " + Toolbox.GetInstance().GetStatManager().gameState.eatshit);
+        if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
         {
             GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
         }
         else
         {
             Toolbox.GetInstance().GetGameManager().ReloadMain();
+        }
+
+        if(Toolbox.GetInstance().GetGameManager().dungeonProgressTemp > gs.keyDungeonProgress)
+        {
+            gs.keyDungeonProgress += 1;
+            Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-gs.keyDungeonProgress);
         }
 
         NumberGenerator ng = Toolbox.GetInstance().GetGameManager().rocket.GetComponent<NumberGenerator>();
@@ -86,10 +95,10 @@ public class LevelManager : MonoBehaviour
             Question q = planet.GetComponent<Question>();
             q.planetID = planetNumber;
             planetNumber += 1;
-
+            q.GenerateCollectables();
             Toolbox.GetInstance().GetGameManager().planets.Add(planet.GetComponent<Question>());
 
-            PlanetData pd = new PlanetData(i, q.planetID, planet.transform.position, q.openDungeon, q.options, q.collectables);
+            PlanetData pd = new PlanetData(i, q.planetID, planet.transform.position, q.openDungeon, q.options, q.collectiblesID, q.pointsWithCollectibles);
             //print("Adding");
             Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Add(pd);
             print(Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count);

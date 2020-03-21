@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonIndex: 0
+  keyDungeon: 0
 --- !u!58 &8044825930659941063
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -227,20 +228,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f64c6311f1f4d68a1aa8ea33386130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetID: 0
   dungeonEntrence: {fileID: 2182195884002118433}
   openDungeon: 0
   capacity: 0
   activated: 0
-  options:
-  - {fileID: 6765912962074852767, guid: 58b383892df5fe148bc7c1e2a5b1a5b2, type: 3}
-  - {fileID: 3630665897186596996, guid: 3bc4ed0d303bd49a2a124b3525a248ed, type: 3}
-  - {fileID: 7157922561080669456, guid: 39b26f8c9552840f5b4f420731f36ab5, type: 3}
-  - {fileID: 7374796916427829167, guid: 3db832a4f2e6b45fdbdc6ef9828aa3ce, type: 3}
+  options: 0100000002000000030000000500000007000000
   collectables: []
+  collectiblesID: 
   generationPoints:
   - {fileID: 7361038726252896078}
   - {fileID: 7361038727725892094}
   - {fileID: 7361038726262784619}
+  pointsWithCollectibles: 
   eqTextMeshObj: {fileID: 7361038726827405215}
   items:
   - {fileID: 104951556278707001, guid: 399a62515017d4f5f8a7af19050d2616, type: 3}

@@ -53,4 +53,6 @@ public class GameState
     public int travelLogPageNumber;
     public int collectiblePageNumber;
     public int keyDungeonPageNumber;
+
+    
 }
