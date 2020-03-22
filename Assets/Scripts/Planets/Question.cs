@@ -111,6 +111,7 @@ public class Question : MonoBehaviour
             //print("pointsWithCollectibles count: " + pointsWithCollectibles.Count);
             //print("generationPointIndex: " + pointsWithCollectibles[i]);
             Collectable col = Instantiate(gm.collectibles[collectiblesID[i] - 1], generationPoints[pointsWithCollectibles[i]].transform);
+            collectables.Add(col);
             col.SetQuestion(this);
         }
     }
@@ -140,6 +141,7 @@ public class Question : MonoBehaviour
         {
             return;
         }
+        print("collectible counts: " + collectables.Count);
         foreach (Collectable col in collectables)
         {
             col.ActivatePickUp();

@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         //answer = gs.answer;
         if(Toolbox.GetInstance().GetStatManager().gameState.events.Count == 0)
         {
-            GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
+            //GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
         }      
     }
 

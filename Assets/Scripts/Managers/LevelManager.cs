@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
 
     public void GenerateRandomPlanets(float left, float top, float right, float bottom, float spacing)
     {
-        float genprob = 0.2f;
+        float genprob = 0.6f;
         for (float i = left; i < right; i += spacing)
         {
             for (float j = top; j < bottom; j += spacing)

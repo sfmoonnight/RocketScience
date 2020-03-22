@@ -575,7 +575,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Toogle Coordinates
+  m_Text: Toggle Coordinates
 --- !u!222 &50664824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1345,7 +1345,7 @@ PrefabInstance:
     - target: {fileID: 7361038726158636925, guid: f5710b2984fd94db6bb4e0b64654051d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7361038726158636925, guid: f5710b2984fd94db6bb4e0b64654051d,
         type: 3}
@@ -1660,6 +1660,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1072042664}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &245649926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6765912962074852767, guid: 58b383892df5fe148bc7c1e2a5b1a5b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1136034691}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14baee88544d4f1b990eae1eaec139b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &252836180
 GameObject:
   m_ObjectHideFlags: 0
@@ -5342,7 +5354,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -13129,7 +13141,7 @@ Transform:
   - {fileID: 6507917567054409565}
   - {fileID: 20070673}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1871048051
 GameObject:
@@ -15099,7 +15111,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
         type: 3}
+      propertyPath: collectables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
+        type: 3}
+      propertyPath: collectiblesID.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
+        type: 3}
+      propertyPath: pointsWithCollectibles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
+        type: 3}
       propertyPath: planetID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
+        type: 3}
+      propertyPath: collectables.Array.data[0]
+      value: 
+      objectReference: {fileID: 245649926}
+    - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
+        type: 3}
+      propertyPath: collectiblesID.Array.data[0]
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
