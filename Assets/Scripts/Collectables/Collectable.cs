@@ -21,7 +21,7 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
         collider2d = GetComponent<Collider2D>();
         //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         //HideCollectable();
-        pickable = true;
+        pickable = false;
     }
 
     // Update is called once per frame

@@ -53,7 +53,7 @@ public class Question : MonoBehaviour
     {
         float dungeonChance = Random.Range(0f, 1f);
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        if (dungeonChance <= 0.90 && gs.keyDungeonProgress > 0)
+        if (dungeonChance <= 0.25 && gs.keyDungeonProgress > 0)
         {
             openDungeon = true;
             HideEquation();
