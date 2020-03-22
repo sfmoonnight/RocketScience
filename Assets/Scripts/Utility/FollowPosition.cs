@@ -13,7 +13,8 @@ public class FollowPosition : MonoBehaviour
     void Start()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        transform.position = new Vector3(gs.playerPosition.x, gs.playerPosition.y, -10);
+        //transform.position = new Vector3(gs.playerPosition.x, gs.playerPosition.y, -10);
+        transform.position = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
@@ -21,13 +22,13 @@ public class FollowPosition : MonoBehaviour
     {
         if (!useDamping)
         {
-            transform.position = new Vector3(target.transform.position.x, target.transform.position.y, -10);
+            transform.position = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
         }
         else
         {
             float x = Mathf.Lerp(transform.position.x, target.position.x, damping * Time.deltaTime);
             float y = Mathf.Lerp(transform.position.y, target.position.y, damping * Time.deltaTime);
-            transform.position = new Vector3(x, y, -10);
+            transform.position = new Vector3(x, y, transform.position.z);
         }
 
     }

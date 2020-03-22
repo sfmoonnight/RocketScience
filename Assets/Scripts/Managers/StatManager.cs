@@ -29,7 +29,7 @@ public class StatManager : MonoBehaviour
         
     }
 
-    void initializeGameState()
+    public void initializeGameState()
     {
         print("Initializing game state");
         gameState = new GameState();

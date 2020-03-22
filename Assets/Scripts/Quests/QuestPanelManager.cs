@@ -8,6 +8,7 @@ public class QuestPanelManager : MonoBehaviour
 {
     [Tooltip("This is the quest number to finish before triggering the first key quest")]
     public int questCount;
+    public Text coordinates;
     public Sprite testImage;
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,7 @@ public class QuestPanelManager : MonoBehaviour
 
     bool QuestCompleted(Quest q)
     {
-        print("Quest complete!");
+        //print("Quest complete!");
         foreach (QuestCollectible qc in q.collectibles)
         {
             if (!qc.collected)
@@ -72,9 +73,10 @@ public class QuestPanelManager : MonoBehaviour
             if (QuestCompleted(q) && !q.keyQuest)
             {
                 GameObject newItem = GameObject.Find("NotificationUI");
-                newItem.GetComponent<ToggleUI>().ShowUI();
-                newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
-                newItem.GetComponent<ToggleUI>().ChangeText("Quest Completed!");
+                newItem.GetComponent<NotificationQueue>().AddToQueue(testImage, "Quest Completed!");
+                //newItem.GetComponent<ToggleUI>().ShowUI();
+                //newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
+                //newItem.GetComponent<ToggleUI>().ChangeText("Quest Completed!");
 
                 gs.money += 100;
                 gs.questCount++;
@@ -86,13 +88,14 @@ public class QuestPanelManager : MonoBehaviour
             {
                 
                 GameObject newItem = GameObject.Find("NotificationUI");
-                newItem.GetComponent<ToggleUI>().ShowUI();
-                newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
-                newItem.GetComponent<ToggleUI>().ChangeText("New Game Type Unlocked!");
+                newItem.GetComponent<NotificationQueue>().AddToQueue(testImage, "New Game Type Unlocked!");
+                //newItem.GetComponent<ToggleUI>().ShowUI();
+                //newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
+                //newItem.GetComponent<ToggleUI>().ChangeText("New Game Type Unlocked!");
 
                 //---When complete a key quest
                 gs.money += 500;
-                
+                gs.questCount++;
                 Event newEvent = new Event(Event.EventType.KeyDungeon, DateTime.Now.ToString(), gs.keyDungeonProgress);        
 
                 Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
@@ -102,9 +105,7 @@ public class QuestPanelManager : MonoBehaviour
             else
             {
                 remaining.Add(q);
-            }
-
-            Toolbox.GetInstance().GetStatManager().SaveState();
+            }            
         }
         //print("remaining" + remaining.Count);
         gs.quests = remaining;
@@ -115,6 +116,8 @@ public class QuestPanelManager : MonoBehaviour
 
         UpdateQuestsHelper();
         GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
+
+        Toolbox.GetInstance().GetStatManager().SaveState();
     }
 
     bool CheckQuestCount(int count)
@@ -136,6 +139,7 @@ public class QuestPanelManager : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+        coordinates.text = "";
     }
 
     public void DrawQuest(Quest q)
@@ -165,6 +169,10 @@ public class QuestPanelManager : MonoBehaviour
             //go.transform.position = v;
             //print("setting x and y " + v);
             go.SetActive(true);
+        }
+        if (q.coordinates != Vector2.zero)
+        {
+            coordinates.text = "X:" + q.coordinates.x.ToString() + "  Y:" + q.coordinates.y.ToString();
         }
     }
 

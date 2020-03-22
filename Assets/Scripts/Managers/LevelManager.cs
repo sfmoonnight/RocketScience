@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour
         {
             gs.keyDungeonProgress += 1;
             Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-gs.keyDungeonProgress);
+            Toolbox.GetInstance().GetStatManager().SaveState();
         }
 
         NumberGenerator ng = Toolbox.GetInstance().GetGameManager().rocket.GetComponent<NumberGenerator>();
@@ -91,7 +92,7 @@ public class LevelManager : MonoBehaviour
             float y = cy + Random.Range(-perturb, perturb);
             planet.transform.position = new Vector3(x, y, 0);
 
-            //TODO: setup each planet - identity, environment, collectible pool etc.
+            //TODO: setup each planet - (identity), environment, (collectible pool) etc.
             Question q = planet.GetComponent<Question>();
             q.planetID = planetNumber;
             planetNumber += 1;

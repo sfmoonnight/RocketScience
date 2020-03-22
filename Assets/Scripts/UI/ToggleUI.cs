@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ public class ToggleUI : MonoBehaviour
     public Image image;
     public Text text;
     public bool active;
+    public Action callback = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,11 @@ public class ToggleUI : MonoBehaviour
         GetComponent<CanvasGroup>().interactable = false;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         active = false;
+        if (callback != null)
+        {
+            callback();
+            callback = null;
+        }
     }
 
     public void ShowUI()
@@ -45,6 +53,11 @@ public class ToggleUI : MonoBehaviour
     public void ChangeText(string s)
     {
         text.text = s;
+    }
+
+    public void setCallback(Action a)
+    {
+        callback = a;
     }
 
     public void Toggle()

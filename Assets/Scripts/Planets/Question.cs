@@ -104,8 +104,13 @@ public class Question : MonoBehaviour
         pointsWithCollectibles = pd.generationPoints;
 
         for (int i = 0; i < collectiblesID.Count; i++)
-        {          
-            Collectable col = Instantiate(gm.collectibles[collectiblesID[i] - 1], generationPoints[i].transform);
+        {
+            //print("i: " + i);
+            //print("collectibleID count: " + collectiblesID.Count);
+            //print("ith collectibleID: " + collectiblesID[i]);
+            //print("pointsWithCollectibles count: " + pointsWithCollectibles.Count);
+            //print("generationPointIndex: " + pointsWithCollectibles[i]);
+            Collectable col = Instantiate(gm.collectibles[collectiblesID[i] - 1], generationPoints[pointsWithCollectibles[i]].transform);
             col.SetQuestion(this);
         }
     }
@@ -176,6 +181,7 @@ public class Question : MonoBehaviour
         }
         
         collectables.Clear();
+        collectiblesID.Clear();
         pointsWithCollectibles.Clear();
     }
 

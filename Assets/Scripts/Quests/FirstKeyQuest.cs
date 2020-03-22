@@ -11,8 +11,8 @@ public class FirstKeyQuest : NewQuest
         //keyCollectible = new QuestCollectible(-1, 0, 0, false);
         //collectibles = new List<QuestCollectible>();
         //collectibles.Add(keyCollectible);
-
-        firstKeyQuest = new Quest(-1);
+        Vector2 coor = new Vector2(90, 100);
+        firstKeyQuest = new Quest(-1, coor);
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)

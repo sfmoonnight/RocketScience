@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -10,8 +12,7 @@ public class GameManager : MonoBehaviour
     //GameObject[] questions;
     public List<Collectable> collectibles; //all collectibles of the game
     public List<Collectable> keyCollectibles;//all key collectibles of the game
-    public List<Question> planets;//---including all the planets and structures
-    public List<int> inventory;
+    public List<Question> planets;//---including all the planets and structure
 
     public List<GameObject> collectiblePrefabs;
     public List<GameObject> planetPrefabs;
@@ -38,12 +39,15 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventory = new List<int>();
+        
 
         dungeonProgressTemp = Toolbox.GetInstance().GetStatManager().gameState.keyDungeonProgress;
         //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //answer = gs.answer;
-        GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
+        if(Toolbox.GetInstance().GetStatManager().gameState.events.Count == 0)
+        {
+            GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
+        }      
     }
 
     // Update is called once per frame
@@ -67,7 +71,8 @@ public class GameManager : MonoBehaviour
         //print(gs.playerPosition);
         
         answer = gs.answer;
-        rocket.transform.position = gs.playerPosition;   
+        rocket.transform.position = gs.playerPosition;
+        GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
 
         //print(gs.allPlanetData.Count);
         foreach (PlanetData pd in gs.allPlanetData)

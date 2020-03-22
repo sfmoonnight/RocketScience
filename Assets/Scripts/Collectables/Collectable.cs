@@ -138,11 +138,12 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
         
         yield return new WaitForSeconds(1.3f);
         //print("hwre");
-        newItem.GetComponent<ToggleUI>().ShowUI();
+        //newItem.GetComponent<ToggleUI>().ShowUI();
         //print(newItem.GetComponent<ToggleUI>());
         //print("hwreee");
-        newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
-        newItem.GetComponent<ToggleUI>().ChangeText("You Found Something New!");
+        //newItem.GetComponent<ToggleUI>().ChangeImage(spriteRenderer.sprite);
+        //newItem.GetComponent<ToggleUI>().ChangeText("You Found Something New!");
+        newItem.GetComponent<NotificationQueue>().AddToQueue(spriteRenderer.sprite, "You Found Something New!");
 
         RemoveCollectable();
     }

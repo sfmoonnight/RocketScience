@@ -55,8 +55,13 @@ public class MeteorDungeonManager : DungeonManager
     public override void Finished()
     {
         base.Finished();
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         points.text = Toolbox.GetInstance().GetGameManager().answer.ToString();
-        if(Toolbox.GetInstance().GetGameManager().answer >= (meterPoints * 0.65))
+        if (Toolbox.GetInstance().GetGameManager().answer < (meterPoints * 0.65))
+        {
+            multi = 1;
+        }
+        if (Toolbox.GetInstance().GetGameManager().answer >= (meterPoints * 0.65))
         {
             multi = 2;       
         }
@@ -65,10 +70,12 @@ public class MeteorDungeonManager : DungeonManager
             multi = 3;
         }
         bonus.text = multi.ToString();
-        int num = Toolbox.GetInstance().GetGameManager().answer * multi;
-        result.text = num.ToString();
+        int resultNum = Toolbox.GetInstance().GetGameManager().answer * multi;
+        result.text = resultNum.ToString();
 
-        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        gs.money += resultNum;
+        //print(resultNum);
+        //print("Money when finished: " + gs.money);
         if (gs.keyDungeonProgress < 1)
         {
             //gs.collected.Add(Toolbox.GetInstance().GetGameManager().keyCollectibles[0].identity);

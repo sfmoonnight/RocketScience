@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class CaptainLog : MonoBehaviour
 {
-    public enum LogSection { TravelLog, Collectibles, KeyDungeons, Skins};
+    public enum LogSection { TravelLog, Collectibles, KeyDungeons, Skins, Settings};
     public LogSection currentLogSection;
+
+    public GameObject leftPage;
+    public GameObject rightPage;
+    public GameObject settingPage;
 
     public Sprite UIMask;
     public Sprite testSpriteSmall;
@@ -20,6 +24,7 @@ public class CaptainLog : MonoBehaviour
     public Button collectibles;
     public Button keyDungeons;
     public Button skins;
+    public Button settings;
 
     public Button nextPage;
     public Button previousPage;
@@ -50,13 +55,27 @@ public class CaptainLog : MonoBehaviour
 
         if (currentLogSection == LogSection.TravelLog)
         {
+            leftPage.GetComponent<ToggleUI>().ShowUI();
+            rightPage.GetComponent<ToggleUI>().ShowUI();
+            settingPage.GetComponent<ToggleUI>().HideUI();
             UpdateTravelLog();
         }
 
         if (currentLogSection == LogSection.Collectibles)
         {
+            leftPage.GetComponent<ToggleUI>().ShowUI();
+            rightPage.GetComponent<ToggleUI>().ShowUI();
+            settingPage.GetComponent<ToggleUI>().HideUI();
             UpdateCollectibles();
         }
+
+        if (currentLogSection == LogSection.Settings)
+        {
+            leftPage.GetComponent<ToggleUI>().HideUI();
+            rightPage.GetComponent<ToggleUI>().HideUI();
+            settingPage.GetComponent<ToggleUI>().ShowUI();
+        }
+        
     }
 
     public void ClearPages()
@@ -92,7 +111,6 @@ public class CaptainLog : MonoBehaviour
             {
                 gs.travelLogPageNumber += 1;
                 //print("Current page number after clicking next page: " + gs.travelLogPageNumber);
-                UpdatePages();
             }
         }
 
@@ -103,9 +121,10 @@ public class CaptainLog : MonoBehaviour
             {
                 gs.collectiblePageNumber += 1;
                 //print("Current page number after clicking next page: " + gs.travelLogPageNumber);
-                UpdatePages();
             }
         }
+
+        UpdatePages();
     }
 
     public void PreviousPage()
@@ -117,8 +136,7 @@ public class CaptainLog : MonoBehaviour
             if (gs.travelLogPageNumber > 1)
             {
                 gs.travelLogPageNumber -= 1;
-                //print("Current page number after clicking previous page: " + gs.travelLogPageNumber);
-                UpdatePages();
+                //print("Current page number after clicking previous page: " + gs.travelLogPageNumber);   
             }
         }
 
@@ -128,9 +146,10 @@ public class CaptainLog : MonoBehaviour
             {
                 gs.collectiblePageNumber -= 1;
                 //print("Current page number after clicking next page: " + gs.travelLogPageNumber);
-                UpdatePages();
             }
         }
+
+        UpdatePages();
     }
 
     public void SelectTravelLog()
@@ -142,6 +161,12 @@ public class CaptainLog : MonoBehaviour
     public void SelectCollectibles()
     {
         currentLogSection = LogSection.Collectibles;
+        UpdatePages();
+    }
+
+    public void SelectSettings()
+    {
+        currentLogSection = LogSection.Settings;
         UpdatePages();
     }
 
@@ -172,6 +197,18 @@ public class CaptainLog : MonoBehaviour
             //print("------events count: " + gs.events.Count);
             if (gs.events[i].eventType == Event.EventType.NewCollectible)
             {
+                if (currentSlotIndex > 21)
+                {
+                    //print("Add to first events list");
+                    if (gs.travelLogPageNumber >= gs.firstEventOnEachPage.Count)
+                    {
+                        gs.firstEventOnEachPage.Add(i);
+                    }
+                    //gs.firstEventOnEachPage[gs.travelLogPageNumber] = i + 1;
+                    
+                    return;
+                }
+
                 //print("------new collectible from event");
                 if (gs.events[i].collectibleIdentity > 0)
                 {
@@ -203,20 +240,12 @@ public class CaptainLog : MonoBehaviour
                 slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
 
                 slotTexts[currentSlotIndex].text = gs.events[i].time;
-                //slotTexts[currentSlotIndex].rectTransform.localScale = new Vector3(1.9f, 2f, 1);
+                
                 slotTexts[currentSlotIndex].rectTransform.sizeDelta = new Vector2(180, 90);
-                slotTexts[currentSlotIndex].rectTransform.pivot = new Vector2(0.5f, 0f);
-                //slotTexts[currentSlotIndex].rectTransform.localPosition = new Vector3(0, 0, 0);
-                //slotTexts[currentSlotIndex].rectTransform.localPosition = new Vector3(0, 25, 0);
+                slotTexts[currentSlotIndex].rectTransform.pivot = new Vector2(0.5f, 0f);     
                 slotTexts[currentSlotIndex].rectTransform.localScale = new Vector3(0.5f, 0.5f, 1);
 
-                currentSlotIndex += 2;
-                if (currentSlotIndex > 21)
-                {
-                    //print("Add to first events list");
-                    gs.firstEventOnEachPage[gs.travelLogPageNumber] = i + 1;
-                    return;
-                }
+                currentSlotIndex += 2;   
             }
 
             if (gs.events[i].eventType == Event.EventType.KeyDungeon)
@@ -298,4 +327,5 @@ public class CaptainLog : MonoBehaviour
             }
         }
     }
+
 }

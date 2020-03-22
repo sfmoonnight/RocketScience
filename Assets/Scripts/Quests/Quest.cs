@@ -9,6 +9,8 @@ public class Quest
 
     public bool keyQuest;
 
+    public Vector2 coordinates;
+
     //---Normal quests have identity 0, key quests have negative identity
     public int questIdentity;
 
@@ -28,12 +30,13 @@ public class Quest
         this.keyQuest = keyQuest;
     }
 
-    public Quest(int keyQuestIdentity)
+    public Quest(int keyQuestIdentity, Vector2 coordinates)
     {
         questIdentity = keyQuestIdentity;
         this.keyQuest = true;
         QuestCollectible kqc = new QuestCollectible(keyQuestIdentity, 0, 0, false);
         collectibles = new List<QuestCollectible>();
         this.collectibles.Add(kqc);
-    }
+        this.coordinates = coordinates;
+}
 }

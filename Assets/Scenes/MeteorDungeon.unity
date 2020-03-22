@@ -1206,7 +1206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ceae624c2ffb426aa40a2064b7fc2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 931412470}
+  target: {fileID: 1913930467}
   useDamping: 1
   damping: 1
 --- !u!81 &796580731
@@ -1409,6 +1409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1680943686}
+  text: {fileID: 0}
   active: 0
 --- !u!225 &899198686
 CanvasGroup:
@@ -1567,12 +1568,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908590230}
   m_CullTransparentMesh: 0
---- !u!4 &931412470 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4351028631444155810, guid: c063a6f09ce0a574aa21b2cc1dbc13a9,
-    type: 3}
-  m_PrefabInstance: {fileID: 119362232}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &942641391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,13 +1770,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreBorad: {fileID: 899198685}
+  finished: 0
   points: {fileID: 758955873}
   bonus: {fileID: 942641393}
   result: {fileID: 1947328758}
   timer: {fileID: 1563751505}
   bonusMeter: {fileID: 834126698}
   pin: {fileID: 380903352}
-  gameTime: 10
+  gameTime: 20
   meterPoints: 50
 --- !u!1 &1274450460
 GameObject:
@@ -2471,6 +2467,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753313913}
   m_CullTransparentMesh: 0
+--- !u!4 &1913930467 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2009958943626874314, guid: dc8318bb87c084d0994f7ee378a125d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1940705006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1940705006
 PrefabInstance:
   m_ObjectHideFlags: 0
