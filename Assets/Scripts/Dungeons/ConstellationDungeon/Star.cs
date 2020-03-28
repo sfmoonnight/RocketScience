@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Star : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Star : MonoBehaviour
     {
         drawLine = GetComponent<DrawLine>();
         drawLine.SetUpLine(transform, nextStar);
-        //starParticle.Stop();
+        starParticle.Stop();
 
         if (nextStar.Count > 0)
         {
@@ -76,5 +77,11 @@ public class Star : MonoBehaviour
                 s.GetComponent<Star>().ActivateSelf();
             }
         }   
+    }
+
+    public void SetText(string s)
+    {
+        variable = s;
+        GetComponent<TextMeshPro>().text = s;
     }
 }

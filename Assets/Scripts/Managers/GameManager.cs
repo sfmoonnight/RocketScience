@@ -13,9 +13,12 @@ public class GameManager : MonoBehaviour
     public List<Collectable> collectibles; //all collectibles of the game
     public List<Collectable> keyCollectibles;//all key collectibles of the game
     public List<Question> planets;//---including all the planets and structure
+    public List<Constellation> constellationAppeared;//constellations already discovered
 
+    //---Prefabs from Resource folder
     public List<GameObject> collectiblePrefabs;
     public List<GameObject> planetPrefabs;
+    public List<GameObject> constellationPrefabs;
     public bool inDungeon;
 
     public bool universeCreated;
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
         
         LoadAllCollectibles();
         LoadAllPlanets();
+        LoadAllConstellations();
 
         //GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
         //UpdateQuestions();
@@ -130,8 +134,23 @@ public class GameManager : MonoBehaviour
         foreach (Object o in availablePlanets)
         {
             GameObject go = (GameObject)o;
+            //Question q = go.GetComponent<Question>();
 
-            planetPrefabs.Add(go);
+            planetPrefabs.Add(go);   
+        }
+    }
+
+    public void LoadAllConstellations()
+    {
+        Object[] availableConstellations = Resources.LoadAll("Constellations");
+        constellationPrefabs = new List<GameObject>();
+        foreach (Object o in availableConstellations)
+        {
+            GameObject go = (GameObject)o;
+            Constellation con = go.GetComponent<Constellation>();
+
+            constellationPrefabs.Add(go);
+            //constellations.Add(con);
         }
     }
 

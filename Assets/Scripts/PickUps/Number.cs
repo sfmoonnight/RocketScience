@@ -234,19 +234,17 @@ public class Number : MonoBehaviour
         transform.position = new Vector2(x, y);
     }
 
-    
-
-    public void AttachToNearest()
+    private Collider2D FindNearest(string tag)
     {
         float radius = attachRadius;
         //https://forum.unity.com/threads/clean-est-way-to-find-nearest-object-of-many-c.44315/
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-        
+
         Collider2D nearestCollider = null;
         float minSqrDistance = Mathf.Infinity;
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject.tag == "question")
+            if (colliders[i].gameObject.tag == tag)
             {
                 float sqrDistanceToCenter = (transform.position - colliders[i].transform.position).sqrMagnitude;
                 if (sqrDistanceToCenter < minSqrDistance)
@@ -256,6 +254,26 @@ public class Number : MonoBehaviour
                 }
             }
         }
+        return nearestCollider;
+    }
+
+    public void AttachToNearestStar()
+    {
+        /*Collider2D nearestCollider = FindNearest("star");
+        if (nearestCollider != null)
+        {
+            //TODO: generate equations for stars
+            EquationManager eqm = nearestCollider.gameObject.GetComponent<Question>().GetEquation();
+            eqm.numbers.Add(this);
+            attachedPlanet = nearestCollider.gameObject;
+            //print("In collider check: " + this.IsEmpty());
+        }*/
+    }
+
+    public void AttachToNearestPlanet()
+    {
+        Collider2D nearestCollider = FindNearest("question");
+        
         if (nearestCollider != null)
         {
             EquationManager eqm = nearestCollider.gameObject.GetComponent<Question>().GetEquation();

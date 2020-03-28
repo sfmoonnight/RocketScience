@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Constellation : MonoBehaviour
 {
     public int identity;
     public List<Star> stars;
+    public List<TextMeshPro> equitions;
 
     public Star firstStar;
     public Star lastStar;

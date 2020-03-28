@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
             Number[] numbers = GameObject.FindObjectsOfType<Number>();
             for (int i = 0; i < numbers.Length; i++)
             {
-                numbers[i].AttachToNearest();
+                numbers[i].AttachToNearestPlanet();
             }
             numbersAttached = true;
         }

@@ -10,6 +10,7 @@ public class Element
 	public ElementType type;
 	public int data;
 	public bool isVar;
+    public string varSymbol = "X";
 
     public Element(ElementType t)
 	{
@@ -33,9 +34,16 @@ public class Element
 		return this;
 	}
 
+    public Element asVar(string s)
+    {
+        setIsVar(true);
+        varSymbol = s;
+        return this;
+    }
+
     public string dataToString()
 	{
-		return isVar ? "X" : ""+data;
+		return isVar ? varSymbol : ""+data;
 	}
 
     public string toString()
@@ -126,6 +134,18 @@ public abstract class Equation
 		return r;
 	}
 
+}
+
+public class BlankEquation : Equation
+{
+    // 
+    public override void genElements()
+    {
+    }
+
+    public override void genElements(int answer)
+    {
+    }
 }
 
 public class Addition1: Equation
