@@ -182,7 +182,15 @@ public class Rocket : MonoBehaviour
             //print("Scoop way 2");
             netAnim.SetTrigger("scoop_right");
         }
-        g.GetComponent<Collectable>().ProcessPickup();
+        if (g.GetComponent<Collectable>())
+        {
+            g.GetComponent<Collectable>().ProcessPickup();
+        }
+        if (g.GetComponent<Star>())
+        {
+            g.GetComponent<Star>().starParticle.Play();
+            g.GetComponent<Star>().solved = true;
+        }
     }
 
     public List<Number> GetNumbersAround()
