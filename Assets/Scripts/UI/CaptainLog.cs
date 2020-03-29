@@ -14,7 +14,7 @@ public class CaptainLog : MonoBehaviour
 
     public Sprite UIMask;
     public Sprite testSpriteSmall;
-    public Sprite testSpriteLarge;
+    public Sprite darkBackground;
     public Sprite questionMark;
 
     public Image[] slots;
@@ -83,14 +83,18 @@ public class CaptainLog : MonoBehaviour
         currentSlotIndex = 0;
         foreach(Image im in slots)
         {
-            im.sprite = UIMask;
-            im.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            im.rectTransform.localScale = new Vector3(1f, 1f, 1);
-            
-            Color c = Color.white;
-            c.a = 0f;
-            im.transform.parent.GetComponent<Image>().color = c;
+            Image[] images = im.GetComponentsInChildren<Image>();
+            foreach(Image i in images)
+            {
+                i.sprite = UIMask;
+                i.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                i.rectTransform.localScale = new Vector3(1f, 1f, 1);
 
+                Color c = Color.white;
+                c.a = 0f;
+                i.color = c;
+                i.transform.parent.GetComponent<Image>().color = c;
+            }
         }
         foreach (Text t in slotTexts)
         {
@@ -223,6 +227,10 @@ public class CaptainLog : MonoBehaviour
                 slots[currentSlotIndex].rectTransform.pivot = new Vector2(0.5f, 0.5f);
                 slots[currentSlotIndex].rectTransform.localScale = new Vector3(0.8f, 0.8f, 1);
 
+                Color co = Color.white;
+                co.a = 1f;
+                slots[currentSlotIndex].color = co;
+
                 Image im = slots[currentSlotIndex].transform.parent.GetComponent<Image>();
                 Color c = im.color;
                 float numr = Random.Range(0f, 1f);
@@ -271,9 +279,51 @@ public class CaptainLog : MonoBehaviour
                 }
 
                 //print("------currentslot=" + currentSlotIndex);
-                slots[currentSlotIndex].sprite = testSpriteLarge;
+                slots[currentSlotIndex].sprite = darkBackground;
                 slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
                 slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
+                Color c = Color.white;
+                c.a = 1f;
+                slots[currentSlotIndex].color = c;
+
+                currentSlotIndex += 2;
+                slotTexts[currentSlotIndex].text = gs.events[i].time;
+
+                currentSlotIndex += 4;
+            }
+
+            if (gs.events[i].eventType == Event.EventType.NewConstellation)
+            {
+                print("------currentslot=" + currentSlotIndex);
+                if (currentSlotIndex > 6 && currentSlotIndex <= 11)
+                {
+                    currentSlotIndex = 12;
+                }
+                else if (currentSlotIndex > 18)
+                {
+                    if (gs.travelLogPageNumber >= gs.firstEventOnEachPage.Count)
+                    {
+                        print("First pages array length: " + gs.firstEventOnEachPage.Count);
+                        print("Add to first events list");
+
+                        gs.firstEventOnEachPage.Add(i);
+                        print("First pages array length: " + gs.firstEventOnEachPage.Count);
+                        print("Index of the next first event: " + i);
+                    }
+
+                    return;
+                }
+
+                //print("------currentslot=" + currentSlotIndex);
+                slots[currentSlotIndex].sprite = darkBackground;
+                slots[currentSlotIndex].GetComponentsInChildren<Image>()[1].sprite = Toolbox.GetInstance().GetGameManager().constellationPrefabs[gs.events[i].collectibleIdentity].GetComponent<SpriteRenderer>().sprite;
+                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
+                slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
+                Color c = Color.white;
+                c.a = 1f;
+                slots[currentSlotIndex].color = c;
+                slots[currentSlotIndex].GetComponentsInChildren<Image>()[1].color = c;
+
                 currentSlotIndex += 2;
                 slotTexts[currentSlotIndex].text = gs.events[i].time;
 

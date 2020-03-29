@@ -18,6 +18,7 @@ public class Star : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        solved = true;
         drawLine = GetComponent<DrawLine>();
         drawLine.SetUpLine(transform, nextStar);
         starParticle.Stop();

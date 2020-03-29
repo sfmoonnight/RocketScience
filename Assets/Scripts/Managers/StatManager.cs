@@ -47,8 +47,9 @@ public class StatManager : MonoBehaviour
         gameState.collectiblePageNumber = 1;
         gameState.keyDungeonPageNumber = 1;
 
-        
-    }
+        gameState.constellationsDiscovered = new List<int>();
+        gameState.constellationsNotDiscovered = new List<int>();
+}
 
     public void LoadState()
     {

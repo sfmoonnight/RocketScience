@@ -731,6 +731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identity: 0
+  name: Einstein
   stars:
   - {fileID: 4472328580819244404}
   - {fileID: 4472328580445814325}
@@ -757,6 +758,8 @@ MonoBehaviour:
   - {fileID: 7230593270735783026}
   firstStar: {fileID: 4338671086107837329}
   lastStar: {fileID: 4472328580848704736}
+  activated: 0
+  showSprite: 0
 --- !u!1 &4927279149848675392
 GameObject:
   m_ObjectHideFlags: 0

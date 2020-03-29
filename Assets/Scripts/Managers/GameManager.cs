@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     public List<Collectable> collectibles; //all collectibles of the game
     public List<Collectable> keyCollectibles;//all key collectibles of the game
     public List<Question> planets;//---including all the planets and structure
-    public List<Constellation> constellationAppeared;//constellations already discovered
+    public List<int> constellationNotDiscovered;//constellations already discovered
+    public List<int> constellationDiscovered;//constellations already discovered
 
     //---Prefabs from Resource folder
     public List<GameObject> collectiblePrefabs;
@@ -150,7 +151,7 @@ public class GameManager : MonoBehaviour
             Constellation con = go.GetComponent<Constellation>();
 
             constellationPrefabs.Add(go);
-            //constellations.Add(con);
+            constellationNotDiscovered.Add(con.identity);
         }
     }
 

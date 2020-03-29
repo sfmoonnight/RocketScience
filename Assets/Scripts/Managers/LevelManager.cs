@@ -105,4 +105,9 @@ public class LevelManager : MonoBehaviour
             print(Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count);
         }
     }
+
+    public void GenerateConstellations()
+    {
+
+    }
 }

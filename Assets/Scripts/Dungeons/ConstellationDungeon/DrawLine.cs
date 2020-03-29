@@ -84,7 +84,7 @@ public class DrawLine : MonoBehaviour
                 sh.radius = Vector3.Distance(pointA, pointAlingLine) / 2;
 
                 lines[i].SetPosition(1, pointAlingLine);
-                print("not activating next star" + counter + "----" + distances[i]);
+                //print("not activating next star" + counter + "----" + distances[i]);
 
                 if (Vector3.Distance(pointAlingLine, pointA) >= distances[i])
                 {

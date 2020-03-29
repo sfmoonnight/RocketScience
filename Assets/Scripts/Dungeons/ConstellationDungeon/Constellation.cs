@@ -6,16 +6,17 @@ using TMPro;
 public class Constellation : MonoBehaviour
 {
     public int identity;
+    public string name;
     public List<Star> stars;
     public List<TextMeshPro> equitions;
 
     public Star firstStar;
     public Star lastStar;
-    SpriteRenderer constellationSprite;
+    public SpriteRenderer constellationSprite;
     List<Vector3> starsPosition;
 
-    bool activated;
-    bool showSprite;
+    public bool activated;
+    public bool showSprite;
     Color color;
     float counter = 0.01f;
     // Start is called before the first frame update
@@ -47,6 +48,10 @@ public class Constellation : MonoBehaviour
         if (!activated)
         {
             firstStar.ActivateSelf();
+            Event newEvent = new Event(Event.EventType.NewConstellation, System.DateTime.Now.ToString(), identity);
+            Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
+            Toolbox.GetInstance().GetGameManager().constellationDiscovered.Add(identity);
+            Toolbox.GetInstance().GetGameManager().constellationNotDiscovered.Remove(identity);
             activated = true;
         }
     }
@@ -58,7 +63,7 @@ public class Constellation : MonoBehaviour
             counter *= 1.05f;
             color.a = Mathf.Lerp(0, 0.8f, counter);
             constellationSprite.color = color;
-            if(color.a == 1)
+            if(color.a == 0.8f)
             {
                 showSprite = true;
             }

@@ -22,7 +22,7 @@ public class ConstellationManager : DungeonManager
         color.a = 0;
         darkBackground.color = color;
 
-        GameObject con = Instantiate(Toolbox.GetInstance().GetGameManager().constellationPrefabs[0], Vector3.zero, Quaternion.identity);
+        GameObject con = Instantiate(Toolbox.GetInstance().GetGameManager().constellationPrefabs[0], new Vector3(0, 0, -2), Quaternion.identity);
         constellation = con.GetComponent<Constellation>();
 
         alphabet = new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
@@ -42,9 +42,8 @@ public class ConstellationManager : DungeonManager
                 constellation.drawConstellation();
             }
         }
-
-    
-        foreach(Star s in constellation.stars)
+        //print("showsprite" + constellation.showSprite);
+        foreach (Star s in constellation.stars)
         {
             if (!s.solved)
             {
@@ -53,6 +52,12 @@ public class ConstellationManager : DungeonManager
         }
 
         StartCoroutine(Finishing());
+        
+        if (constellation.showSprite)
+        {
+            print("showsprite" + constellation.showSprite);
+            StartCoroutine(ShowNotification());
+        }
     }
 
     private void LateUpdate()
@@ -177,6 +182,15 @@ public class ConstellationManager : DungeonManager
     IEnumerator Finishing()
     {
         yield return new WaitForSeconds(1.5f);
+
         finished = true;
+    }
+
+    IEnumerator ShowNotification()
+    {
+        yield return new WaitForSeconds(1.5f);
+        scoreBorad.image.sprite = constellation.constellationSprite.sprite;
+        scoreBorad.text.text = "You have discovered the " + constellation.name + " constellation!";
+        scoreBorad.ShowUI();
     }
 }
