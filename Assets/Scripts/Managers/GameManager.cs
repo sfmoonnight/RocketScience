@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     {
         universeCreated = false;
         planets = new List<Question>();
+        constellationNotDiscovered = new List<int>();
+        constellationDiscovered = new List<int>();
 
         answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();  

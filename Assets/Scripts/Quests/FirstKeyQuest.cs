@@ -6,12 +6,15 @@ public class FirstKeyQuest : NewQuest
 {
     public Quest firstKeyQuest;
 
+    GameObject telescope;
+
     public override void Start()
     {
+        telescope = GameObject.Find("Telescope");
         //keyCollectible = new QuestCollectible(-1, 0, 0, false);
         //collectibles = new List<QuestCollectible>();
         //collectibles.Add(keyCollectible);
-        Vector2 coor = new Vector2(90, 100);
+        Vector2 coor = (Vector2) telescope.transform.position + new Vector2(150, 150);
         firstKeyQuest = new Quest(-1, coor);
     }
 
@@ -22,7 +25,8 @@ public class FirstKeyQuest : NewQuest
             HideNewQuest();
             GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
             gs.firstKeyQuestStatus = GameState.QuestStatus.Accepted;
-            GameObject.Find("MeteorDungeon").GetComponent<ActiveKeyDungeon>().ActivateDungeon();
+            //GameObject.Find("MeteorDungeon").GetComponent<ActiveKeyDungeon>().ActivateDungeon();
+            telescope.GetComponent<ActivateTelescope>().ShowTelescope();
             Toolbox.GetInstance().GetGameManager().PickUpQuest(firstKeyQuest);
         }
     }

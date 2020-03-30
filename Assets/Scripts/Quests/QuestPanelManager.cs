@@ -100,7 +100,7 @@ public class QuestPanelManager : MonoBehaviour
 
                 Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
                 
-                //TODO: point to the next key quest 
+                //TODO: Adept to telescope
             }
             else
             {

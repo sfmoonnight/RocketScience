@@ -334,9 +334,14 @@ public class CaptainLog : MonoBehaviour
 
     void UpdateCollectibles()
     {
-        for(int i = 0; i < Toolbox.GetInstance().GetGameManager().collectibles.Count % 24; i++)
+        Color c1 = Color.white;
+        c1.a = 1f;
+
+        for (int i = 0; i < Toolbox.GetInstance().GetGameManager().collectibles.Count % 24; i++)
         {
             slots[i].sprite = questionMark;
+            slots[i].color = c1;
+
             Image im = slots[i].transform.parent.GetComponent<Image>();
             Color c = im.color;
             c.a = 0.45f;
@@ -361,6 +366,8 @@ public class CaptainLog : MonoBehaviour
             {
                 slots[i % 24].sprite = Toolbox.GetInstance().GetGameManager().collectibles[i].spriteRenderer.sprite;
                 slots[i % 24].rectTransform.localScale = new Vector3(0.8f, 0.8f, 1);
+                
+                slots[i % 24].color = c1;
 
                 Image im = slots[i % 24].transform.parent.GetComponent<Image>();
                 Color c = im.color;

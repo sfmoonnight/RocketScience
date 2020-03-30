@@ -54,7 +54,8 @@ public class GameState
     public int collectiblePageNumber;
     public int keyDungeonPageNumber;
 
-    //---Constellations
+    //---Telescope and Constellations
+    public bool telescopeActivated;
     public List<int> constellationsDiscovered;
     public List<int> constellationsNotDiscovered;
 }

@@ -36,6 +36,10 @@ public class LevelManager : MonoBehaviour
             Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-gs.keyDungeonProgress);
             Toolbox.GetInstance().GetStatManager().SaveState();
         }
+        if (gs.telescopeActivated)
+        {
+            Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-1);
+        }
 
         NumberGenerator ng = Toolbox.GetInstance().GetGameManager().rocket.GetComponent<NumberGenerator>();
         ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
