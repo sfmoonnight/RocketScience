@@ -20,14 +20,18 @@ public class Constellation : MonoBehaviour
     Color color;
     float counter = 0.01f;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        constellationSprite = GetComponent<SpriteRenderer>();
         Star[] st = GetComponentsInChildren<Star>();
-        foreach(Star s in st)
+        foreach (Star s in st)
         {
             stars.Add(s);
         }
+    }
+    void Start()
+    {
+        constellationSprite = GetComponent<SpriteRenderer>();
+        
 
         color = Color.white;
         color.a = 0;

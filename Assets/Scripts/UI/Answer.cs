@@ -15,6 +15,6 @@ public class Answer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        answer.text = Toolbox.GetInstance().GetGameManager().answer.ToString();
+        answer.text = Toolbox.GetInstance().GetStatManager().gameState.answer.ToString();
     }
 }

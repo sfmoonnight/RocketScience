@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
     public int answer;
     public Rocket rocket;
     //GameObject[] questions;
+    public Vector2 universeSize;
+
     public List<Collectable> collectibles; //all collectibles of the game
     public List<Collectable> keyCollectibles;//all key collectibles of the game
     public List<Question> planets;//---including all the planets and structure
-    public List<int> constellationNotDiscovered;//constellations already discovered
+    public List<int> constellationNotDiscovered;//constellations not discovered
     public List<int> constellationDiscovered;//constellations already discovered
 
     //---Prefabs from Resource folder
@@ -32,8 +34,8 @@ public class GameManager : MonoBehaviour
         planets = new List<Question>();
         constellationNotDiscovered = new List<int>();
         constellationDiscovered = new List<int>();
-
-        answer = Random.Range(-99, 100);
+        universeSize = new Vector2(300, 300);
+        //answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();  
         
         LoadAllCollectibles();
@@ -63,16 +65,12 @@ public class GameManager : MonoBehaviour
         
     }
 
-    //void loadCollectibles()
-    //{
-    //    collectibles = new List<GameObject>(Resources.LoadAll<GameObject>("Assets/Prefabs/Collectibles"));
-    //    Debug.Assert(collectibles.Count > 0);
-    //}
     public void ReloadMain()
     {
         //print("--------Reloading Main");
-        //Toolbox.GetInstance().GetStatManager().LoadState();
+        
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
+        Toolbox.GetInstance().GetStatManager().LoadState();
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //print(gs.answer);
         //print(gs.playerPosition);
@@ -103,6 +101,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        NumberGenerator ng = rocket.GetComponent<NumberGenerator>();
+        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
     }
 
     public void LoadAllCollectibles()
@@ -201,13 +202,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    /*public void UpdateQuestions()
+    public void QuickSave()
     {
-        questions = null;
-        questions = GameObject.FindGameObjectsWithTag("question");
-    }*/
-
-    public void SetAnswer(int ans)
+        Toolbox.GetInstance().GetStatManager().gameState.answer = answer;
+        Toolbox.GetInstance().GetStatManager().gameState.playerPosition = rocket.transform.position;
+    }
+    public void PickUpNumber(int ans)
     {
         answer = ans;
         //print("Questions: " + questions);
@@ -225,7 +225,8 @@ public class GameManager : MonoBehaviour
                     go.DeactivateCollectables();
                 }
             }
-        }    
+        }
+        QuickSave();
     }
 
     //---Add quest to quest panel

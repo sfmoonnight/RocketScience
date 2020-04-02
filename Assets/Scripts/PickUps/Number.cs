@@ -172,7 +172,7 @@ public class Number : MonoBehaviour
             GameManager gm = Toolbox.GetInstance().GetGameManager();
             int currentAnswer = gm.answer;
             int newAnswer = applyOperation(currentAnswer);
-            Toolbox.GetInstance().GetGameManager().SetAnswer(newAnswer);
+            Toolbox.GetInstance().GetGameManager().PickUpNumber(newAnswer);
             HideNumber();
         }
     }

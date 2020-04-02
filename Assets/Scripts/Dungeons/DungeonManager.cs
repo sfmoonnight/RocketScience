@@ -28,7 +28,7 @@ public class DungeonManager : MonoBehaviour
         //print("Count: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
 
         Toolbox.GetInstance().GetStatManager().SaveState();
-        print("Money before exit: " + Toolbox.GetInstance().GetStatManager().gameState.money);
+        //print("Money before exit: " + Toolbox.GetInstance().GetStatManager().gameState.money);
 
         SceneManager.LoadScene("Main");
         

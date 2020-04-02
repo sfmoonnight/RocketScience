@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class LevelManager : MonoBehaviour
+public class UniverseManager : MonoBehaviour
 {
     float patchSize = 150f;
     float spacing = 50;
@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
+        //print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
         //print("We out " + Toolbox.GetInstance().GetStatManager().gameState.eatshit);
         if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
         {
@@ -40,10 +40,6 @@ public class LevelManager : MonoBehaviour
         {
             Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-1);
         }
-
-        NumberGenerator ng = Toolbox.GetInstance().GetGameManager().rocket.GetComponent<NumberGenerator>();
-        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
-
     }
 
     // Update is called once per frame
