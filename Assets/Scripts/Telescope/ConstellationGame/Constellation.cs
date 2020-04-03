@@ -55,8 +55,8 @@ public class Constellation : MonoBehaviour
             firstStar.ActivateSelf();
             Event newEvent = new Event(Event.EventType.NewConstellation, System.DateTime.Now.ToString(), identity);
             gs.events.Add(newEvent);
-            Toolbox.GetInstance().GetGameManager().constellationDiscovered.Add(identity);
-            Toolbox.GetInstance().GetGameManager().constellationNotDiscovered.Remove(identity);
+            gs.constellationsDiscovered.Add(identity);
+            gs.constellationsNotDiscovered.Remove(identity);
  
             if (!gs.telescopeActivated)
             {

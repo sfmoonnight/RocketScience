@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UniverseManager : MonoBehaviour
 {
+    public GameObject constellationTemplet;
     float patchSize = 150f;
     float spacing = 50;
 
@@ -24,6 +25,7 @@ public class UniverseManager : MonoBehaviour
         if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
         {
             GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
+            GenerateConstellations();
         }
         else
         {
@@ -108,6 +110,20 @@ public class UniverseManager : MonoBehaviour
 
     public void GenerateConstellations()
     {
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+       
+        foreach(ConstellationStructure cs in gm.constellationStructures)
+        {
+            GameObject cons = Instantiate(constellationTemplet, new Vector2(100, 100), Quaternion.identity);
+            cons.GetComponent<ConstellationTemplate>().constellationStructure = cs;
+            Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(cs.constellationID);
+            cons.GetComponent<ConstellationTemplate>().SetUpConstellation();
 
+            ConstellationData cd = new ConstellationData(cs.constellationID, cons.transform.position, false, new List<int>());
+            Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
+        }
+        
+       
+        
     }
 }

@@ -9,4 +9,12 @@ public class ConstellationData
     public Vector3 location;
     public bool discovered;
     public List<int> starsActivated;
+
+    public ConstellationData(int id, Vector3 pos, bool discovered, List<int> activeStars)
+    {
+        this.constellationID = id;
+        this.location = pos;
+        this.discovered = discovered;
+        this.starsActivated = activeStars;
+    }
 }

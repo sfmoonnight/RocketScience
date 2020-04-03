@@ -58,4 +58,5 @@ public class GameState
     public bool telescopeActivated;
     public List<int> constellationsDiscovered;
     public List<int> constellationsNotDiscovered;
+    public List<ConstellationData> allConstellationData;
 }

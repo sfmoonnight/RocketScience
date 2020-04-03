@@ -49,6 +49,7 @@ public class StatManager : MonoBehaviour
 
         gameState.constellationsDiscovered = new List<int>();
         gameState.constellationsNotDiscovered = new List<int>();
+        gameState.allConstellationData = new List<ConstellationData>();
 }
 
     public void LoadState()

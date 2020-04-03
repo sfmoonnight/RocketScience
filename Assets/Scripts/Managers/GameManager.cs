@@ -15,13 +15,14 @@ public class GameManager : MonoBehaviour
     public List<Collectable> collectibles; //all collectibles of the game
     public List<Collectable> keyCollectibles;//all key collectibles of the game
     public List<Question> planets;//---including all the planets and structure
-    public List<int> constellationNotDiscovered;//constellations not discovered
-    public List<int> constellationDiscovered;//constellations already discovered
+    //public List<int> constellationNotDiscovered;//constellations not discovered
+    //public List<int> constellationDiscovered;//constellations already discovered
 
     //---Prefabs from Resource folder
     public List<GameObject> collectiblePrefabs;
     public List<GameObject> planetPrefabs;
     public List<GameObject> constellationPrefabs;
+    public List<ConstellationStructure> constellationStructures;
     public bool inDungeon;
 
     public bool universeCreated;
@@ -32,8 +33,8 @@ public class GameManager : MonoBehaviour
     {
         universeCreated = false;
         planets = new List<Question>();
-        constellationNotDiscovered = new List<int>();
-        constellationDiscovered = new List<int>();
+        //constellationNotDiscovered = new List<int>();
+        //constellationDiscovered = new List<int>();
         universeSize = new Vector2(300, 300);
         //answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();  
@@ -82,10 +83,12 @@ public class GameManager : MonoBehaviour
         //print(gs.allPlanetData.Count);
         foreach (PlanetData pd in gs.allPlanetData)
         {
+            planets = new List<Question>();
             //print("-------Recreating Planets");
             //print(pd.planetPrefabID);
             GameObject planet = Instantiate(planetPrefabs[pd.planetPrefabID]);
             Question q = planet.GetComponent<Question>();
+            planets.Add(q);
             q.SetUpPlanet(pd);
         }
 
@@ -146,15 +149,25 @@ public class GameManager : MonoBehaviour
 
     public void LoadAllConstellations()
     {
-        Object[] availableConstellations = Resources.LoadAll("Constellations");
         constellationPrefabs = new List<GameObject>();
+        constellationStructures = new List<ConstellationStructure>();
+
+        Object[] availableConstellations = Resources.LoadAll("Constellations");
+        Object[] Structures = Resources.LoadAll("ConstellationStructure");
+
         foreach (Object o in availableConstellations)
         {
             GameObject go = (GameObject)o;
             Constellation con = go.GetComponent<Constellation>();
 
             constellationPrefabs.Add(go);
-            constellationNotDiscovered.Add(con.identity);
+            //constellationNotDiscovered.Add(con.identity); 
+        }
+
+        foreach (Object o in Structures)
+        {
+            ConstellationStructure cs = (ConstellationStructure)o;
+            constellationStructures.Add(cs);
         }
     }
 
