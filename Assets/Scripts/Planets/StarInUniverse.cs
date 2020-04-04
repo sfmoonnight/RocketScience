@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarOnMap : MonoBehaviour
+public class StarInUniverse : MonoBehaviour
 {
     public int starID;
     public ConstellationTemplate constellationTemplate;

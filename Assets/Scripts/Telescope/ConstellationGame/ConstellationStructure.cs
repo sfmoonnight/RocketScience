@@ -12,5 +12,5 @@ public class ConstellationStructure :ScriptableObject
     
     public Dictionary<int, List<int>> connections;
 
-    public float scale;
+    public float scale;//Used in generate cons in the universe
 }

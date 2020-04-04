@@ -47,7 +47,7 @@ public class Constellation : MonoBehaviour
         }
     }
 
-    public void drawConstellation()
+    public void StartDrawing()
     {
         if (!activated)
         {

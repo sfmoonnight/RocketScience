@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class UniverseManager : MonoBehaviour
@@ -29,7 +30,7 @@ public class UniverseManager : MonoBehaviour
         }
         else
         {
-            Toolbox.GetInstance().GetGameManager().ReloadMain();
+            ReloadMain();
         }
 
         if(Toolbox.GetInstance().GetGameManager().dungeonProgressTemp > gs.keyDungeonProgress)
@@ -60,6 +61,56 @@ public class UniverseManager : MonoBehaviour
             }
             numbersAttached = true;
         }
+    }
+
+    public void ReloadMain()
+    {
+        //print("--------Reloading Main");
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        gm.rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
+        Toolbox.GetInstance().GetStatManager().LoadState();
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        //print(gs.answer);
+        //print(gs.playerPosition);
+
+        gm.answer = gs.answer;
+        gm.rocket.transform.position = gs.playerPosition;
+        GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
+
+        //print(gs.allPlanetData.Count);
+        foreach (PlanetData pd in gs.allPlanetData)
+        {
+            gm.planets = new List<Question>();
+            //print("-------Recreating Planets");
+            //print(pd.planetPrefabID);
+            GameObject planet = Instantiate(gm.planetPrefabs[pd.planetPrefabID]);
+            Question q = planet.GetComponent<Question>();
+            gm.planets.Add(q);
+            q.SetUpPlanet(pd);
+        }
+
+        foreach (ConstellationData cd in gs.allConstellationData)
+        {
+            GameObject cons = Instantiate(constellationTemplet);
+            print("constelation id: " + cd.constellationID);
+            print("constellation sructure numbers: " + gm.constellationStructures.Count);
+            cons.GetComponent<ConstellationTemplate>().SetUpConstellation(cd.location, gm.constellationStructures[cd.constellationID]);
+        }
+
+        //print("Reloading main");
+        if (Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered != 0)
+        {
+            //print("-------reload dungeon" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
+            foreach (Question q in gm.planets)
+            {
+                if (q.planetID == Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered)
+                {
+                    q.ActivateCollectables();
+                }
+            }
+        }
+        NumberGenerator ng = gm.rocket.GetComponent<NumberGenerator>();
+        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
     }
 
     public void GenerateRandomPlanets(float left, float top, float right, float bottom, float spacing)
@@ -114,16 +165,20 @@ public class UniverseManager : MonoBehaviour
        
         foreach(ConstellationStructure cs in gm.constellationStructures)
         {
-            GameObject cons = Instantiate(constellationTemplet, new Vector2(100, 100), Quaternion.identity);
-            cons.GetComponent<ConstellationTemplate>().constellationStructure = cs;
+            GameObject cons = Instantiate(constellationTemplet);
+            //cons.GetComponent<ConstellationTemplate>().constellationStructure = cs;
             Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(cs.constellationID);
-            cons.GetComponent<ConstellationTemplate>().SetUpConstellation();
+            cons.GetComponent<ConstellationTemplate>().SetUpConstellation(new Vector2(100, 100), cs);
 
-            ConstellationData cd = new ConstellationData(cs.constellationID, cons.transform.position, false, new List<int>());
+            float xSize = cons.GetComponent<SpriteRenderer>().bounds.size.x;
+            float ySize = cons.GetComponent<SpriteRenderer>().bounds.size.y;
+            float xRatio = xSize / gm.universeSize.x;
+            float yRatio = ySize / gm.universeSize.y;
+            Vector2 ratio = new Vector2(xRatio, yRatio);
+            ConstellationData cd = new ConstellationData(cs.constellationID, cons.transform.position, false, new List<Vector2>(), new List<int>(), ratio);
             Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
+
+            print("cons size: " + cons.GetComponent<SpriteRenderer>().bounds.size);
         }
-        
-       
-        
     }
-}
+} 

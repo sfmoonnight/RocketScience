@@ -22,7 +22,7 @@ public class ConstellationManager : DungeonManager
         color.a = 0;
         darkBackground.color = color;
 
-        GameObject con = Instantiate(Toolbox.GetInstance().GetGameManager().constellationPrefabs[0], new Vector3(0, 0, -2), Quaternion.identity);
+        GameObject con = Instantiate(Toolbox.GetInstance().GetGameManager().constellationPrefabs[1], new Vector3(0, 0, -2), Quaternion.identity);
         constellation = con.GetComponent<Constellation>();
 
         alphabet = new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
@@ -39,7 +39,7 @@ public class ConstellationManager : DungeonManager
             ZoomOut();
             if (camera.transform.position == new Vector3(0, 0, -10))
             {
-                constellation.drawConstellation();
+                constellation.StartDrawing();
             }
         }
         //print("showsprite" + constellation.showSprite);

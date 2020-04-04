@@ -5,9 +5,10 @@ using UnityEngine;
 public class ConstellationTemplate : MonoBehaviour
 {
     public ConstellationStructure constellationStructure;
-    public GameObject starOnMap;
+    public GameObject starInUniverse;
 
-    List<StarOnMap> stars;
+    GameManager gm;
+    List<StarInUniverse> stars;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,19 +21,27 @@ public class ConstellationTemplate : MonoBehaviour
         
     }
 
-    public void SetUpConstellation()
+    public void SetUpConstellation(Vector2 position, ConstellationStructure constellationStructure)
     {
-        stars = new List<StarOnMap>();
+        gm = Toolbox.GetInstance().GetGameManager();
+        transform.position = position;
+        GetComponent<SpriteRenderer>().sprite = gm.constellationPrefabs[constellationStructure.constellationID].GetComponent<SpriteRenderer>().sprite;
+        stars = new List<StarInUniverse>();
         transform.localScale = constellationStructure.scale * Vector3.one;
         foreach (Vector2 p in constellationStructure.starsPosition)
         {
-            GameObject star = Instantiate(starOnMap, transform);
-            StarOnMap som = star.GetComponent<StarOnMap>();
+            GameObject star = Instantiate(starInUniverse, transform);
+            StarInUniverse som = star.GetComponent<StarInUniverse>();
             stars.Add(som);
             som.starID = stars.IndexOf(som);
             som.constellationTemplate = this;
             star.transform.localPosition = p; 
             star.transform.localScale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
-        } 
+
+            GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+            gs.allConstellationData[constellationStructure.constellationID].starsLocation.Add(star.transform.position);
+        }
+
+        //print("constellation size: " + GetComponent<SpriteRenderer>().bounds.size.x);
     }
 }

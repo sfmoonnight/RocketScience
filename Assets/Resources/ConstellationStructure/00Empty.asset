@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 712502b658aa8634790d28686b7ecdc3, type: 3}
-  m_Name: Einstein
+  m_Name: 00Empty
   m_EditorClassIdentifier: 
   constellationID: 0
-  starsPosition:
-  - {x: -1.56, y: 2.62}
-  - {x: 2.88, y: 2.07}
-  - {x: 1.21, y: -4.47}
-  - {x: -4.78, y: -1.84}
-  scale: 1
+  starsPosition: []
+  connectionsEdgeList: []
+  scale: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 410157565620469623}
   - component: {fileID: 5382881104305595688}
   m_Layer: 0
-  m_Name: StarOnMap
+  m_Name: StarInUniverse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7752660555188316284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -41.918518, y: -40.69808, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,4 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd7a5f3f03031c4391de72228b95d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starID: 0
+  constellationTemplate: {fileID: 0}
   detection: {fileID: 410157565620469623}
+  activated: 0

@@ -12,6 +12,9 @@ public class ConstructConstellation : MonoBehaviour
         constellationStructure.starsPosition = new List<Vector2>();
         constellationStructure.connectionsEdgeList = new List<Vector2>();
         constellationStructure.connections = new Dictionary<int, List<int>>();
+        /*constellationStructure.starsPosition.Clear();
+        constellationStructure.connectionsEdgeList.Clear();
+        constellationStructure.connections.Clear();*/
         /*foreach (GameObject go in stars)
         {
             constellationStructure.starsPosition.Add(go.transform.localPosition);

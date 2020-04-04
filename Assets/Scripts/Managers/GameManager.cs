@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject.Find("TheUniverse").GetComponent<SpriteRenderer>().size = universeSize;
 
         dungeonProgressTemp = Toolbox.GetInstance().GetStatManager().gameState.keyDungeonProgress;
         //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
@@ -64,49 +64,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void ReloadMain()
-    {
-        //print("--------Reloading Main");
-        
-        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
-        Toolbox.GetInstance().GetStatManager().LoadState();
-        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        //print(gs.answer);
-        //print(gs.playerPosition);
-        
-        answer = gs.answer;
-        rocket.transform.position = gs.playerPosition;
-        GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
-
-        //print(gs.allPlanetData.Count);
-        foreach (PlanetData pd in gs.allPlanetData)
-        {
-            planets = new List<Question>();
-            //print("-------Recreating Planets");
-            //print(pd.planetPrefabID);
-            GameObject planet = Instantiate(planetPrefabs[pd.planetPrefabID]);
-            Question q = planet.GetComponent<Question>();
-            planets.Add(q);
-            q.SetUpPlanet(pd);
-        }
-
-        //print("Reloading main");
-        if (Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered != 0)
-        {
-            //print("-------reload dungeon" + Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered);
-            foreach (Question q in planets)
-            {
-                if(q.planetID == Toolbox.GetInstance().GetStatManager().gameState.dungeonEntered)
-                {
-                    q.ActivateCollectables();
-                }
-            }
-        }
-
-        NumberGenerator ng = rocket.GetComponent<NumberGenerator>();
-        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
     }
 
     public void LoadAllCollectibles()
