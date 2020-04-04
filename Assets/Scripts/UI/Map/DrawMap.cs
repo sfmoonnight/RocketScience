@@ -15,7 +15,7 @@ public class DrawMap : MonoBehaviour
     void Start()
     {
         gm = Toolbox.GetInstance().GetGameManager();
-        gs = Toolbox.GetInstance().GetStatManager().gameState;
+        
         SetUpMap();
         DrawConstellation();
     }
@@ -38,6 +38,7 @@ public class DrawMap : MonoBehaviour
 
     public void DrawConstellation()
     {
+        gs = Toolbox.GetInstance().GetStatManager().gameState;
         allConstellationOnMap = new List<MapConsTemplate>();
         foreach(ConstellationData cd in gs.allConstellationData)
         {
@@ -60,5 +61,23 @@ public class DrawMap : MonoBehaviour
             float yr = y / mapConsTemplate.GetComponent<RectTransform>().rect.height;
             mapCons.GetComponent<RectTransform>().localScale = new Vector2(xr, yr);
         } 
+    }
+
+    public void ActiveStars()
+    {
+        gs = Toolbox.GetInstance().GetStatManager().gameState;
+        //print("drawMap activate stars");
+        foreach (ConstellationData cd in gs.allConstellationData)
+        {
+            //print("drawMap activate stars count: " + cd.starsActivated.Count);
+            if (cd.starsActivated.Count > 0)
+            {
+                //print("drawMap activate stars > 0");
+                foreach (int i in cd.starsActivated)
+                {
+                    allConstellationOnMap[cd.constellationID].stars[i].GetComponent<StarOnMap>().Activate();
+                }
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ public class MapConsTemplate : MonoBehaviour
 
     GameManager gm;
     GameState gs;
-    List<GameObject> stars;
+    public List<GameObject> stars;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +37,7 @@ public class MapConsTemplate : MonoBehaviour
             GameObject star = Instantiate(starOnMap, mapBackground.transform);
             //StarOnMap som = star.GetComponent<StarInUniverse>();
             stars.Add(star);
+            //print("StarCount: " + gs.allConstellationData[constellationStructure.constellationID].starsLocation.Count);
             Vector2 mapPos = gs.allConstellationData[constellationStructure.constellationID].starsLocation[i];
             float x = (mapPos.x / gm.universeSize.x) * mapBackground.GetComponent<RectTransform>().sizeDelta.x;
             float y = (mapPos.y / gm.universeSize.y) * mapBackground.GetComponent<RectTransform>().sizeDelta.y;

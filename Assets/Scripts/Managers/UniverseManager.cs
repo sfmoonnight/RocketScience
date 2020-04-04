@@ -27,6 +27,7 @@ public class UniverseManager : MonoBehaviour
         {
             GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
             GenerateConstellations();
+            GameObject.Find("MapCanvas").GetComponent<DrawMap>().DrawConstellation();
         }
         else
         {
@@ -162,23 +163,19 @@ public class UniverseManager : MonoBehaviour
     public void GenerateConstellations()
     {
         GameManager gm = Toolbox.GetInstance().GetGameManager();
-       
-        foreach(ConstellationStructure cs in gm.constellationStructures)
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        foreach (ConstellationStructure cs in gm.constellationStructures)
         {
             GameObject cons = Instantiate(constellationTemplet);
             //cons.GetComponent<ConstellationTemplate>().constellationStructure = cs;
-            Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(cs.constellationID);
-            cons.GetComponent<ConstellationTemplate>().SetUpConstellation(new Vector2(100, 100), cs);
+            gs.constellationsNotDiscovered.Add(cs.constellationID);
 
-            float xSize = cons.GetComponent<SpriteRenderer>().bounds.size.x;
-            float ySize = cons.GetComponent<SpriteRenderer>().bounds.size.y;
-            float xRatio = xSize / gm.universeSize.x;
-            float yRatio = ySize / gm.universeSize.y;
-            Vector2 ratio = new Vector2(xRatio, yRatio);
-            ConstellationData cd = new ConstellationData(cs.constellationID, cons.transform.position, false, new List<Vector2>(), new List<int>(), ratio);
-            Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
+            Vector2 position = new Vector2(50, 50);
+            ConstellationData cd = new ConstellationData(cs.constellationID, position, false, new List<Vector2>(), new List<int>(), new Vector2());
+            gs.allConstellationData.Add(cd);
 
-            print("cons size: " + cons.GetComponent<SpriteRenderer>().bounds.size);
+            cons.GetComponent<ConstellationTemplate>().SetUpConstellation(position, cs);
+            //print("cons size: " + cons.GetComponent<SpriteRenderer>().bounds.size);
         }
     }
 } 
