@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StarOnMap : MonoBehaviour
 {
     Animator anim;
+    public Image image;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,11 @@ public class StarOnMap : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ShowStarOnMap()
+    {
+        image.enabled = true;
     }
 
     public void Activate()

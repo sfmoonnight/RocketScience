@@ -7,6 +7,7 @@ public class MapConsTemplate : MonoBehaviour
 {
     public GameObject starOnMap;
     public LineRenderer mapLine;
+    public Image image;
 
     GameManager gm;
     GameState gs;
@@ -52,5 +53,10 @@ public class MapConsTemplate : MonoBehaviour
             //star.transform.localPosition = p;
             //star.transform.localScale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
         }
+    }
+
+    public void ShowConstellationOnMap()
+    {
+        image.enabled = true;
     }
 }

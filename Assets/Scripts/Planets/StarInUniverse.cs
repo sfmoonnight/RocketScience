@@ -36,10 +36,18 @@ public class StarInUniverse : MonoBehaviour
                     if(constellationTemplate.constellationStructure.constellationID == cd.constellationID)
                     {
                         print("activated star ID: " + starID);
-                        cd.starsActivated.Add(starID);
+                        if (!cd.starsDiscovered.Contains(starID))
+                        {
+                            cd.starsDiscovered.Add(starID);
+                        }
+                        if (!cd.starsActivated.Contains(starID))
+                        {
+                            cd.starsActivated.Add(starID);
+                        }     
                         GameObject.Find("MapCanvas").GetComponent<DrawMap>().ActiveStars();
                     }
                 }
+                Toolbox.GetInstance().GetStatManager().SaveState();
             }
         }
     }

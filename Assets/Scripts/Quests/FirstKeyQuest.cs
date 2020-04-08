@@ -24,7 +24,7 @@ public class FirstKeyQuest : NewQuest
         {
             HideNewQuest();
             GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-            gs.firstKeyQuestStatus = GameState.QuestStatus.Accepted;
+            gs.telescopeQuestStatus = GameState.QuestStatus.Accepted;
             //GameObject.Find("MeteorDungeon").GetComponent<ActiveKeyDungeon>().ActivateDungeon();
             telescope.GetComponent<ActivateTelescope>().ShowTelescope();
             Toolbox.GetInstance().GetGameManager().PickUpQuest(firstKeyQuest);

@@ -17,7 +17,7 @@ public class DrawMap : MonoBehaviour
         gm = Toolbox.GetInstance().GetGameManager();
         
         SetUpMap();
-        DrawConstellation();
+        //DrawConstellation();
     }
 
     // Update is called once per frame
@@ -38,9 +38,13 @@ public class DrawMap : MonoBehaviour
 
     public void DrawConstellation()
     {
+        print("Draw constellation on map");
         gs = Toolbox.GetInstance().GetStatManager().gameState;
+        gm = Toolbox.GetInstance().GetGameManager();
         allConstellationOnMap = new List<MapConsTemplate>();
-        foreach(ConstellationData cd in gs.allConstellationData)
+        print("cons discovered: " + gs.constellationsDiscovered.Count);
+
+        foreach (ConstellationData cd in gs.allConstellationData)
         {
             GameObject mapCons = Instantiate(mapConsTemplate, mapBackground.transform);
             ConstellationStructure cs = gm.constellationStructures[cd.constellationID];
@@ -60,7 +64,13 @@ public class DrawMap : MonoBehaviour
             float xr = x / mapConsTemplate.GetComponent<RectTransform>().rect.width;
             float yr = y / mapConsTemplate.GetComponent<RectTransform>().rect.height;
             mapCons.GetComponent<RectTransform>().localScale = new Vector2(xr, yr);
-        } 
+        }
+        foreach (int i in gs.constellationsDiscovered)
+        {
+            allConstellationOnMap[i].ShowConstellationOnMap();
+        }
+
+        ActiveStars();
     }
 
     public void ActiveStars()
@@ -70,6 +80,15 @@ public class DrawMap : MonoBehaviour
         foreach (ConstellationData cd in gs.allConstellationData)
         {
             //print("drawMap activate stars count: " + cd.starsActivated.Count);
+            if (cd.starsDiscovered.Count > 0)
+            {
+                //print("drawMap activate stars > 0");
+                foreach (int i in cd.starsDiscovered)
+                {
+                    allConstellationOnMap[cd.constellationID].stars[i].GetComponent<StarOnMap>().ShowStarOnMap();
+                }
+            }
+
             if (cd.starsActivated.Count > 0)
             {
                 //print("drawMap activate stars > 0");

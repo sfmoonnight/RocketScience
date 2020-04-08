@@ -21,20 +21,21 @@ public class UniverseManager : MonoBehaviour
     void Start()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        GameObject.Find("TheUniverse").GetComponent<SpriteRenderer>().size = Toolbox.GetInstance().GetGameManager().universeSize;
         //print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
         //print("We out " + Toolbox.GetInstance().GetStatManager().gameState.eatshit);
         if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
         {
             GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
             GenerateConstellations();
-            GameObject.Find("MapCanvas").GetComponent<DrawMap>().DrawConstellation();
         }
         else
         {
             ReloadMain();
         }
+        GameObject.Find("MapCanvas").GetComponent<DrawMap>().DrawConstellation();
 
-        if(Toolbox.GetInstance().GetGameManager().dungeonProgressTemp > gs.keyDungeonProgress)
+        if (Toolbox.GetInstance().GetGameManager().dungeonProgressTemp > gs.keyDungeonProgress)
         {
             gs.keyDungeonProgress += 1;
             Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-gs.keyDungeonProgress);
@@ -44,6 +45,9 @@ public class UniverseManager : MonoBehaviour
         {
             Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-1);
         }
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        NumberGenerator ng = gm.rocket.GetComponent<NumberGenerator>();
+        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
     }
 
     // Update is called once per frame
@@ -110,8 +114,7 @@ public class UniverseManager : MonoBehaviour
                 }
             }
         }
-        NumberGenerator ng = gm.rocket.GetComponent<NumberGenerator>();
-        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
+        
     }
 
     public void GenerateRandomPlanets(float left, float top, float right, float bottom, float spacing)
@@ -171,7 +174,7 @@ public class UniverseManager : MonoBehaviour
             gs.constellationsNotDiscovered.Add(cs.constellationID);
 
             Vector2 position = new Vector2(50, 50);
-            ConstellationData cd = new ConstellationData(cs.constellationID, position, false, new List<Vector2>(), new List<int>(), new Vector2());
+            ConstellationData cd = new ConstellationData(cs.constellationID, position, false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
             gs.allConstellationData.Add(cd);
 
             cons.GetComponent<ConstellationTemplate>().SetUpConstellation(position, cs);

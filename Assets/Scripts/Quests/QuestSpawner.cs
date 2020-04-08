@@ -33,7 +33,7 @@ public class QuestSpawner : MonoBehaviour
             if (SpawnCondition())
             {
                 GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-                if (gs.firstKeyQuestStatus == GameState.QuestStatus.Enabled)
+                if (gs.telescopeQuestStatus == GameState.QuestStatus.Enabled)
                 {
                     SpawnQuest(firstKeyQuest);
                 }

@@ -80,9 +80,9 @@ public class QuestPanelManager : MonoBehaviour
 
                 gs.money += 100;
                 gs.questCount++;
-                if (CheckQuestCount(questCount) && gs.firstKeyQuestStatus == GameState.QuestStatus.Disabled)
+                if (CheckQuestCount(questCount) && gs.telescopeQuestStatus == GameState.QuestStatus.Disabled)
                 {
-                    gs.firstKeyQuestStatus = GameState.QuestStatus.Enabled;
+                    gs.telescopeQuestStatus = GameState.QuestStatus.Enabled;
                 }
             }else if (QuestCompleted(q) && q.keyQuest)
             {
@@ -101,6 +101,7 @@ public class QuestPanelManager : MonoBehaviour
                 Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
                 
                 //TODO: Adept to telescope
+
             }
             else
             {

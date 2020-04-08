@@ -179,11 +179,18 @@ public class ConstellationManager : DungeonManager
         darkBackground.color = color;
     }
 
+   
+
     IEnumerator Finishing()
     {
-        yield return new WaitForSeconds(1.5f);
+        if (!finished)
+        {
+            finished = true;
+            yield return new WaitForSeconds(1.5f);
 
-        finished = true;
+            Toolbox.GetInstance().GetGameManager().DiscoverConstellation(constellation.identity);
+            //print("------When finish cons discovered: " + Toolbox.GetInstance().GetStatManager().gameState.constellationsDiscovered.Count);
+        }  
     }
 
     IEnumerator ShowNotification()

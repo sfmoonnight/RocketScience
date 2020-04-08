@@ -37,7 +37,7 @@ public class GameState
     public int questCount;
 
     //---First key quest status 
-    public QuestStatus firstKeyQuestStatus = QuestStatus.Disabled;
+    public QuestStatus telescopeQuestStatus = QuestStatus.Disabled;
 
     //---The dungeons that are unlocked
     public int keyDungeonProgress;

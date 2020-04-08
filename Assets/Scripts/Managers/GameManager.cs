@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.Find("TheUniverse").GetComponent<SpriteRenderer>().size = universeSize;
+        
 
         dungeonProgressTemp = Toolbox.GetInstance().GetStatManager().gameState.keyDungeonProgress;
         //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
@@ -126,6 +126,23 @@ public class GameManager : MonoBehaviour
             ConstellationStructure cs = (ConstellationStructure)o;
             constellationStructures.Add(cs);
         }
+    }
+
+    public void DiscoverConstellation(int id)
+    {
+        print("Discover Constellation " + id);
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        gs.constellationsNotDiscovered.Remove(id);
+        gs.constellationsDiscovered.Add(id);
+        gs.allConstellationData[id].discovered = true;
+        for(int i = 0; i < gs.allConstellationData[id].starsLocation.Count; i++)
+        {
+            if (!gs.allConstellationData[id].starsDiscovered.Contains(i))
+            {
+                gs.allConstellationData[id].starsDiscovered.Add(i);
+            }
+        }
+        
     }
 
     public List<Collectable> GetAllCollectibles()
