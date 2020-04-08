@@ -81,6 +81,7 @@ public class UniverseManager : MonoBehaviour
         gm.answer = gs.answer;
         gm.rocket.transform.position = gs.playerPosition;
         GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
+        GameObject.Find("EnergyCard").GetComponent<Text>().text = gs.telescopeEnergyCard.ToString();
 
         //print(gs.allPlanetData.Count);
         foreach (PlanetData pd in gs.allPlanetData)

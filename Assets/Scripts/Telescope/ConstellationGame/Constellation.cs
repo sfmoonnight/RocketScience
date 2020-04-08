@@ -51,6 +51,7 @@ public class Constellation : MonoBehaviour
     {
         if (!activated)
         {
+            activated = true;
             GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
             firstStar.ActivateSelf();
             Event newEvent = new Event(Event.EventType.NewConstellation, System.DateTime.Now.ToString(), identity);
@@ -60,13 +61,11 @@ public class Constellation : MonoBehaviour
  
             if (!gs.telescopeActivated)
             {
+                gs.telescopeActivated = true;
                 gs.collected.Add(-1);
                 Event e = new Event(Event.EventType.NewCollectible, System.DateTime.Now.ToString(), -1);
                 Toolbox.GetInstance().GetStatManager().gameState.events.Add(e);
-
-                gs.telescopeActivated = true;
-            }
-            activated = true;
+            }  
         }
     }
 

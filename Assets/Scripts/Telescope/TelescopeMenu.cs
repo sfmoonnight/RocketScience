@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TelescopeMenu : MonoBehaviour
 {
@@ -19,14 +20,25 @@ public class TelescopeMenu : MonoBehaviour
 
     public void EnterTelescope()
     {
-        Toolbox.GetInstance().GetGameManager().inDungeon = true;
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        if(gs.telescopeEnergyCard > 0)
+        {
+            Toolbox.GetInstance().GetGameManager().inDungeon = true;
+            gs.playerPosition = GameObject.Find("Telescope").transform.position + new Vector3(0, -20, 0);
+            gs.answer = Toolbox.GetInstance().GetGameManager().answer;
+            Toolbox.GetInstance().GetGameManager().planets.Clear();
+            gs.telescopeEnergyCard -= 1;
+            GameObject.Find("EnergyCard").GetComponent<Text>().text = gs.telescopeEnergyCard.ToString();
 
-        gs.playerPosition = GameObject.Find("Telescope").transform.position + new Vector3(0, -20, 0);
-        gs.answer = Toolbox.GetInstance().GetGameManager().answer;
-        Toolbox.GetInstance().GetGameManager().planets.Clear();
-        Toolbox.GetInstance().GetStatManager().SaveState();
+            Toolbox.GetInstance().GetStatManager().SaveState();
 
-        SceneManager.LoadScene("ConstellationGame");
+            SceneManager.LoadScene("ConstellationGame");
+        }
+        else
+        {
+            GetComponent<ToggleUI>().HideUI();
+            GameObject newItem = GameObject.Find("NotificationUI");
+            newItem.GetComponent<NotificationQueue>().AddToQueue(null, "You don't have any energy card. You can order some in your Captain log.");
+        }    
     }
 }

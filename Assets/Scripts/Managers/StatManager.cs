@@ -47,6 +47,9 @@ public class StatManager : MonoBehaviour
         gameState.collectiblePageNumber = 1;
         gameState.keyDungeonPageNumber = 1;
 
+        gameState.telescopeActivated = false;
+        gameState.telescopeQuestIndex = 0;
+        gameState.telescopeEnergyCard = 0;
         gameState.constellationsDiscovered = new List<int>();
         gameState.constellationsNotDiscovered = new List<int>();
         gameState.allConstellationData = new List<ConstellationData>();
