@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> collectiblePrefabs;
     public List<GameObject> planetPrefabs;
     public List<GameObject> constellationPrefabs;
+    public List<Sprite> keySprites;
     public List<ConstellationStructure> constellationStructures;
     public bool inDungeon;
 
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         LoadAllCollectibles();
         LoadAllPlanets();
         LoadAllConstellations();
+        LoadAllKeySprites();
 
         //GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
         //UpdateQuestions();
@@ -125,6 +127,17 @@ public class GameManager : MonoBehaviour
         {
             ConstellationStructure cs = (ConstellationStructure)o;
             constellationStructures.Add(cs);
+        }
+    }
+
+    public void LoadAllKeySprites()
+    {
+        keySprites = new List<Sprite>();
+        Sprite[] sprites = Resources.LoadAll<Sprite>("KeySprites");
+
+        foreach(Sprite s in sprites)
+        {
+            keySprites.Add(s);
         }
     }
 

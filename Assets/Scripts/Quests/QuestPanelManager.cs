@@ -74,9 +74,6 @@ public class QuestPanelManager : MonoBehaviour
             {
                 GameObject newItem = GameObject.Find("NotificationUI");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(testImage, "Quest Completed!");
-                //newItem.GetComponent<ToggleUI>().ShowUI();
-                //newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
-                //newItem.GetComponent<ToggleUI>().ChangeText("Quest Completed!");
 
                 gs.money += 100;
                 gs.questCount++;
@@ -89,19 +86,13 @@ public class QuestPanelManager : MonoBehaviour
                 
                 GameObject newItem = GameObject.Find("NotificationUI");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(testImage, "New Game Type Unlocked!");
-                //newItem.GetComponent<ToggleUI>().ShowUI();
-                //newItem.GetComponent<ToggleUI>().ChangeImage(testImage);
-                //newItem.GetComponent<ToggleUI>().ChangeText("New Game Type Unlocked!");
 
                 //---When complete a key quest
-                gs.money += 500;
-                gs.questCount++;
+                //gs.money += 500;
+                //gs.questCount++;
                 Event newEvent = new Event(Event.EventType.KeyDungeon, DateTime.Now.ToString(), gs.keyDungeonProgress);        
 
                 Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
-                
-                //TODO: Adept to telescope
-
             }
             else
             {

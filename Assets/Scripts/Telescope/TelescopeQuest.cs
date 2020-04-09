@@ -25,6 +25,10 @@ public class TelescopeQuest : MonoBehaviour
             if(gs.telescopeQuestIndex == 0 && gs.telescopeActivated)
             {
                 gs.telescopeQuestIndex++;
+
+                Event newEvent = new Event(Event.EventType.KeyEvent, System.DateTime.Now.ToString(), 0);
+                Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
+
                 GameObject newItem = GameObject.Find("NotificationUI");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(null, "Welcome to the Great space telecope");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(null, "You are gifted an energy card");

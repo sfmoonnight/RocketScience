@@ -292,6 +292,42 @@ public class CaptainLog : MonoBehaviour
                 currentSlotIndex += 4;
             }
 
+            if (gs.events[i].eventType == Event.EventType.KeyEvent)
+            {
+                print("------currentslot=" + currentSlotIndex);
+                if (currentSlotIndex > 6 && currentSlotIndex <= 11)
+                {
+                    currentSlotIndex = 12;
+                }
+                else if (currentSlotIndex > 18)
+                {
+                    if (gs.travelLogPageNumber >= gs.firstEventOnEachPage.Count)
+                    {
+                        print("First pages array length: " + gs.firstEventOnEachPage.Count);
+                        print("Add to first events list");
+
+                        gs.firstEventOnEachPage.Add(i);
+                        print("First pages array length: " + gs.firstEventOnEachPage.Count);
+                        print("Index of the next first event: " + i);
+                    }
+
+                    return;
+                }
+
+                print("------key sprites" + Toolbox.GetInstance().GetGameManager().keySprites.Count);
+                slots[currentSlotIndex].sprite = Toolbox.GetInstance().GetGameManager().keySprites[gs.events[i].keyEventIdentity];
+                slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
+                slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
+                Color c = Color.white;
+                c.a = 1f;
+                slots[currentSlotIndex].color = c;
+
+                currentSlotIndex += 2;
+                slotTexts[currentSlotIndex].text = gs.events[i].time;
+
+                currentSlotIndex += 4;
+            }
+
             if (gs.events[i].eventType == Event.EventType.NewConstellation)
             {
                 print("------currentslot=" + currentSlotIndex);

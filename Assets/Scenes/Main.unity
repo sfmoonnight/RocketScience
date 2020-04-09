@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13653,6 +13653,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: C02_RedApple
       objectReference: {fileID: 0}
+    - target: {fileID: 3789640580589160584, guid: a3d91d5d7968d4e26aad06c3e762cc8b,
+        type: 3}
+      propertyPath: pickable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4054215237863183964, guid: a3d91d5d7968d4e26aad06c3e762cc8b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13707,11 +13712,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3789640580589160584, guid: a3d91d5d7968d4e26aad06c3e762cc8b,
-        type: 3}
-      propertyPath: pickable
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3d91d5d7968d4e26aad06c3e762cc8b, type: 3}
@@ -15081,6 +15081,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: C07_Coin01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3630665897186596996, guid: 3bc4ed0d303bd49a2a124b3525a248ed,
+        type: 3}
+      propertyPath: pickable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4518872004745299536, guid: 3bc4ed0d303bd49a2a124b3525a248ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15135,11 +15140,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3630665897186596996, guid: 3bc4ed0d303bd49a2a124b3525a248ed,
-        type: 3}
-      propertyPath: pickable
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bc4ed0d303bd49a2a124b3525a248ed, type: 3}
@@ -16046,6 +16046,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: C05_Artifact01
       objectReference: {fileID: 0}
+    - target: {fileID: 1111711943454263496, guid: b76591265ce85456a88150b770d78af8,
+        type: 3}
+      propertyPath: pickable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 268365910103103004, guid: b76591265ce85456a88150b770d78af8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16100,11 +16105,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111711943454263496, guid: b76591265ce85456a88150b770d78af8,
-        type: 3}
-      propertyPath: pickable
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b76591265ce85456a88150b770d78af8, type: 3}
