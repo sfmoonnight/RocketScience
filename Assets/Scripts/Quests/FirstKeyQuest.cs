@@ -15,7 +15,7 @@ public class FirstKeyQuest : NewQuest
         //collectibles = new List<QuestCollectible>();
         //collectibles.Add(keyCollectible);
         Vector2 coor = (Vector2) telescope.transform.position + new Vector2(150, 150);
-        firstKeyQuest = new Quest(-1, coor);
+        //firstKeyQuest = new Quest(-1, coor);
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)

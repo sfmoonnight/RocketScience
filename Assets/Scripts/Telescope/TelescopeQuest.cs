@@ -19,21 +19,21 @@ public class TelescopeQuest : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         if (collision.CompareTag("Player"))
         {
-            if(gs.telescopeQuestIndex == 0 && gs.telescopeActivated)
+            GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+            GameManager gm = Toolbox.GetInstance().GetGameManager();
+            if (gs.telescopeQuestStatus == GameState.QuestStatus.Accepted)
             {
-                gs.telescopeQuestIndex++;
-
+                gs.telescopeQuestStatus = GameState.QuestStatus.Completed;
                 Event newEvent = new Event(Event.EventType.KeyEvent, System.DateTime.Now.ToString(), 0);
                 Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
-
+                GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
                 GameObject newItem = GameObject.Find("NotificationUI");
+                newItem.GetComponent<NotificationQueue>().AddToQueue(gm.keySprites[0], "You have discovered 'The Great Telescope'!");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(null, "Welcome to the Great space telecope");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(null, "You are gifted an energy card");
-                gs.telescopeEnergyCard++;
-                GameObject.Find("EnergyCard").GetComponent<Text>().text = gs.telescopeEnergyCard.ToString();
+                //newItem.GetComponent<NotificationQueue>().AddToQueue(null, "Quest Completed!");
             }
         }
     }

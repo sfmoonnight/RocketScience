@@ -41,10 +41,7 @@ public class UniverseManager : MonoBehaviour
             Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-gs.keyDungeonProgress);
             Toolbox.GetInstance().GetStatManager().SaveState();
         }
-        if (gs.telescopeActivated)
-        {
-            Toolbox.GetInstance().GetGameManager().UpdateQuestCollectible(-1);
-        }
+
         GameManager gm = Toolbox.GetInstance().GetGameManager();
         NumberGenerator ng = gm.rocket.GetComponent<NumberGenerator>();
         ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);

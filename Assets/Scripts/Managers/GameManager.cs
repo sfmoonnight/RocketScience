@@ -38,8 +38,8 @@ public class GameManager : MonoBehaviour
         //constellationDiscovered = new List<int>();
         universeSize = new Vector2(300, 300);
         //answer = Random.Range(-99, 100);
-        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();  
-        
+        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
+
         LoadAllCollectibles();
         LoadAllPlanets();
         LoadAllConstellations();
@@ -51,7 +51,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach(Collectable col in collectibles)
+        {
+            Toolbox.GetInstance().GetStatManager().gameState.notCollected.Add(col.identity);
+        }
 
         dungeonProgressTemp = Toolbox.GetInstance().GetStatManager().gameState.keyDungeonProgress;
         //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
@@ -175,13 +178,16 @@ public class GameManager : MonoBehaviour
         for (int i = currIdx; i < quests.Count; i++)
         {
             Quest q = quests[i];
-            foreach (QuestCollectible qc in q.collectibles)
+            if(q.questIdentity == Quest.QuestIdentity.Collecting)
             {
-                if (qc.identity == identity && !qc.collected)
+                foreach (QuestCollectible qc in q.collectibles)
                 {
-                    qc.collected = true;
-                    GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
-                    return;
+                    if (qc.identity == identity && !qc.collected)
+                    {
+                        qc.collected = true;
+                        GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
+                        return;
+                    }
                 }
             }
         }
@@ -189,17 +195,19 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < currIdx; i++)
         {
             Quest q = quests[i];
-            foreach (QuestCollectible qc in q.collectibles)
+            if(q.questIdentity == Quest.QuestIdentity.Collecting)
             {
-                if (qc.identity == identity)
+                foreach (QuestCollectible qc in q.collectibles)
                 {
-                    qc.collected = true;
-                    GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
-                    return;
+                    if (qc.identity == identity)
+                    {
+                        qc.collected = true;
+                        GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
+                        return;
+                    }
                 }
-            }
+            } 
         }
-
     }
 
     public void QuickSave()
@@ -207,6 +215,17 @@ public class GameManager : MonoBehaviour
         Toolbox.GetInstance().GetStatManager().gameState.answer = answer;
         Toolbox.GetInstance().GetStatManager().gameState.playerPosition = rocket.transform.position;
     }
+
+    public void PausePlayer()
+    {
+        //TODO:
+    }
+
+    public void ResumePlayer()
+    {
+        //TODO:
+    }
+
     public void PickUpNumber(int ans)
     {
         answer = ans;
@@ -229,18 +248,7 @@ public class GameManager : MonoBehaviour
         QuickSave();
     }
 
-    //---Add quest to quest panel
-    public void PickUpQuest(NewQuest nq)
-    {
-        Quest q = new Quest();
-        if (nq is FirstKeyQuest)
-        {
-            q.keyQuest = true;
-        }
-        q.collectibles = nq.collectibles;
-        Toolbox.GetInstance().GetStatManager().gameState.quests.Add(q);
-        GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
-    }
+    
 
     public void PickUpQuest(Quest q)
     {

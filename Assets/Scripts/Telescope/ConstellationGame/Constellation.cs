@@ -58,14 +58,6 @@ public class Constellation : MonoBehaviour
             gs.events.Add(newEvent);
             //gs.constellationsDiscovered.Add(identity);
             //gs.constellationsNotDiscovered.Remove(identity);
- 
-            if (!gs.telescopeActivated)
-            {
-                gs.telescopeActivated = true;
-                gs.collected.Add(-1);
-                Event e = new Event(Event.EventType.NewCollectible, System.DateTime.Now.ToString(), -1);
-                Toolbox.GetInstance().GetStatManager().gameState.events.Add(e);
-            }  
         }
     }
 

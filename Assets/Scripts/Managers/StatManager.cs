@@ -38,17 +38,18 @@ public class StatManager : MonoBehaviour
         gameState.money = 0;
         gameState.keyDungeonProgress = 0;
         gameState.collected = new List<int>();
+        gameState.notCollected = new List<int>();
         gameState.allPlanetData = new List<PlanetData>();
         gameState.events = new List<Event>();
         gameState.firstEventOnEachPage = new List<int>();
         gameState.firstEventOnEachPage.Add(0);
 
+        gameState.telescopeQuestStatus = GameState.QuestStatus.Disabled;
+
         gameState.travelLogPageNumber = 1;
         gameState.collectiblePageNumber = 1;
         gameState.keyDungeonPageNumber = 1;
 
-        gameState.telescopeActivated = false;
-        gameState.telescopeQuestIndex = 0;
         gameState.telescopeEnergyCard = 0;
         gameState.constellationsDiscovered = new List<int>();
         gameState.constellationsNotDiscovered = new List<int>();

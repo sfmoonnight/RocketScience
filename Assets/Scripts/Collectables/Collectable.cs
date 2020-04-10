@@ -128,6 +128,7 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
             yield break;
         }
         Toolbox.GetInstance().GetStatManager().gameState.collected.Add(identity);
+        Toolbox.GetInstance().GetStatManager().gameState.notCollected.Remove(identity);
         Event newEvent = new Event(Event.EventType.NewCollectible, DateTime.Now.ToString(), identity);
         Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
 

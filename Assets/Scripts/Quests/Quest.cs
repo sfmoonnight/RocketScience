@@ -5,31 +5,41 @@ using UnityEngine;
 [System.Serializable]
 public class Quest
 {
+    public enum QuestIdentity { NoType, Collecting, TelescopeActivation};
+    public QuestIdentity questIdentity;
+    public List<Reward> rewards;
     public List<QuestCollectible> collectibles;
-
-    public bool keyQuest;
-
+    public string text;
     public Vector2 coordinates;
+    public Sprite questImage;
+    //public bool completed;
+    //public bool keyQuest;
 
     //---Normal quests have identity 0, key quests have negative identity
-    public int questIdentity;
+    //public int questIdentity;
 
     public Quest()
     {
-        keyQuest = false;
+        questIdentity = QuestIdentity.NoType;
+        rewards = new List<Reward>();
+        collectibles = new List<QuestCollectible>();
+        text = "";
+        coordinates = new Vector2();
+        questImage = null;
+        //completed = false;
     }
-
-    public Quest(bool keyQuest, List<QuestCollectible> qcs)
+    public Quest(QuestIdentity questIdentity, List<Reward> rewards, List<QuestCollectible> collectibles, string text, Vector2 coordinates, Sprite image)
     {
-        this.keyQuest = keyQuest;
-        this.collectibles = qcs;
+        this.questIdentity = questIdentity;
+        this.rewards = rewards;
+        this.collectibles = collectibles;
+        this.text = text;
+        this.coordinates = coordinates;
+        this.questImage = image;
+        //completed = false;
     }
 
-    public Quest(bool keyQuest)
-    {
-        this.keyQuest = keyQuest;
-    }
-
+    /*
     public Quest(int keyQuestIdentity, Vector2 coordinates)
     {
         questIdentity = keyQuestIdentity;
@@ -38,5 +48,5 @@ public class Quest
         collectibles = new List<QuestCollectible>();
         this.collectibles.Add(kqc);
         this.coordinates = coordinates;
-}
+    }*/
 }

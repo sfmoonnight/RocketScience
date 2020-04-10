@@ -8,7 +8,7 @@ public class ActivateTelescope : MonoBehaviour
     void Start()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        if (gs.telescopeActivated)
+        if (gs.telescopeQuestStatus == GameState.QuestStatus.Accepted || gs.telescopeQuestStatus == GameState.QuestStatus.Completed)
         {
             ShowTelescope();
         }

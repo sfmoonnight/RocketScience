@@ -48,7 +48,7 @@ public class QuestPanelManager : MonoBehaviour
 
     }
 
-    bool QuestCompleted(Quest q)
+    bool CollectingQuestCompleted(Quest q)
     {
         //print("Quest complete!");
         foreach (QuestCollectible qc in q.collectibles)
@@ -68,31 +68,29 @@ public class QuestPanelManager : MonoBehaviour
         List<Quest> quests = gs.quests;
         List<Quest> remaining = new List<Quest>();
         foreach (Quest q in quests)
-        {
-            
-            if (QuestCompleted(q) && !q.keyQuest)
+        {   
+            if (q.questIdentity == Quest.QuestIdentity.Collecting && CollectingQuestCompleted(q))
             {
                 GameObject newItem = GameObject.Find("NotificationUI");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(testImage, "Quest Completed!");
 
-                gs.money += 100;
+                foreach (Reward r in q.rewards)
+                {
+                    r.CollectReward();
+                }
+                //gs.money += 100;
                 gs.questCount++;
                 if (CheckQuestCount(questCount) && gs.telescopeQuestStatus == GameState.QuestStatus.Disabled)
                 {
                     gs.telescopeQuestStatus = GameState.QuestStatus.Enabled;
                 }
-            }else if (QuestCompleted(q) && q.keyQuest)
+            }else if (q.questIdentity == Quest.QuestIdentity.TelescopeActivation && gs.telescopeQuestStatus == GameState.QuestStatus.Completed)
             {
-                
-                GameObject newItem = GameObject.Find("NotificationUI");
-                newItem.GetComponent<NotificationQueue>().AddToQueue(testImage, "New Game Type Unlocked!");
-
-                //---When complete a key quest
-                //gs.money += 500;
+                foreach (Reward r in q.rewards)
+                {
+                    r.CollectReward();
+                }      
                 //gs.questCount++;
-                Event newEvent = new Event(Event.EventType.KeyDungeon, DateTime.Now.ToString(), gs.keyDungeonProgress);        
-
-                Toolbox.GetInstance().GetStatManager().gameState.events.Add(newEvent);
             }
             else
             {
@@ -108,6 +106,7 @@ public class QuestPanelManager : MonoBehaviour
 
         UpdateQuestsHelper();
         GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
+        GameObject.Find("EnergyCard").GetComponent<Text>().text = gs.telescopeEnergyCard.ToString();
 
         Toolbox.GetInstance().GetStatManager().SaveState();
     }
@@ -139,36 +138,50 @@ public class QuestPanelManager : MonoBehaviour
         //List<Collectable> availableCollectibles = gameObject.GetComponent<DataContainer>().collectibles;
         Debug.Assert(Toolbox.GetInstance().GetGameManager().collectibles.Count > 0);
         Clear();
-        foreach (QuestCollectible qc in q.collectibles) {
-            Collectable col = getCollectibleByIdentity(qc.identity);
-            // Instantiate new game object and set sprite to the sprite of col
+        if(q.questIdentity == Quest.QuestIdentity.Collecting)
+        {
+            foreach (QuestCollectible qc in q.collectibles)
+            {
+                Collectable col = GetCollectibleByIdentity(qc.identity);
+                // Instantiate new game object and set sprite to the sprite of col
+                GameObject go = new GameObject();
+                Image i = go.AddComponent<Image>();
+                //print(i.sprite);
+                //print(col);
+                //i.sprite = col.gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
+                i.sprite = col.spriteRenderer.sprite;
+                i.preserveAspect = true;
+                if (!qc.collected)
+                {
+                    i.color = Color.black;
+                }
+                //go.transform.SetParent(this.transform);
+                go.GetComponent<RectTransform>().SetParent(this.transform);
+                Vector2 v = new Vector2(qc.x, qc.y);
+                go.GetComponent<RectTransform>().localPosition = v;
+                go.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
+                //go.transform.position = v;
+                //print("setting x and y " + v);
+                go.SetActive(true);
+            }
+        }
+        
+        if (q.questIdentity == Quest.QuestIdentity.TelescopeActivation)
+        {
             GameObject go = new GameObject();
             Image i = go.AddComponent<Image>();
-            //print(i.sprite);
-            //print(col);
-            //i.sprite = col.gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
-            i.sprite = col.spriteRenderer.sprite;
-            i.preserveAspect = true;
-            if (!qc.collected)
-            {
-                i.color = Color.black;
-            }
-            //go.transform.SetParent(this.transform);
+            i.sprite = Toolbox.GetInstance().GetGameManager().keySprites[0];
+            i.color = Color.black;
             go.GetComponent<RectTransform>().SetParent(this.transform);
-            Vector2 v = new Vector2(qc.x, qc.y);
-            go.GetComponent<RectTransform>().localPosition = v;
-            go.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
-            //go.transform.position = v;
-            //print("setting x and y " + v);
+            go.GetComponent<RectTransform>().localPosition = Vector2.zero;
+            go.GetComponent<RectTransform>().sizeDelta = new Vector2(90, 90);
             go.SetActive(true);
-        }
-        if (q.coordinates != Vector2.zero)
-        {
+
             coordinates.text = "X:" + q.coordinates.x.ToString() + "  Y:" + q.coordinates.y.ToString();
         }
     }
 
-    private Collectable getCollectibleByIdentity(int identity)
+    private Collectable GetCollectibleByIdentity(int identity)
     {
         List<Collectable> cols = Toolbox.GetInstance().GetGameManager().GetAllCollectibles();
         List<Collectable> kcols = Toolbox.GetInstance().GetGameManager().GetAllKeyCollectibles();

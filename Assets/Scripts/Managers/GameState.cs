@@ -5,9 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class GameState
 {
-    //---QuestStatus
-    public enum QuestStatus { Disabled, Enabled, Accepted, Completed };
-
     //---Answer
     public int answer;
 
@@ -24,7 +21,8 @@ public class GameState
 
     //---Collectables
     public List<int> collected;
-
+    public List<int> notCollected;
+    
     //---Quests
     public int currQuestIndex; //current quest in quest panel
 
@@ -36,8 +34,10 @@ public class GameState
     //---QuestFinished
     public int questCount;
 
-    //---First key quest status 
-    public QuestStatus telescopeQuestStatus = QuestStatus.Disabled;
+    //---QuestStatus
+    public enum QuestStatus { Disabled, Enabled, Accepted, Completed };
+    //---key quests status 
+    public QuestStatus telescopeQuestStatus;
 
     //---The dungeons that are unlocked
     public int keyDungeonProgress;
@@ -55,8 +55,6 @@ public class GameState
     public int keyDungeonPageNumber;
 
     //---Telescope and Constellations
-    public bool telescopeActivated;
-    public int telescopeQuestIndex;
     public int telescopeEnergyCard;
     public List<int> constellationsDiscovered;
     public List<int> constellationsNotDiscovered;
