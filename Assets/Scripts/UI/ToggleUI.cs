@@ -25,14 +25,16 @@ public class ToggleUI : MonoBehaviour
 
     public void HideUI()
     {
+        //print("Inside HideUI");
         GetComponent<CanvasGroup>().alpha = 0;
         GetComponent<CanvasGroup>().interactable = false;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         active = false;
+        //print("Callback is " + callback);
         if (callback != null)
         {
             callback();
-            callback = null;
+            //callback = null;
         }
     }
 
@@ -57,6 +59,7 @@ public class ToggleUI : MonoBehaviour
 
     public void setCallback(Action a)
     {
+        //print("Setting callback to " + a);
         callback = a;
     }
 

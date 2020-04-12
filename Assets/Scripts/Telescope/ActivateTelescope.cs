@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ActivateTelescope : MonoBehaviour
 {
+    public GameObject jupiter;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +25,6 @@ public class ActivateTelescope : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<Collider2D>().enabled = true;
+        jupiter.SetActive(true);
     }
 }

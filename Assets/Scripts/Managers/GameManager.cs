@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
-
 public class GameManager : MonoBehaviour
 {
     public int answer;
@@ -235,13 +234,29 @@ public class GameManager : MonoBehaviour
             foreach (Question go in planets)
             {
                 EquationManager em = go.eqTextMeshObj.GetComponent<EquationManager>();
-                if (em.equation.answer == answer) // TODO: null reference exception here
+                try
                 {
-                    go.ActivateCollectables();
+                    if (em.equation.answer == answer) // TODO: null reference exception here
+                    {
+                        go.ActivateCollectables();
+                    }
+                    else
+                    {
+                        go.DeactivateCollectables();
+                    }
                 }
-                else
+                catch (System.NullReferenceException e)
                 {
-                    go.DeactivateCollectables();
+                    print("FAILED");
+                    print("em: " + em);
+                    if (em != null)
+                    {
+                        print("em equation" + em.equation);
+                        if (em.equation != null)
+                        {
+                            print("em equation answer" + em.equation.answer);
+                        }
+                    }
                 }
             }
         }
