@@ -14,9 +14,9 @@ public class DrawMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gm = Toolbox.GetInstance().GetGameManager();
         
-        SetUpMap();
+        
+        //SetUpMap();
         //DrawConstellation();
     }
 
@@ -26,8 +26,9 @@ public class DrawMap : MonoBehaviour
         
     }
 
-    void SetUpMap()
+    public void SetUpMap()
     {
+        gm = Toolbox.GetInstance().GetGameManager();
         float xyRatio = gm.universeSize.x / gm.universeSize.y;
         float y = canvasHolder.GetComponent<RectTransform>().rect.height;
         float x = xyRatio * y;

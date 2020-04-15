@@ -22,17 +22,28 @@ public class UniverseManager : MonoBehaviour
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         GameObject.Find("TheUniverse").GetComponent<SpriteRenderer>().size = Toolbox.GetInstance().GetGameManager().universeSize;
+        if(gs.allConstellationData.Count == 0)
+        {
+            GameObject[] gos = GameObject.FindGameObjectsWithTag("ConstellationTemplet");
+            foreach (GameObject go in gos)
+            {
+                go.GetComponent<ConstellationTemplate>().SetUpConstellation();
+            }
+        }
+        
         //print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
         //print("We out " + Toolbox.GetInstance().GetStatManager().gameState.eatshit);
         if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
         {
-            GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
-            GenerateConstellations();
+            //GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
+            //GenerateConstellations();
         }
         else
         {
             ReloadMain();
+            //GameObject.Find("MapCanvas").GetComponent<DrawMap>().DrawConstellation();
         }
+        GameObject.Find("MapCanvas").GetComponent<DrawMap>().SetUpMap();
         GameObject.Find("MapCanvas").GetComponent<DrawMap>().DrawConstellation();
 
         if (Toolbox.GetInstance().GetGameManager().dungeonProgressTemp > gs.keyDungeonProgress)

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         planets = new List<Question>();
         //constellationNotDiscovered = new List<int>();
         //constellationDiscovered = new List<int>();
-        universeSize = new Vector2(300, 300);
+        universeSize = new Vector2(1600, 1000);
         //answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
 
@@ -58,10 +58,7 @@ public class GameManager : MonoBehaviour
         dungeonProgressTemp = Toolbox.GetInstance().GetStatManager().gameState.keyDungeonProgress;
         //GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //answer = gs.answer;
-        if(Toolbox.GetInstance().GetStatManager().gameState.events.Count == 0)
-        {
-            //GameObject.Find("CaptainLog").GetComponent<PseudoEvents>().CreatePseudoEvents();
-        }      
+        //CreateConstellationData();
     }
 
     // Update is called once per frame
@@ -129,6 +126,16 @@ public class GameManager : MonoBehaviour
         {
             ConstellationStructure cs = (ConstellationStructure)o;
             constellationStructures.Add(cs);
+        }
+    }
+
+    public void CreateConstellationData()
+    {
+        foreach (ConstellationStructure cs in constellationStructures)
+        {
+            ConstellationData cd = new ConstellationData(cs.constellationID, new Vector3(), false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
+            Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
+            Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(cs.constellationID);
         }
     }
 
