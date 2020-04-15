@@ -24,13 +24,15 @@ public class UniverseManager : MonoBehaviour
         GameObject.Find("TheUniverse").GetComponent<SpriteRenderer>().size = Toolbox.GetInstance().GetGameManager().universeSize;
         if(gs.allConstellationData.Count == 0)
         {
-            GameObject[] gos = GameObject.FindGameObjectsWithTag("ConstellationTemplet");
-            foreach (GameObject go in gos)
-            {
-                go.GetComponent<ConstellationTemplate>().SetUpConstellation();
-            }
+            CreateConstellationData();  
         }
-        
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("ConstellationTemplet");
+        foreach (GameObject go in gos)
+        {
+            //----Can choose to construct in scene or pre-set up in scene
+            //go.GetComponent<ConstellationTemplate>().SetUpConstellation();
+            go.GetComponent<ConstellationTemplate>().RecordLocation();
+        }
         //print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
         //print("We out " + Toolbox.GetInstance().GetStatManager().gameState.eatshit);
         if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
@@ -188,6 +190,16 @@ public class UniverseManager : MonoBehaviour
 
             cons.GetComponent<ConstellationTemplate>().SetUpConstellation(position, cs);
             //print("cons size: " + cons.GetComponent<SpriteRenderer>().bounds.size);
+        }
+    }
+    public void CreateConstellationData()
+    {
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        foreach (ConstellationStructure cs in gm.constellationStructures)
+        {
+            ConstellationData cd = new ConstellationData(cs.constellationID, new Vector3(), false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
+            Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
+            Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(cs.constellationID);
         }
     }
 } 

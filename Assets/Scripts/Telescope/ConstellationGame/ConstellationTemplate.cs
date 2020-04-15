@@ -7,11 +7,13 @@ public class ConstellationTemplate : MonoBehaviour
     public ConstellationStructure constellationStructure;
     public GameObject starInUniverse;
 
+    int id;
     GameManager gm;
-    List<StarInUniverse> stars;
+    public List<StarInUniverse> stars;
     // Start is called before the first frame update
     void Start()
     {
+        id = constellationStructure.constellationID;
         //SetUpConstellation();
     }
 
@@ -21,14 +23,24 @@ public class ConstellationTemplate : MonoBehaviour
         
     }
 
+    public void RecordLocation()
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        gs.allConstellationData[id].location = transform.position;
+        foreach (StarInUniverse s in stars)
+        {
+            gs.allConstellationData[id].starsLocation[s.starID] = s.transform.position;
+        }
+    }
     public void SetUpConstellation()
     {
         gm = Toolbox.GetInstance().GetGameManager();
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //print("constellation data count: " + gs.allConstellationData.Count);
-        //gs.allConstellationData[constellationStructure.constellationID].location = transform.position;
-        ConstellationData cd = new ConstellationData(constellationStructure.constellationID, transform.position, false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
-        
+
+        gs.allConstellationData[id].location = transform.position;
+        //ConstellationData cd = new ConstellationData(constellationStructure.constellationID, transform.position, false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
+
         GetComponent<SpriteRenderer>().sprite = gm.constellationPrefabs[constellationStructure.constellationID].GetComponent<SpriteRenderer>().sprite;
         stars = new List<StarInUniverse>();
         transform.localScale = constellationStructure.scale * Vector3.one;
@@ -38,9 +50,9 @@ public class ConstellationTemplate : MonoBehaviour
         float xRatio = xSize / gm.universeSize.x;
         float yRatio = ySize / gm.universeSize.y;
         Vector2 ratio = new Vector2(xRatio, yRatio);
-        cd.inUniverseRatio = ratio;
+        gs.allConstellationData[id].inUniverseRatio = ratio;
 
-        cd.starsLocation = new List<Vector2>();
+        gs.allConstellationData[id].starsLocation = new List<Vector2>();
         foreach (Vector2 p in constellationStructure.starsPosition)
         {
             GameObject star = Instantiate(starInUniverse, transform);
@@ -51,11 +63,11 @@ public class ConstellationTemplate : MonoBehaviour
             star.transform.localPosition = p;
             star.transform.localScale = new Vector3(1 / transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
 
-            cd.starsLocation.Add(star.transform.position);
+            gs.allConstellationData[id].starsLocation.Add(star.transform.position);
         }
 
-        Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
-        Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(constellationStructure.constellationID);
+        //Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
+        //Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(constellationStructure.constellationID);
     }
 
     public void SetUpConstellation(Vector2 position, ConstellationStructure constellationStructure)
