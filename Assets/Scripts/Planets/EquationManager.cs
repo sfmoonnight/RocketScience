@@ -49,7 +49,7 @@ public class EquationManager : MonoBehaviour
             Multiplication1 eq = new Multiplication1();
             equation = eq;
         }
-        eqTextMesh.text = equation.toString();
+        //eqTextMesh.text = equation.toString();
     }
 
     List<Number> FilterNumbersByState(Number.State state)

@@ -109,22 +109,10 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
 
     public IEnumerator AddToInventory()
     {
-        /*if(Toolbox.GetInstance().GetGameManager().inventory != null)
-        {
-            foreach (int i in Toolbox.GetInstance().GetGameManager().inventory)
-            {
-                if (identity == i)
-                {
-                    RemoveCollectable();
-                    yield break;
-                }
-            }
-        }*/
-
-        
         if (Toolbox.GetInstance().GetStatManager().gameState.collected.Contains(identity))
         {
-            RemoveCollectable();
+            HideCollectable();
+            //RemoveCollectable();
             yield break;
         }
         Toolbox.GetInstance().GetStatManager().gameState.collected.Add(identity);
@@ -146,7 +134,7 @@ public class Collectable : MonoBehaviour, IComparable<Collectable>
         //newItem.GetComponent<ToggleUI>().ChangeText("You Found Something New!");
         newItem.GetComponent<NotificationQueue>().AddToQueue(spriteRenderer.sprite, "You Found Something New!");
 
-        RemoveCollectable();
+        //RemoveCollectable();
     }
 
     public void SetRareness(float rate)

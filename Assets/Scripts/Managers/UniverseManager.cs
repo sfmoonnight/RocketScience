@@ -31,13 +31,13 @@ public class UniverseManager : MonoBehaviour
         {
             //----Can choose to construct in scene or pre-set up in scene
             //go.GetComponent<ConstellationTemplate>().SetUpConstellation();
-            go.GetComponent<ConstellationTemplate>().RecordLocation();
+            go.GetComponent<ConstellationTemplate>().RecordFeatures();
         }
         //print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);
         //print("We out " + Toolbox.GetInstance().GetStatManager().gameState.eatshit);
         if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
         {
-            //GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
+            GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
             //GenerateConstellations();
         }
         else
@@ -58,11 +58,14 @@ public class UniverseManager : MonoBehaviour
         GameManager gm = Toolbox.GetInstance().GetGameManager();
         NumberGenerator ng = gm.rocket.GetComponent<NumberGenerator>();
         ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
+
+        //ReloadMain();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Toolbox.GetInstance().GetGameManager().QuickSave();
     }
 
     private void LateUpdate()
@@ -105,7 +108,7 @@ public class UniverseManager : MonoBehaviour
             q.SetUpPlanet(pd);
         }
 
-        foreach (ConstellationData cd in gs.allConstellationData)
+        /*foreach (ConstellationData cd in gs.allConstellationData)
         {
             GameObject cons = Instantiate(constellationTemplet);
             print("constelation id: " + cd.constellationID);
@@ -124,7 +127,7 @@ public class UniverseManager : MonoBehaviour
                     q.ActivateCollectables();
                 }
             }
-        }
+        }*/
         
     }
 
@@ -164,8 +167,9 @@ public class UniverseManager : MonoBehaviour
             Question q = planet.GetComponent<Question>();
             q.planetID = planetNumber;
             planetNumber += 1;
-            q.GenerateCollectables();
-            Toolbox.GetInstance().GetGameManager().planets.Add(planet.GetComponent<Question>());
+            //q.GenerateCollectables();
+            q.UpdatePlanet();
+            //Toolbox.GetInstance().GetGameManager().planets.Add(planet.GetComponent<Question>());
 
             PlanetData pd = new PlanetData(i, q.planetID, planet.transform.position, q.openDungeon, q.options, q.collectiblesID, q.pointsWithCollectibles);
             //print("Adding");

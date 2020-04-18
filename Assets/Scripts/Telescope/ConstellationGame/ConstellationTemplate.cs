@@ -23,14 +23,33 @@ public class ConstellationTemplate : MonoBehaviour
         
     }
 
-    public void RecordLocation()
+    public void RecordFeatures()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        gm = Toolbox.GetInstance().GetGameManager();
         gs.allConstellationData[id].location = transform.position;
-        foreach (StarInUniverse s in stars)
+
+        float xSize = GetComponent<SpriteRenderer>().bounds.size.x;
+        float ySize = GetComponent<SpriteRenderer>().bounds.size.y;
+        float xRatio = xSize / gm.universeSize.x;
+        float yRatio = ySize / gm.universeSize.y;
+        Vector2 ratio = new Vector2(xRatio, yRatio);
+        gs.allConstellationData[id].inUniverseRatio = ratio;
+
+        if (gs.allConstellationData[id].starsLocation.Count == 0)
         {
-            gs.allConstellationData[id].starsLocation[s.starID] = s.transform.position;
+            foreach (StarInUniverse s in stars)
+            {
+                gs.allConstellationData[id].starsLocation.Add(s.transform.position);
+            }
         }
+        else
+        {
+            foreach (StarInUniverse s in stars)
+            {
+                gs.allConstellationData[id].starsLocation[s.starID] = s.transform.position;
+            }
+        } 
     }
     public void SetUpConstellation()
     {

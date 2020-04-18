@@ -212,6 +212,7 @@ public class GameManager : MonoBehaviour
     {
         Toolbox.GetInstance().GetStatManager().gameState.answer = answer;
         Toolbox.GetInstance().GetStatManager().gameState.playerPosition = rocket.transform.position;
+        Toolbox.GetInstance().GetStatManager().SaveState();
     }
 
     public void PausePlayer()
@@ -237,11 +238,12 @@ public class GameManager : MonoBehaviour
                 {
                     if (em.equation.answer == answer) // TODO: null reference exception here
                     {
-                        go.ActivateCollectables();
+                        //go.ActivateCollectables();
+                        go.StartActivatePlanet();
                     }
                     else
                     {
-                        go.DeactivateCollectables();
+                        //go.DeactivateCollectables();
                     }
                 }
                 catch (System.NullReferenceException e)

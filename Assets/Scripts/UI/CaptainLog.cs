@@ -194,7 +194,7 @@ public class CaptainLog : MonoBehaviour
     void UpdateTravelLog()
     {
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
-        print("-------travelLogPageNumber " + gs.travelLogPageNumber);
+        //print("-------travelLogPageNumber " + gs.travelLogPageNumber);
         for (int i = gs.firstEventOnEachPage[gs.travelLogPageNumber - 1]; i < gs.events.Count; i++)
         {
             //print("------loop through events, i = " + i);

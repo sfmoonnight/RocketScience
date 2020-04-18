@@ -36,6 +36,7 @@ public class Question : MonoBehaviour
         {
             ActivateCollectables();
         }*/
+        //UpdatePlanet();
     }
 
     // Update is called once per frame
@@ -170,6 +171,18 @@ public class Question : MonoBehaviour
         ShowEquation();
         //GetComponent<SpriteRenderer>().color = Color.white;
         activated = false;
+    }
+
+    public void StartActivatePlanet()
+    {
+        StartCoroutine(ActivatePlanet());
+    }
+
+    IEnumerator ActivatePlanet()
+    {
+        ActivateCollectables();
+        yield return new WaitForSeconds(10f);
+        UpdatePlanet();
     }
 
     public void ClearCollectables()

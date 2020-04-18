@@ -13,9 +13,7 @@ public class DrawMap : MonoBehaviour
     List<MapConsTemplate> allConstellationOnMap;
     // Start is called before the first frame update
     void Start()
-    {
-        
-        
+    { 
         //SetUpMap();
         //DrawConstellation();
     }
@@ -59,7 +57,7 @@ public class DrawMap : MonoBehaviour
             allConstellationOnMap.Add(mct);
             mct.ConstructConstellation(cs, mapBackground);
             //Interpolate constellation data here
-            print("ratio: " + cd.inUniverseRatio);
+            //print("ratio: " + cd.inUniverseRatio);
             float x = mapBackground.GetComponent<RectTransform>().rect.width * cd.inUniverseRatio.x;
             float y = mapBackground.GetComponent<RectTransform>().rect.height * cd.inUniverseRatio.y;
             float xr = x / mapConsTemplate.GetComponent<RectTransform>().rect.width;
