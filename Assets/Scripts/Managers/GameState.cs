@@ -51,7 +51,7 @@ public class GameState
 
     //---Captain log page number for each section
     public int travelLogPageNumber;
-    public int collectiblePageNumber;
+    public int collectiblePageNumber; //Left page + right page is one page number
     public int keyDungeonPageNumber;
 
     //---Telescope and Constellations

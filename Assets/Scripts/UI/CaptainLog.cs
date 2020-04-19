@@ -120,8 +120,10 @@ public class CaptainLog : MonoBehaviour
 
         if (currentLogSection == LogSection.Collectibles)
         {
-            float num = Toolbox.GetInstance().GetGameManager().collectibles.Count / 24;
-            if (gs.collectiblePageNumber < num)
+            float totalNum = Mathf.CeilToInt(Toolbox.GetInstance().GetGameManager().collectibles.Count / 24f);
+            //print("Collectible Count: " + Toolbox.GetInstance().GetGameManager().collectibles.Count / 24f);
+            //print("Total collectible page number: " + totalNum);
+            if (gs.collectiblePageNumber < totalNum)
             {
                 gs.collectiblePageNumber += 1;
                 //print("Current page number after clicking next page: " + gs.travelLogPageNumber);
@@ -373,18 +375,36 @@ public class CaptainLog : MonoBehaviour
         Color c1 = Color.white;
         c1.a = 1f;
 
-        for (int i = 0; i < Toolbox.GetInstance().GetGameManager().collectibles.Count % 24; i++)
-        {
-            slots[i].sprite = questionMark;
-            slots[i].color = c1;
-
-            Image im = slots[i].transform.parent.GetComponent<Image>();
-            Color c = im.color;
-            c.a = 0.45f;
-            slots[i].transform.parent.GetComponent<Image>().color = c;
-        }
-
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        int totalPageNumber = Mathf.CeilToInt(Toolbox.GetInstance().GetGameManager().collectibles.Count / 24f);
+        if(gs.collectiblePageNumber == totalPageNumber)
+        {
+            for (int i = 0; i < Toolbox.GetInstance().GetGameManager().collectibles.Count % 24; i++)
+            {
+                slots[i].sprite = questionMark;
+                slots[i].color = c1;
+
+                Image im = slots[i].transform.parent.GetComponent<Image>();
+                Color c = im.color;
+                c.a = 0.45f;
+                slots[i].transform.parent.GetComponent<Image>().color = c;
+            }
+        }
+        else
+        {
+            foreach(Image i in slots)
+            {
+                i.sprite = questionMark;
+                i.color = c1;
+
+                Image im = i.transform.parent.GetComponent<Image>();
+                Color c = im.color;
+                c.a = 0.45f;
+                i.transform.parent.GetComponent<Image>().color = c;
+            }
+        }
+        
+
         for (int i = (gs.collectiblePageNumber - 1) * 24;  i < (gs.collectiblePageNumber - 1) * 24 + 24; i++)
         {
             if(gs.collected.Count == 0)

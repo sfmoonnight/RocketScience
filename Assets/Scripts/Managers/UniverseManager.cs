@@ -60,6 +60,7 @@ public class UniverseManager : MonoBehaviour
         ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
 
         //ReloadMain();
+        AddCollectibles(61);
     }
 
     // Update is called once per frame
@@ -204,6 +205,15 @@ public class UniverseManager : MonoBehaviour
             ConstellationData cd = new ConstellationData(cs.constellationID, new Vector3(), false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
             Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
             Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(cs.constellationID);
+        }
+    }
+
+    public void AddCollectibles(int num)
+    {
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        for (int i = 1; i<=num; i++)
+        {
+            gs.collected.Add(i);
         }
     }
 } 
