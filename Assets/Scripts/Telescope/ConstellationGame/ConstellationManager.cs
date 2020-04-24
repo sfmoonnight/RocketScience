@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ConstellationManager : DungeonManager
@@ -11,6 +12,7 @@ public class ConstellationManager : DungeonManager
     public Rocket rocket;
     public Constellation constellation;
     public SpriteRenderer darkBackground;
+    public VariableBoard variableBoard;
 
     Color color;
     bool numbersAttached = false;
@@ -29,6 +31,7 @@ public class ConstellationManager : DungeonManager
 
         GenerateStarValues();
         GenerateEquations();
+        UpdateVarialeBoard();
     }
 
     // Update is called once per frame
@@ -55,7 +58,7 @@ public class ConstellationManager : DungeonManager
         
         if (constellation.showSprite)
         {
-            print("showsprite" + constellation.showSprite);
+            //print("showsprite" + constellation.showSprite);
             StartCoroutine(ShowNotification());
         }
     }
@@ -145,6 +148,23 @@ public class ConstellationManager : DungeonManager
             t.text = eq.toString();
             i += 1;
         }
+    }
+
+    public void UpdateVarialeBoard()
+    {
+        for(int i = 0; i < constellation.stars.Count; i++)
+        {
+            if (constellation.stars[i].solved)
+            {
+                variableBoard.variableTexts[i].text = "   " + constellation.stars[i].variable + " = " + constellation.stars[i].value;
+            }
+            else
+            {
+                variableBoard.variableTexts[i].text = "   " + constellation.stars[i].variable + " = ?";
+            }
+            
+        }
+        
     }
 
     private List<Star> RandomSelectStars(int v, Star ex)

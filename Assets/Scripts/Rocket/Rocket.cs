@@ -188,8 +188,8 @@ public class Rocket : MonoBehaviour
         }
         if (g.GetComponent<Star>())
         {
-            g.GetComponent<Star>().starParticle.Play();
             g.GetComponent<Star>().solved = true;
+            GameObject.Find("ConstellationManager").GetComponent<ConstellationManager>().UpdateVarialeBoard();
         }
     }
 

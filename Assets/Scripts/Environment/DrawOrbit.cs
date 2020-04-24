@@ -8,10 +8,16 @@ public class DrawOrbit : MonoBehaviour
     public int segments;
     public float xradius;
     public float yradius;
+    public bool useSceneSetup;
     LineRenderer line;
 
     void Start()
     {
+        if (useSceneSetup)
+        {
+            SetUp();
+        }
+
         line = gameObject.GetComponent<LineRenderer>();
 
         line.positionCount = segments + 1;
@@ -38,5 +44,13 @@ public class DrawOrbit : MonoBehaviour
 
             angle += (360f / segments);
         }
+    }
+
+    void SetUp()
+    {
+        xradius = Vector2.Distance(center.transform.position, transform.position);
+        yradius = xradius;
+        segments = 40;
+        print("Distance: " + xradius);
     }
 }

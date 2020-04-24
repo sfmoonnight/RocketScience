@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         planets = new List<Question>();
         //constellationNotDiscovered = new List<int>();
         //constellationDiscovered = new List<int>();
-        universeSize = new Vector2(1600, 1000);
+        universeSize = new Vector2(1400, 850);
         //answer = Random.Range(-99, 100);
         rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
 

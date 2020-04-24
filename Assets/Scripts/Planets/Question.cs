@@ -22,6 +22,8 @@ public class Question : MonoBehaviour
     public GameObject eqTextMeshObj;
     public List<GameObject> items;
 
+    public bool updataAtBeginning;
+
     public float radius;
 
     float rotationSpeed = 30;
@@ -36,7 +38,10 @@ public class Question : MonoBehaviour
         {
             ActivateCollectables();
         }*/
-        //UpdatePlanet();
+        if (updataAtBeginning)
+        {
+            UpdatePlanet();
+        } 
     }
 
     // Update is called once per frame

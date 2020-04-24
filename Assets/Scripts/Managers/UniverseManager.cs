@@ -37,7 +37,7 @@ public class UniverseManager : MonoBehaviour
         //print("We out " + Toolbox.GetInstance().GetStatManager().gameState.eatshit);
         if (Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count == 0)
         {
-            GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
+            //GenerateRandomPlanets(-patchSize, -patchSize, patchSize, patchSize, spacing);
             //GenerateConstellations();
         }
         else
@@ -56,11 +56,13 @@ public class UniverseManager : MonoBehaviour
         }
 
         GameManager gm = Toolbox.GetInstance().GetGameManager();
-        NumberGenerator ng = gm.rocket.GetComponent<NumberGenerator>();
-        ng.GenerateRandomNumbers(-ng.patchSize, -ng.patchSize, ng.patchSize, ng.patchSize, ng.spacing);
+        NumberGenerator ng = GetComponent<NumberGenerator>();
+        float patchSizeX = gm.universeSize.x / 2;
+        float patchSizeY = gm.universeSize.y / 2;
+        ng.GenerateRandomNumbers(-patchSizeX, -patchSizeY, patchSizeX, patchSizeY, ng.spacing);
 
         //ReloadMain();
-        AddCollectibles(61);
+        //AddCollectibles(61);
     }
 
     // Update is called once per frame

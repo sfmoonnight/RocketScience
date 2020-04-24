@@ -18,11 +18,11 @@ public class Star : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        solved = true;
+        //solved = true;
         drawLine = GetComponent<DrawLine>();
         drawLine.SetUpLine(transform, nextStar);
         starParticle.Stop();
-
+        
         if (nextStar.Count > 0)
         {
             for (int i = 0; i < nextStar.Count; i++)
@@ -45,7 +45,10 @@ public class Star : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(solved && starParticle.isStopped)
+        {
+            starParticle.Play();
+        }
     }
 
     private void OnMouseDown()
@@ -55,7 +58,7 @@ public class Star : MonoBehaviour
         if (Toolbox.GetInstance().GetGameManager().answer == value)
         {
             Rocket rocket = Toolbox.GetInstance().GetGameManager().GetRocket();
-            rocket.MoveAndScoop(gameObject); //also play particle and set 'solved' to ture
+            rocket.MoveAndScoop(gameObject); //also play particle and set 'solved' to ture  
         }
     }
 
