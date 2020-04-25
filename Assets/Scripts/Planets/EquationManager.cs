@@ -8,6 +8,7 @@ public class EquationManager : MonoBehaviour
 
     public Number currentSeed;
     TextMesh eqTextMesh;
+
     public Equation equation;
     public List<Number> numbers;
     public float relatedNumProx;
@@ -26,6 +27,7 @@ public class EquationManager : MonoBehaviour
         eqTextMesh = gameObject.GetComponent<TextMesh>();
         
         GenerateEquation();
+        print("equation answer: " + equation.answer + "   (" + equation.toString());
         eqTextMesh.text = equation.toString();
         //remove equation from planet so that it won't rotate with it
         transform.parent = null;
@@ -49,7 +51,7 @@ public class EquationManager : MonoBehaviour
             Multiplication1 eq = new Multiplication1();
             equation = eq;
         }
-        //eqTextMesh.text = equation.toString();
+        eqTextMesh.text = equation.toString();
     }
 
     List<Number> FilterNumbersByState(Number.State state)

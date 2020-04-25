@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938465630502626717}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.103, y: 0.97, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.04422235, w: 0.99902177}
+  m_LocalPosition: {x: -0.097, y: 0.631, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3290707131417087596}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.0690002}
 --- !u!212 &756954584707999038
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638113605702628342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -322.63794, y: -225.40582, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8863780153477229799}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   identity: 9
   timeCollected: 
-  rareness: 0.4
+  rareness: 0.8
   question: {fileID: 0}
   pickable: 0
   collider2d: {fileID: 3341436150880070113}
@@ -148,9 +148,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07731724, y: 0.9476845}
-  m_Size: {x: 2.1214776, y: 2.1404853}
-  m_Direction: 0
+  m_Offset: {x: -0.1, y: 0.64}
+  m_Size: {x: 2.58, y: 1.24}
+  m_Direction: 1
 --- !u!50 &1142707157366741068
 Rigidbody2D:
   serializedVersion: 4

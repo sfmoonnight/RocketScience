@@ -4,10 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - question
-  - number
-  - star
-  - ConstellationTemplet
+  - Shootable
   layers:
   - Default
   - TransparentFX
@@ -17,9 +14,9 @@ TagManager:
   - UI
   - 
   - 
-  - Map
-  - 
-  - 
+  - Lighting
+  - Ground
+  - Postprocessing
   - 
   - 
   - 
@@ -42,12 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: UI
-    uniqueID: 108887729
-    locked: 0
-  - name: Map
-    uniqueID: 2742183781
     locked: 0

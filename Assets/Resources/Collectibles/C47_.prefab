@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8798301227180065724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 397.94843, y: -52.731754, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5703029633376246957}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   identity: 47
   timeCollected: 
-  rareness: 0.4
+  rareness: 0.8
   question: {fileID: 0}
   pickable: 0
   collider2d: {fileID: 1907389151022078379}
