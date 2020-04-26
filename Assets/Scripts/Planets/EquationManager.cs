@@ -10,6 +10,7 @@ public class EquationManager : MonoBehaviour
     TextMesh eqTextMesh;
 
     public Equation equation;
+    public int nearestAnswer;
     public List<Number> numbers;
     public float relatedNumProx;
     // Start is called before the first frame update
@@ -26,13 +27,9 @@ public class EquationManager : MonoBehaviour
     {    
         eqTextMesh = gameObject.GetComponent<TextMesh>();
         
-        GenerateEquation();
-        print("equation answer: " + equation.answer + "   (" + equation.toString());
-        eqTextMesh.text = equation.toString();
-        //remove equation from planet so that it won't rotate with it
-        transform.parent = null;
+        //GenerateEquation();
     }
-
+    
     public void GenerateEquation()
     {
         int num = Random.Range(1, 4);
@@ -51,7 +48,11 @@ public class EquationManager : MonoBehaviour
             Multiplication1 eq = new Multiplication1();
             equation = eq;
         }
+        nearestAnswer = equation.answer;
         eqTextMesh.text = equation.toString();
+        //remove equation from planet so that it won't rotate with it
+        transform.parent = null;
+        print("equation answer: " + equation.answer + "   (" + equation.toString());
     }
 
     List<Number> FilterNumbersByState(Number.State state)
@@ -231,7 +232,7 @@ public class EquationManager : MonoBehaviour
             return new List<NumberHelper>();
         }
         int currAnswer = Toolbox.GetInstance().GetGameManager().answer;
-        int corrAnswer = equation.answer;
+        int corrAnswer = nearestAnswer;
         return GenerateNumberSequence(length, currAnswer, corrAnswer);
     }
 

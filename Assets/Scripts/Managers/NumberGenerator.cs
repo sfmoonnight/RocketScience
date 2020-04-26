@@ -72,7 +72,7 @@ public class NumberGenerator : MonoBehaviour
 
     }
 
-    void MakeRoomForNewNumbers()
+    public virtual void MakeRoomForNewNumbers()
     {
         //GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
         //print("Found " + gos.Length + "questions");
@@ -83,7 +83,7 @@ public class NumberGenerator : MonoBehaviour
         }
     }
 
-    public void OptimizeDifficulty(EquationManager.UpdateStrategy strat)
+    public virtual void OptimizeDifficulty(EquationManager.UpdateStrategy strat)
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("question");
 

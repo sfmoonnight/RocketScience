@@ -130,8 +130,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 12121205}
-  - component: {fileID: 12121204}
   - component: {fileID: 12121206}
+  - component: {fileID: 12121204}
   m_Layer: 0
   m_Name: ConstellationManager
   m_TagString: Untagged
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 12121203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4fbd9172512b42d29c6c92be1dfad89, type: 3}
+  m_Script: {fileID: 11500000, guid: 23f7d52da4d874ac9800ef82924e2742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numberPrefab: {fileID: 7001694291015688389, guid: 6d532d45c1788410fbcd5a0cffe789be,

@@ -259,15 +259,14 @@ public class Number : MonoBehaviour
 
     public void AttachToNearestStar()
     {
-        /*Collider2D nearestCollider = FindNearest("star");
+        Collider2D nearestCollider = FindNearest("star");
         if (nearestCollider != null)
         {
-            //TODO: generate equations for stars
-            EquationManager eqm = nearestCollider.gameObject.GetComponent<Question>().GetEquation();
+            EquationManager eqm = nearestCollider.gameObject.GetComponent<EquationManager>();
             eqm.numbers.Add(this);
             attachedPlanet = nearestCollider.gameObject;
             //print("In collider check: " + this.IsEmpty());
-        }*/
+        }
     }
 
     public void AttachToNearestPlanet()

@@ -17,6 +17,7 @@ public class ConstellationManager : DungeonManager
     Color color;
     bool numbersAttached = false;
     List<string> alphabet;
+
     public override void Start()
     {
         GetComponent<NumberGenerator>().GenerateRandomNumbers();
@@ -86,6 +87,7 @@ public class ConstellationManager : DungeonManager
             int index = Random.Range(0, alphabet.Count);
             s.SetText(alphabet[index]);
             alphabet.RemoveAt(index);
+            s.GetComponent<EquationManager>().nearestAnswer = value;
         }
     }
 
@@ -146,6 +148,7 @@ public class ConstellationManager : DungeonManager
 
             eq.elements = els.ToArray();
             t.text = eq.toString();
+            constellation.stars[i].GetComponent<EquationManager>().equation = eq;
             i += 1;
         }
     }

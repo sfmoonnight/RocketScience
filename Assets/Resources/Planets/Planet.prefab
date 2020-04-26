@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetID: 0
+  eqTextMesh: {fileID: 7361038726827405212}
   dungeonEntrence: {fileID: 2182195884002118433}
   openDungeon: 0
   capacity: 0

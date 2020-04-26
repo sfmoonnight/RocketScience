@@ -6,6 +6,8 @@ using UnityEngine;
 public class Question : MonoBehaviour
 {
     public int planetID;
+    public Equation equation;
+    //public TextMesh eqTextMesh;
     public DungeonEntrence dungeonEntrence;
     public bool openDungeon;
     
@@ -33,6 +35,7 @@ public class Question : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        eqTextMeshObj.GetComponent<EquationManager>().GenerateEquation();
         Toolbox.GetInstance().GetGameManager().planets.Add(this);
         //GenerateCollectables();
         StartRotation();

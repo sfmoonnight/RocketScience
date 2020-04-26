@@ -6437,6 +6437,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717969501}
   m_CullTransparentMesh: 0
+--- !u!1 &720620215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7361038726827405215, guid: f5710b2984fd94db6bb4e0b64654051d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1713071958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &741171743
 GameObject:
   m_ObjectHideFlags: 0
@@ -12664,6 +12670,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372801158}
   m_CullTransparentMesh: 0
+--- !u!1 &1373962225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7361038726827405215, guid: f5710b2984fd94db6bb4e0b64654051d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7361038726797185762}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1377258361
 GameObject:
   m_ObjectHideFlags: 0
@@ -15352,6 +15364,11 @@ PrefabInstance:
       propertyPath: updataAtBeginning
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
+        type: 3}
+      propertyPath: eqTextMeshObj
+      value: 
+      objectReference: {fileID: 720620215}
     - target: {fileID: 7361038726158636925, guid: f5710b2984fd94db6bb4e0b64654051d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19348,6 +19365,11 @@ PrefabInstance:
       propertyPath: collectiblesID.Array.data[0]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7361038726158636867, guid: f5710b2984fd94db6bb4e0b64654051d,
+        type: 3}
+      propertyPath: eqTextMeshObj
+      value: 
+      objectReference: {fileID: 1373962225}
     - target: {fileID: 7361038726158636924, guid: f5710b2984fd94db6bb4e0b64654051d,
         type: 3}
       propertyPath: m_Color.r

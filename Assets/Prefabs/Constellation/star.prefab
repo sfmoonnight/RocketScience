@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 5757220458346383688}
   - component: {fileID: 2855053826821446492}
   - component: {fileID: 5424575121029707069}
+  - component: {fileID: 2921960099237069058}
   m_Layer: 0
   m_Name: star
-  m_TagString: Untagged
+  m_TagString: star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +87,8 @@ MonoBehaviour:
   starParticle: {fileID: 5988876641992994907}
   line: {fileID: 5754692888987333732, guid: f54ea52828f654054be82d9a2e917ab2, type: 3}
   nextStar: []
+  activated: 0
+  solved: 0
 --- !u!114 &155067954025758770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +119,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -174,8 +178,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: ABC
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -268,6 +270,22 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_maskType: 0
+--- !u!114 &2921960099237069058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155067954025758793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be34e3c3f74645fe865de22f14aa402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSeed: {fileID: 0}
+  nearestAnswer: 0
+  numbers: []
+  relatedNumProx: 0
 --- !u!1001 &1853409174127280401
 PrefabInstance:
   m_ObjectHideFlags: 0
