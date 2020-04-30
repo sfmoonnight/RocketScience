@@ -135,9 +135,9 @@ public class Question : MonoBehaviour
         {
             float rate = Random.Range(0f, 1f);
             int op = options[Random.Range(0, options.Count)];
-            print("option count " + options.Count);
-            print("option: " + op);
-            print("rate: " + rate);
+            //print("option count " + options.Count);
+            //print("option: " + op);
+            //print("rate: " + rate);
             if (rate <= gm.collectibles[op - 1].rareness)
             {
                 Collectable newCol = Instantiate(gm.collectibles[op - 1], generationPoints[i].transform);
@@ -195,7 +195,7 @@ public class Question : MonoBehaviour
     {
         ActivateCollectables();
         activationZone.Play();
-        yield return new WaitForSeconds(45f);
+        yield return new WaitForSeconds(25f);
         UpdatePlanet();
         activationZone.Stop();
     }

@@ -7,7 +7,7 @@ public class EquationManager : MonoBehaviour
     public enum UpdateStrategy { overwrite, no_overwrite };
 
     public Number currentSeed;
-    TextMesh eqTextMesh;
+    public TextMesh eqTextMesh;
 
     public Equation equation;
     public int nearestAnswer;
@@ -52,7 +52,7 @@ public class EquationManager : MonoBehaviour
         eqTextMesh.text = equation.toString();
         //remove equation from planet so that it won't rotate with it
         transform.parent = null;
-        print("equation answer: " + equation.answer + "   (" + equation.toString());
+        //print("equation answer: " + equation.answer + "   (" + equation.toString());
     }
 
     List<Number> FilterNumbersByState(Number.State state)

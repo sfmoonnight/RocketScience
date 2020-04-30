@@ -51,6 +51,6 @@ public class DrawOrbit : MonoBehaviour
         xradius = Vector2.Distance(center.transform.position, transform.position);
         yradius = xradius;
         segments = 40;
-        print("Distance: " + xradius);
+        //print("Distance: " + xradius);
     }
 }

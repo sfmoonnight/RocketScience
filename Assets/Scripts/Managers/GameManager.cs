@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
 
     public void QuickSave()
     {
+        rocket = GameObject.Find("Rocket").GetComponent<Rocket>();
         Toolbox.GetInstance().GetStatManager().gameState.answer = answer;
         Toolbox.GetInstance().GetStatManager().gameState.playerPosition = rocket.transform.position;
         Toolbox.GetInstance().GetStatManager().SaveState();

@@ -45,6 +45,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -129,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   identity: 2
   timeCollected: 
-  rareness: 0.7
+  rareness: 0.8
   question: {fileID: 0}
   pickable: 0
   collider2d: {fileID: 4302817317531726289}

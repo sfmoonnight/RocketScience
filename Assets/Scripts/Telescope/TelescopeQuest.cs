@@ -31,8 +31,8 @@ public class TelescopeQuest : MonoBehaviour
                 GameObject.Find("QuestPanel").GetComponent<QuestPanelManager>().UpdateQuests();
                 GameObject newItem = GameObject.Find("NotificationUI");
                 newItem.GetComponent<NotificationQueue>().AddToQueue(gm.keySprites[0], "You have discovered 'The Great Telescope'!");
-                newItem.GetComponent<NotificationQueue>().AddToQueue(null, "Welcome to the Great space telecope");
-                newItem.GetComponent<NotificationQueue>().AddToQueue(null, "You are gifted an energy card");
+                newItem.GetComponent<NotificationQueue>().AddToQueue(gm.keySprites[1], "Welcome to the Great space telecope");
+                newItem.GetComponent<NotificationQueue>().AddToQueue(gm.keySprites[3], "You are gifted two energy cards");
                 //newItem.GetComponent<NotificationQueue>().AddToQueue(null, "Quest Completed!");
             }
         }

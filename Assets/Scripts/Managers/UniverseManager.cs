@@ -31,6 +31,7 @@ public class UniverseManager : MonoBehaviour
         {
             //----Can choose to construct in scene or pre-set up in scene
             //go.GetComponent<ConstellationTemplate>().SetUpConstellation();
+            print("Found constellation!");
             go.GetComponent<ConstellationTemplate>().RecordFeatures();
         }
         //print("Count2: " + Toolbox.GetInstance().GetStatManager().gameState.events.Count);

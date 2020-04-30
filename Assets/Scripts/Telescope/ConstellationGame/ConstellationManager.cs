@@ -24,8 +24,18 @@ public class ConstellationManager : DungeonManager
         color = Color.white;
         color.a = 0;
         darkBackground.color = color;
-
-        GameObject con = Instantiate(Toolbox.GetInstance().GetGameManager().constellationPrefabs[1], new Vector3(0, 0, -2), Quaternion.identity);
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        int conID;
+        if(gs.constellationsDiscovered.Count == 0)
+        {
+            conID = 0;
+        }
+        else
+        {
+            int index = Random.Range(0, gs.constellationsNotDiscovered.Count);
+            conID = gs.constellationsNotDiscovered[index];
+        }
+        GameObject con = Instantiate(Toolbox.GetInstance().GetGameManager().constellationPrefabs[conID], new Vector3(0, 0, -2), Quaternion.identity);
         constellation = con.GetComponent<Constellation>();
 
         alphabet = new List<string> { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
@@ -195,7 +205,7 @@ public class ConstellationManager : DungeonManager
     {
         counter *= 1.05f;
         camera.GetComponent<FollowPosition>().enabled = false;
-        camera.orthographicSize = Mathf.Lerp(15, 35, counter);
+        camera.orthographicSize = Mathf.Lerp(15, 60, counter);
         camera.transform.position = Vector3.Lerp(new Vector3(rocket.transform.position.x, rocket.transform.position.y, -10), new Vector3(0,0,-10), counter);
 
         color.a = Mathf.Lerp(0, 1, counter);

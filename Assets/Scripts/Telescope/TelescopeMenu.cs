@@ -24,7 +24,7 @@ public class TelescopeMenu : MonoBehaviour
         if(gs.telescopeEnergyCard > 0)
         {
             Toolbox.GetInstance().GetGameManager().inDungeon = true;
-            gs.playerPosition = GameObject.Find("Telescope").transform.position + new Vector3(0, -20, 0);
+            gs.playerPosition = GameObject.Find("Telescope").transform.position + new Vector3(0, -30, 0);
             gs.answer = Toolbox.GetInstance().GetGameManager().answer;
             Toolbox.GetInstance().GetGameManager().planets.Clear();
             gs.telescopeEnergyCard -= 1;

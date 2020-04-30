@@ -30,9 +30,6 @@ public class Constellation : MonoBehaviour
     }
     void Start()
     {
-        constellationSprite = GetComponent<SpriteRenderer>();
-        
-
         color = Color.white;
         color.a = 0;
         constellationSprite.color = color;

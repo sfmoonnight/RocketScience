@@ -44,7 +44,7 @@ public class QuestSpawner : MonoBehaviour
                 if (gs.telescopeQuestStatus == GameState.QuestStatus.Enabled)
                 {
                     Quest q = new Quest();
-                    Reward r = new Reward(Reward.RewardType.EnergyCard, 1);
+                    Reward r = new Reward(Reward.RewardType.EnergyCard, 2);
                     q.rewards.Add(r);
                     q.questIdentity = Quest.QuestIdentity.TelescopeActivation;
                     q.text = "Recieved a set of coordinates";

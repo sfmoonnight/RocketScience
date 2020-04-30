@@ -6,15 +6,18 @@ public class ConstellationTemplate : MonoBehaviour
 {
     public ConstellationStructure constellationStructure;
     public GameObject starInUniverse;
+    public bool firstTimeSetup; //Only used to set up a new in-universe constellation prefab
 
-    int id;
+    //public int id;
     GameManager gm;
     public List<StarInUniverse> stars;
     // Start is called before the first frame update
     void Start()
     {
-        id = constellationStructure.constellationID;
-        //SetUpConstellation();
+        if (firstTimeSetup)
+        {
+            SetUpConstellation();
+        }
     }
 
     // Update is called once per frame
@@ -25,6 +28,7 @@ public class ConstellationTemplate : MonoBehaviour
 
     public void RecordFeatures()
     {
+        int id = constellationStructure.constellationID;
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         gm = Toolbox.GetInstance().GetGameManager();
         gs.allConstellationData[id].location = transform.position;
@@ -35,7 +39,8 @@ public class ConstellationTemplate : MonoBehaviour
         float yRatio = ySize / gm.universeSize.y;
         Vector2 ratio = new Vector2(xRatio, yRatio);
         gs.allConstellationData[id].inUniverseRatio = ratio;
-
+        print("id:" + id);
+        print("dataID: " + gs.allConstellationData[id].constellationID);
         if (gs.allConstellationData[id].starsLocation.Count == 0)
         {
             foreach (StarInUniverse s in stars)
@@ -45,14 +50,16 @@ public class ConstellationTemplate : MonoBehaviour
         }
         else
         {
+            /*
             foreach (StarInUniverse s in stars)
             {
                 gs.allConstellationData[id].starsLocation[s.starID] = s.transform.position;
-            }
+            }*/
         } 
     }
     public void SetUpConstellation()
     {
+        int id = constellationStructure.constellationID;
         gm = Toolbox.GetInstance().GetGameManager();
         GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
         //print("constellation data count: " + gs.allConstellationData.Count);
@@ -107,7 +114,7 @@ public class ConstellationTemplate : MonoBehaviour
         float yRatio = ySize / gm.universeSize.y;
         Vector2 ratio = new Vector2(xRatio, yRatio);
         cd.inUniverseRatio = ratio;
-
+        
         cd.starsLocation = new List<Vector2>();
         foreach (Vector2 p in constellationStructure.starsPosition)
         {  

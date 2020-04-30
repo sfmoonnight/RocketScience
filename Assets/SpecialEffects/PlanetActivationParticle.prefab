@@ -46,7 +46,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 1
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 45
+      scalar: 25
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -990,7 +990,7 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.3222749
         - serializedVersion: 3
-          time: 0.0028847307
+          time: 0.009423394
           value: 1
           inSlope: 0.34114364
           outSlope: 0.34114364

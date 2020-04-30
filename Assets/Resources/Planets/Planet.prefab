@@ -295,7 +295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetID: 0
-  eqTextMesh: {fileID: 7361038726827405212}
   dungeonEntrence: {fileID: 2182195884002118433}
   openDungeon: 0
   capacity: 0
@@ -602,6 +601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSeed: {fileID: 0}
+  eqTextMesh: {fileID: 7361038726827405212}
+  nearestAnswer: 0
   numbers: []
   relatedNumProx: 10
 --- !u!1 &7361038727725892094

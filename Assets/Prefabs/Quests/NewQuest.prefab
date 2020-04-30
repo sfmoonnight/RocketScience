@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5294563975099466489}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 273.69904, y: 449.806, z: -15.263997}
-  m_LocalScale: {x: 10, y: 5, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -48,6 +48,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -72,7 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -4302880492807980341, guid: 0cc2fbaa19cdaf1498fb974fb31da123,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,18 +98,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0005539581, y: -0.0016616732}
+  m_Offset: {x: 0.0025577545, y: -0.0016455352}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 2.18, y: 1.43}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.14131404, y: 0.13422519}
+  m_Size: {x: 2.0752358, y: 1.3674519}
   m_EdgeRadius: 0
 --- !u!114 &-2469059311282366517
 MonoBehaviour:
@@ -121,6 +123,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e06bf5f355b7444c8e1ef2f2154dd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quest:
+    questIdentity: 0
+    rewards: []
+    collectibles: []
+    text: 
+    coordinates: {x: 0, y: 0}
+    questImage: {fileID: 0}
 --- !u!50 &7748590802302188241
 Rigidbody2D:
   serializedVersion: 4

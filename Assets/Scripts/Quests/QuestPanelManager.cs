@@ -107,7 +107,7 @@ public class QuestPanelManager : MonoBehaviour
         UpdateQuestsHelper();
         GameObject.Find("Money").GetComponent<Text>().text = gs.money.ToString();
         GameObject.Find("EnergyCard").GetComponent<Text>().text = gs.telescopeEnergyCard.ToString();
-
+        Toolbox.GetInstance().GetGameManager().QuickSave();
         Toolbox.GetInstance().GetStatManager().SaveState();
     }
 

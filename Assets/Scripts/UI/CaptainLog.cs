@@ -354,7 +354,7 @@ public class CaptainLog : MonoBehaviour
 
                 //print("------currentslot=" + currentSlotIndex);
                 slots[currentSlotIndex].sprite = darkBackground;
-                slots[currentSlotIndex].GetComponentsInChildren<Image>()[1].sprite = Toolbox.GetInstance().GetGameManager().constellationPrefabs[gs.events[i].collectibleIdentity].GetComponent<SpriteRenderer>().sprite;
+                slots[currentSlotIndex].GetComponentsInChildren<Image>()[1].sprite = Toolbox.GetInstance().GetGameManager().constellationPrefabs[gs.events[i].constellationIdentity].GetComponent<SpriteRenderer>().sprite;
                 slots[currentSlotIndex].rectTransform.pivot = new Vector2(0f, 1f);
                 slots[currentSlotIndex].rectTransform.localScale = new Vector3(2f, 2f, 1);
                 Color c = Color.white;
