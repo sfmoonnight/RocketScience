@@ -27,7 +27,7 @@ public class NewQuest : MonoBehaviour
             //print("On trigger enter 2");
             //HideNewQuest();
             GameObject.Find("QuestMenu").GetComponent<QuestMenu>().newQuest = this;
-            GameObject.Find("QuestMenu").GetComponent<ToggleUI>().ChangeText(quest.text);
+            GameObject.Find("QuestMenu").GetComponent<ToggleUI>().ChangeText1(quest.text);
             GameObject.Find("QuestMenu").GetComponent<ToggleUI>().ShowUI();
             //TODO:Pause game except UI
         }

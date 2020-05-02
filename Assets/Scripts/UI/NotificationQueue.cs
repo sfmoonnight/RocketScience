@@ -38,7 +38,7 @@ public class NotificationQueue : MonoBehaviour
         Notification n = q.Dequeue();
         //print("Dequeue" + n.message + ". New q size" + q.Count);
         tu.ChangeImage(n.sprite);
-        tu.ChangeText(n.message);
+        tu.ChangeText1(n.message);
         tu.setCallback(ShowNext);
         tu.ShowUI();
     }

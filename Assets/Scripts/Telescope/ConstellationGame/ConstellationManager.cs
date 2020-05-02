@@ -230,7 +230,7 @@ public class ConstellationManager : DungeonManager
     {
         yield return new WaitForSeconds(1.5f);
         scoreBorad.image.sprite = constellation.constellationSprite.sprite;
-        scoreBorad.text.text = "You have discovered the " + constellation.name + " constellation!";
+        scoreBorad.text1.text = "You have discovered the " + constellation.name + " constellation!";
         scoreBorad.ShowUI();
     }
 }

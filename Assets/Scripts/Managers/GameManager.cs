@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public Rocket rocket;
     //GameObject[] questions;
     public Vector2 universeSize;
-
+    public Vector2 warpToLocation;
     public List<Collectable> collectibles; //all collectibles of the game
     public List<Collectable> keyCollectibles;//all key collectibles of the game
     public List<Question> planets;//---including all the planets and structure

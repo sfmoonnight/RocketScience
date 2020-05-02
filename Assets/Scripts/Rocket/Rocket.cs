@@ -6,20 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
+    public enum RocketStatus { normal, warping };
+    //public RocketStatus rocketStatus;
     Rigidbody2D rbody;
     public float speed;
     //Vector2 currentPos;
     Vector2 targetPos;
+    
     public float pCoeff;
     public Animator netAnim;
     GameObject collectableTarget;
 
-    Animator anim;
+    public Animator skinAnim;
     
     // Start is called before the first frame update
     void Start()
     {
         //DontDestroyOnLoad(gameObject);
+
         if(SceneManager.GetActiveScene().buildIndex == 0)
         {
             transform.position = Toolbox.GetInstance().GetStatManager().gameState.playerPosition;
@@ -27,18 +31,18 @@ public class Rocket : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         StopMoving();
         targetPos = GetCurrentPos();
-        anim = GetComponent<Animator>();
+        //skinAnim = GetComponent<Animator>();
         collectableTarget = null;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Movement();
+       Movement();    
     }
     void Update()
     {
-        GetTargetPos();
+       GetTargetPos();
     }
 
     Vector2 GetCurrentPos()
@@ -55,6 +59,7 @@ public class Rocket : MonoBehaviour
 
     void GetTargetPos()
     {
+        
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -132,14 +137,14 @@ public class Rocket : MonoBehaviour
         }
         if (delta.magnitude < 0.01)
         {
-            anim.SetBool("moving", false);
+            skinAnim.SetBool("moving", false);
             StopMoving();
         }
         else
         {
             if (currSpeed < desiredSpeed)
             {
-                anim.SetBool("moving", true);
+                skinAnim.SetBool("moving", true);
                 rbody.AddForce(deltaNorm * speed);
             }
         }
@@ -210,6 +215,24 @@ public class Rocket : MonoBehaviour
         }
         print(numbers.Count);
         return numbers; 
+    }
+
+    public void StartWarping()
+    {
+        StartCoroutine(Warp());
+    }
+    public IEnumerator Warp()
+    {
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        StopMoving();
+        skinAnim.SetTrigger("warp");
+        yield return new WaitForSeconds(2);
+        targetPos = gm.warpToLocation + new Vector2(0, -10);
+        transform.position = gm.warpToLocation + new Vector2(0, -10);
+        
+        StopMoving();
+        
+        yield return new WaitForSeconds(3);  
     }
 
     void OnDrawGizmos()

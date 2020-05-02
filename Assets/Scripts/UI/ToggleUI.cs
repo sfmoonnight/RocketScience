@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class ToggleUI : MonoBehaviour
 {
     public Image image;
-    public Text text;
+    public Text text1;
+    public Text text2;
     public bool active;
     public Action callback = null;
 
@@ -52,9 +53,13 @@ public class ToggleUI : MonoBehaviour
         image.sprite = s;
     }
 
-    public void ChangeText(string s)
+    public void ChangeText1(string s)
     {
-        text.text = s;
+        text1.text = s;
+    }
+    public void ChangeText2(string s)
+    {
+        text2.text = s;
     }
 
     public void setCallback(Action a)

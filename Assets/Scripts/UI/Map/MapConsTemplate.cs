@@ -39,10 +39,13 @@ public class MapConsTemplate : MonoBehaviour
             //StarOnMap som = star.GetComponent<StarInUniverse>();
             stars.Add(star);
             //print("StarCount: " + gs.allConstellationData[constellationStructure.constellationID].starsLocation.Count);
-            Vector2 mapPos = gs.allConstellationData[constellationStructure.constellationID].starsLocation[i];
-            float x = (mapPos.x / gm.universeSize.x) * mapBackground.GetComponent<RectTransform>().sizeDelta.x;
-            float y = (mapPos.y / gm.universeSize.y) * mapBackground.GetComponent<RectTransform>().sizeDelta.y;
+            Vector2 universePos = gs.allConstellationData[constellationStructure.constellationID].starsLocation[i];
+            float x = (universePos.x / gm.universeSize.x) * mapBackground.GetComponent<RectTransform>().sizeDelta.x;
+            float y = (universePos.y / gm.universeSize.y) * mapBackground.GetComponent<RectTransform>().sizeDelta.y;
+
+            star.GetComponent<StarOnMap>().universePosition = universePos;
             star.GetComponent<RectTransform>().localPosition = new Vector2(x, y);
+            
             //som.starID = stars.IndexOf(som);
             //som.constellationTemplate = this;
 
