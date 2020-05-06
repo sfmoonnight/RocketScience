@@ -38,6 +38,11 @@ public class MapConsTemplate : MonoBehaviour
             GameObject star = Instantiate(starOnMap, mapBackground.transform);
             //StarOnMap som = star.GetComponent<StarInUniverse>();
             stars.Add(star);
+            star.GetComponent<StarOnMap>().consName = constellationStructure.constellationName;
+            if (gs.allConstellationData[constellationStructure.constellationID].starsName.Count > 0)
+            {
+                star.GetComponent<StarOnMap>().name = gs.allConstellationData[constellationStructure.constellationID].starsName[i];
+            }
             //print("StarCount: " + gs.allConstellationData[constellationStructure.constellationID].starsLocation.Count);
             Vector2 universePos = gs.allConstellationData[constellationStructure.constellationID].starsLocation[i];
             float x = (universePos.x / gm.universeSize.x) * mapBackground.GetComponent<RectTransform>().sizeDelta.x;

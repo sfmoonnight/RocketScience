@@ -181,7 +181,7 @@ public class UniverseManager : MonoBehaviour
             print(Toolbox.GetInstance().GetStatManager().gameState.allPlanetData.Count);
         }
     }
-
+    /*
     public void GenerateConstellations()
     {
         GameManager gm = Toolbox.GetInstance().GetGameManager();
@@ -193,19 +193,20 @@ public class UniverseManager : MonoBehaviour
             gs.constellationsNotDiscovered.Add(cs.constellationID);
 
             Vector2 position = new Vector2(50, 50);
-            ConstellationData cd = new ConstellationData(cs.constellationID, position, false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
+            ConstellationData cd = new ConstellationData(cs.constellationID, position, false, new List<Vector2>(),new List<string>(), new List<int>(), new List<int>(), new Vector2());
             gs.allConstellationData.Add(cd);
 
             cons.GetComponent<ConstellationTemplate>().SetUpConstellation(position, cs);
             //print("cons size: " + cons.GetComponent<SpriteRenderer>().bounds.size);
         }
-    }
+    }*/
+
     public void CreateConstellationData()
     {
         GameManager gm = Toolbox.GetInstance().GetGameManager();
         foreach (ConstellationStructure cs in gm.constellationStructures)
         {
-            ConstellationData cd = new ConstellationData(cs.constellationID, new Vector3(), false, new List<Vector2>(), new List<int>(), new List<int>(), new Vector2());
+            ConstellationData cd = new ConstellationData(cs.constellationID, new Vector3(), false, new List<Vector2>(), new List<string>(), new List<int>(), new List<int>(), new Vector2());
             Toolbox.GetInstance().GetStatManager().gameState.allConstellationData.Add(cd);
             Toolbox.GetInstance().GetStatManager().gameState.constellationsNotDiscovered.Add(cs.constellationID);
         }

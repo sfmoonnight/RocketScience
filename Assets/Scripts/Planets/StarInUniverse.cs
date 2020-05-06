@@ -36,10 +36,10 @@ public class StarInUniverse : MonoBehaviour
                     if(constellationTemplate.constellationStructure.constellationID == cd.constellationID)
                     {
                         print("activated star ID: " + starID);
-                        if (!cd.starsDiscovered.Contains(starID))
+                        /*if (!cd.starsDiscovered.Contains(starID))
                         {
                             cd.starsDiscovered.Add(starID);
-                        }
+                        }*/
                         if (!cd.starsActivated.Contains(starID))
                         {
                             cd.starsActivated.Add(starID);

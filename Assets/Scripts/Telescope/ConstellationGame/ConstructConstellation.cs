@@ -23,6 +23,7 @@ public class ConstructConstellation : MonoBehaviour
         }*/
 
         Constellation cons = GetComponent<Constellation>();
+        constellationStructure.constellationName = cons.name;
         List<Star> trackIndex = new List<Star>();
         int count = 0;
         print("star count here " + cons.stars.Count);

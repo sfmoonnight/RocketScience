@@ -78,13 +78,14 @@ public class DrawMap : MonoBehaviour
         //print("drawMap activate stars");
         foreach (ConstellationData cd in gs.allConstellationData)
         {
+
             //print("drawMap activate stars count: " + cd.starsActivated.Count);
             if (cd.starsDiscovered.Count > 0)
             {
                 //print("drawMap activate stars > 0");
                 foreach (int i in cd.starsDiscovered)
                 {
-                    allConstellationOnMap[cd.constellationID].stars[i].GetComponent<StarOnMap>().ShowStarOnMap();
+                    allConstellationOnMap[cd.constellationID].stars[i].GetComponent<StarOnMap>().Discover();
                 }
             }
 
@@ -93,6 +94,7 @@ public class DrawMap : MonoBehaviour
                 //print("drawMap activate stars > 0");
                 foreach (int i in cd.starsActivated)
                 {
+                    allConstellationOnMap[cd.constellationID].stars[i].GetComponent<StarOnMap>().ShowStarOnMap();
                     allConstellationOnMap[cd.constellationID].stars[i].GetComponent<StarOnMap>().Activate();
                 }
             }

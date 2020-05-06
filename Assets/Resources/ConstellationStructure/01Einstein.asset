@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 01Einstein
   m_EditorClassIdentifier: 
   constellationID: 1
+  constellationName: Einstein
   starsPosition:
   - {x: -0.27142859, y: 3.6000004}
   - {x: -1.500001, y: -2.7142868}

@@ -89,16 +89,19 @@ public class ConstellationManager : DungeonManager
 
     void GenerateStarValues()
     {
-        foreach(Star s in constellation.stars)
+        GameState gs = Toolbox.GetInstance().GetStatManager().gameState;
+        foreach (Star s in constellation.stars)
         {
             int value = Random.Range(1, 30);
             s.value = value;
 
             int index = Random.Range(0, alphabet.Count);
             s.SetText(alphabet[index]);
+            gs.allConstellationData[constellation.identity].starsName.Add(alphabet[index]);
             alphabet.RemoveAt(index);
             s.GetComponent<EquationManager>().nearestAnswer = value;
         }
+        //Toolbox.GetInstance().GetStatManager().SaveState();
     }
 
     void GenerateEquations()

@@ -9,6 +9,7 @@ public class ToggleUI : MonoBehaviour
     public Image image;
     public Text text1;
     public Text text2;
+    public List<GameObject> hideObjects;
     public bool active;
     public Action callback = null;
 
@@ -60,6 +61,22 @@ public class ToggleUI : MonoBehaviour
     public void ChangeText2(string s)
     {
         text2.text = s;
+    }
+
+    public void HideObjects()
+    {
+        foreach (GameObject go in hideObjects)
+        {
+            go.SetActive(false);
+        }
+    }
+
+    public void ShowObjects()
+    {
+        foreach (GameObject go in hideObjects)
+        {
+            go.SetActive(true);
+        }
     }
 
     public void setCallback(Action a)

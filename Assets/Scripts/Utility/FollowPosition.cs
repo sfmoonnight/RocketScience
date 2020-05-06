@@ -32,4 +32,12 @@ public class FollowPosition : MonoBehaviour
         }
 
     }
+
+    public void ChangeLocation()
+    {
+        float z = transform.position.z;
+        float x = target.transform.position.x;
+        float y = target.transform.position.y;
+        transform.position = new Vector3(x, y, z);
+    }
 }

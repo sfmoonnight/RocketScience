@@ -8,6 +8,8 @@ public class StarOnMap : MonoBehaviour
     Animator anim;
     public Image image;
     public Vector2 universePosition;
+    public string consName;
+    public string name;
     public bool discovered;
     public bool activated;
     // Start is called before the first frame update
@@ -28,11 +30,27 @@ public class StarOnMap : MonoBehaviour
         {
             //print("onmousedown");
             RefreshStarInfo();
-            GameObject.Find("StarInfo").GetComponent<ToggleUI>().ShowUI();
+            GameObject starinfo = GameObject.Find("StarInfo");
+            starinfo.transform.localPosition = transform.localPosition + new Vector3(100, 0, 0);
+            if (starinfo.transform.localPosition.x > 287)
+            {
+                starinfo.transform.localPosition = new Vector3(287, transform.localPosition.y + 70, 0);
+                if(starinfo.transform.localPosition.y > 170)
+                {
+                    starinfo.transform.localPosition = new Vector3(287, transform.localPosition.y - 70, 0);
+                }
+            }
+            starinfo.GetComponent<ToggleUI>().ShowUI();
+            
         }   
     }
 
     public void ShowStarOnMap()
+    {
+        image.enabled = true;
+    }
+
+    public void Discover()
     {
         discovered = true;
         image.enabled = true;
@@ -52,9 +70,23 @@ public class StarOnMap : MonoBehaviour
         GameManager gm = Toolbox.GetInstance().GetGameManager();
         string coordinates = "X: " + universePosition.x + " Y: " + universePosition.y;
         GameObject.Find("StarInfo").GetComponent<ToggleUI>().ChangeText2(coordinates);
-        //TODO: if only discovered, show star name, but hide warp botton
-        //TODO: if only activated, show warp button, hide star name
-        //TODO: if both, show everything
+        GameObject.Find("StarInfo").GetComponent<ToggleUI>().ShowObjects();
+        if (discovered)
+        {
+            string info = consName + " " + name;
+            GameObject.Find("StarInfo").GetComponent<ToggleUI>().ChangeText1(info);
+            if (!activated)
+            {
+                GameObject.Find("StarInfo").GetComponent<ToggleUI>().HideObjects();
+            }
+        }
+        else
+        {
+            if (activated)
+            {
+                GameObject.Find("StarInfo").GetComponent<ToggleUI>().ChangeText1("Unknow Star");
+            }
+        } 
         gm.warpToLocation = universePosition;
     }
 }

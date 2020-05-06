@@ -18,6 +18,8 @@ public class Rocket : MonoBehaviour
     GameObject collectableTarget;
 
     public Animator skinAnim;
+
+    public Camera mainCamera;
     
     // Start is called before the first frame update
     void Start()
@@ -227,11 +229,15 @@ public class Rocket : MonoBehaviour
         StopMoving();
         skinAnim.SetTrigger("warp");
         yield return new WaitForSeconds(2);
-        targetPos = gm.warpToLocation + new Vector2(0, -10);
-        transform.position = gm.warpToLocation + new Vector2(0, -10);
+        targetPos = gm.warpToLocation + new Vector2(10, -10);
+        transform.position = gm.warpToLocation + new Vector2(10, -10);
         
         StopMoving();
-        
+        float z = mainCamera.transform.position.z;
+        float x = gm.warpToLocation.x;
+        float y = gm.warpToLocation.y;
+        mainCamera.transform.position = new Vector3(x, y, z);
+
         yield return new WaitForSeconds(3);  
     }
 

@@ -1512,7 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ceae624c2ffb426aa40a2064b7fc2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1206088461}
+  target: {fileID: 1741637562}
   useDamping: 1
   damping: 1
 --- !u!81 &910436459
@@ -1866,12 +1866,6 @@ CanvasRenderer:
 --- !u!212 &1206088460 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2009958943626874313, guid: dc8318bb87c084d0994f7ee378a125d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 602358970}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1206088461 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2009958943626874314, guid: dc8318bb87c084d0994f7ee378a125d2,
     type: 3}
   m_PrefabInstance: {fileID: 602358970}
   m_PrefabAsset: {fileID: 0}
@@ -2864,8 +2858,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4966226666448066302, guid: 11909622cf3ff0141a238db71f81c12e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 11909622cf3ff0141a238db71f81c12e, type: 3}
+--- !u!4 &1741637562 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4966226666448066291, guid: 11909622cf3ff0141a238db71f81c12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1741637561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1748436585
 GameObject:
   m_ObjectHideFlags: 0

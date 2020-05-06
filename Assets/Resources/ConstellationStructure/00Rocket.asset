@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 00Rocket
   m_EditorClassIdentifier: 
   constellationID: 0
+  constellationName: Rocket
   starsPosition:
   - {x: 0.95, y: 0.28}
   - {x: -0.88, y: 0.3}

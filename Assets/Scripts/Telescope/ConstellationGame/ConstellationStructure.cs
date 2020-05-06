@@ -7,6 +7,7 @@ using UnityEngine;
 public class ConstellationStructure :ScriptableObject
 {
     public int constellationID;
+    public string constellationName;
     public List<Vector2> starsPosition;
     public List<Vector2> connectionsEdgeList;
     
