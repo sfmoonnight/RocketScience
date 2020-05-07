@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CaptainLog : MonoBehaviour
 {
-    public enum LogSection { TravelLog, Collectibles, KeyDungeons, Skins, Settings};
+    public enum LogSection { TravelLog, Collectibles, KeyDungeons, Skins, Store, Settings};
     public LogSection currentLogSection;
 
     public GameObject leftPage;
@@ -24,6 +24,7 @@ public class CaptainLog : MonoBehaviour
     public Button collectibles;
     public Button keyDungeons;
     public Button skins;
+    public Button store;
     public Button settings;
 
     public Button nextPage;
@@ -69,13 +70,21 @@ public class CaptainLog : MonoBehaviour
             UpdateCollectibles();
         }
 
+        if (currentLogSection == LogSection.Store)
+        {
+            leftPage.GetComponent<ToggleUI>().ShowUI();
+            rightPage.GetComponent<ToggleUI>().ShowUI();
+            settingPage.GetComponent<ToggleUI>().HideUI();
+            UpdateStore();
+        }
+
         if (currentLogSection == LogSection.Settings)
         {
             leftPage.GetComponent<ToggleUI>().HideUI();
             rightPage.GetComponent<ToggleUI>().HideUI();
             settingPage.GetComponent<ToggleUI>().ShowUI();
         }
-        
+        UpdateSlotType();
     }
 
     public void ClearPages()
@@ -102,6 +111,8 @@ public class CaptainLog : MonoBehaviour
             t.rectTransform.sizeDelta = new Vector2(90, 90);
             t.rectTransform.pivot = new Vector2(0.5f, 0.5f);
             t.rectTransform.localScale = new Vector3(1f, 1f, 1);
+            t.fontSize = 14;
+            t.color = Color.black;
         }
     }
 
@@ -161,18 +172,28 @@ public class CaptainLog : MonoBehaviour
     public void SelectTravelLog()
     {
         currentLogSection = LogSection.TravelLog;
+        DisableSlotButtons();
         UpdatePages();
     }
 
     public void SelectCollectibles()
     {
         currentLogSection = LogSection.Collectibles;
+        DisableSlotButtons();
+        UpdatePages();
+    }
+
+    public void SelectStore()
+    {
+        currentLogSection = LogSection.Store;
+        EnableSlotButtons();
         UpdatePages();
     }
 
     public void SelectSettings()
     {
         currentLogSection = LogSection.Settings;
+        DisableSlotButtons();
         UpdatePages();
     }
 
@@ -190,6 +211,30 @@ public class CaptainLog : MonoBehaviour
         {
             leftPageNumber.text = (gs.collectiblePageNumber * 2 - 1).ToString();
             rightPageNumber.text = (gs.collectiblePageNumber * 2).ToString();
+        }
+    }
+
+    public void UpdateSlotType()
+    {
+        foreach(Image s in slots)
+        {
+            s.GetComponent<LogSlot>().logSection = currentLogSection;
+        }
+    }
+
+    public void DisableSlotButtons()
+    {
+        foreach (Image s in slots)
+        {
+            s.GetComponent<Button>().enabled = false;
+        }
+    }
+
+    public void EnableSlotButtons()
+    {
+        foreach (Image s in slots)
+        {
+            s.GetComponent<Button>().enabled = true;
         }
     }
 
@@ -441,4 +486,21 @@ public class CaptainLog : MonoBehaviour
         }
     }
 
+    void UpdateStore()
+    {
+        Color c1 = Color.white;
+        c1.a = 1f;
+
+        GameManager gm = Toolbox.GetInstance().GetGameManager();
+        slots[0].sprite = gm.keySprites[3];
+        slots[0].color = c1;
+        LogSlot ls = slots[0].GetComponent<LogSlot>();
+        ls.displayImage = gm.keySprites[3];
+        ls.displayText = "Energy cards are used to power The Great Telescope";
+        ls.ID = 3;
+
+        slotTexts[3].text = "$300";
+        slotTexts[3].fontSize = 20;
+        slotTexts[3].color = Color.yellow;
+    }
 }

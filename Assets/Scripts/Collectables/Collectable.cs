@@ -6,6 +6,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour, IComparable<Collectable>
 {
     public int identity;
+    public string name;
     public string timeCollected;
     public float rareness;
     public Question question;
