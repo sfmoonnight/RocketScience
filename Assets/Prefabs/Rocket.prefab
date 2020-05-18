@@ -291,9 +291,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  targetPos: {x: 0, y: 0}
   pCoeff: 0
   netAnim: {fileID: 4966226667139888519}
   skinAnim: {fileID: 4966226666475407696}
+  mainCamera: {fileID: 0}
 --- !u!50 &4966226666448066289
 Rigidbody2D:
   serializedVersion: 4
@@ -902,7 +904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4966226667139888517
 Transform:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class Rocket : MonoBehaviour
     Rigidbody2D rbody;
     public float speed;
     //Vector2 currentPos;
-    Vector2 targetPos;
+    public Vector2 targetPos;
     
     public float pCoeff;
     public Animator netAnim;
