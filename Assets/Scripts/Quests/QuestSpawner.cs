@@ -86,8 +86,8 @@ public class QuestSpawner : MonoBehaviour
         {
             int index1 = Random.Range(0, notCollected);
             int id1 = Toolbox.GetInstance().GetStatManager().gameState.notCollected[index1];
-            float x1 = Random.Range(-50f, 50f);
-            float y1 = Random.Range(-50f, 50f);
+            float x1 = Random.Range(-30f, 30f);
+            float y1 = Random.Range(-25f, 37f);
 
             QuestCollectible qc1 = new QuestCollectible(id1, x1, y1, false);
 

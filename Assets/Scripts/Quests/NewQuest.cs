@@ -29,7 +29,7 @@ public class NewQuest : MonoBehaviour
             GameObject.Find("QuestMenu").GetComponent<QuestMenu>().newQuest = this;
             GameObject.Find("QuestMenu").GetComponent<ToggleUI>().ChangeText1(quest.text);
             GameObject.Find("QuestMenu").GetComponent<ToggleUI>().ShowUI();
-            //TODO:Pause game except UI
+            Time.timeScale = 0;
         }
     }
 

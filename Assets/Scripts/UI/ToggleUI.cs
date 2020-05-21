@@ -28,6 +28,7 @@ public class ToggleUI : MonoBehaviour
     public void HideUI()
     {
         //print("Inside HideUI");
+        Time.timeScale = 1;
         GetComponent<CanvasGroup>().alpha = 0;
         GetComponent<CanvasGroup>().interactable = false;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -43,6 +44,7 @@ public class ToggleUI : MonoBehaviour
     public void ShowUI()
     {
         //print("show item UI");
+        //Time.timeScale = 0;
         GetComponent<CanvasGroup>().alpha = 1;
         GetComponent<CanvasGroup>().interactable = true;
         GetComponent<CanvasGroup>().blocksRaycasts = true;
