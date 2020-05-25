@@ -45,6 +45,27 @@ public class StarOnMap : MonoBehaviour
         }   
     }
 
+    public void Click()
+    {
+        if (discovered || activated)
+        {
+            //print("onmousedown");
+            RefreshStarInfo();
+            GameObject starinfo = GameObject.Find("StarInfo");
+            starinfo.transform.localPosition = transform.localPosition + new Vector3(100, 0, 0);
+            if (starinfo.transform.localPosition.x > 287)
+            {
+                starinfo.transform.localPosition = new Vector3(287, transform.localPosition.y + 70, 0);
+                if (starinfo.transform.localPosition.y > 170)
+                {
+                    starinfo.transform.localPosition = new Vector3(287, transform.localPosition.y - 70, 0);
+                }
+            }
+            starinfo.GetComponent<ToggleUI>().ShowUI();
+
+        }
+    }
+
     public void ShowStarOnMap()
     {
         image.enabled = true;

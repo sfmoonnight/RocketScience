@@ -100,8 +100,8 @@ public class QuestSpawner : MonoBehaviour
                 {
                     int index = Random.Range(0, collected);
                     int id = Toolbox.GetInstance().GetStatManager().gameState.collected[index];
-                    float x = Random.Range(-50f, 50f);
-                    float y = Random.Range(-50f, 50f);
+                    float x = Random.Range(-30f, 30f);
+                    float y = Random.Range(-25f, 37f);
 
                     QuestCollectible qc = new QuestCollectible(id, x, y, false);
 
@@ -115,8 +115,8 @@ public class QuestSpawner : MonoBehaviour
             {
                 int index = Random.Range(0, collected);
                 int id = Toolbox.GetInstance().GetStatManager().gameState.collected[index];
-                float x = Random.Range(-50f, 50f);
-                float y = Random.Range(-50f, 50f);
+                float x = Random.Range(-30f, 30f);
+                float y = Random.Range(-25f, 37f);
                 
                 QuestCollectible qc = new QuestCollectible(id, x, y, false);
 
